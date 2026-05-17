@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meghan Race — How I use Claude</title>
+<meta name="description" content="How a non-engineering PM uses Claude Code as a teammate — setup, workflows, and what I've written for other PMs." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <input id="nav-open" type="checkbox" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-open" class="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-caret" aria-hidden="true"></span>
+    </label>
+    <div class="nav-links">
+      <a href="index.html">About</a>
+      <a href="claude.html" class="active">Claude</a>
+      <a href="work.html">Case studies</a>
+      <a href="art.html">Art</a>
+      <a href="connect.html">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="pad-y" data-screen-label="01 Claude hero">
+  <div class="shell-wide">
+    <div class="eyebrow">The differentiator</div>
+    <h1 style="margin-top: 22px; font-size: clamp(48px, 9vw, 100px); line-height: 0.92;">
+      A PM who reads<br/>
+      <span class="italic" style="color: var(--accent-2);">the repo</span><br/>
+      before the meeting.
+    </h1>
+    <p class="lede" style="margin-top: 40px; max-width: 60ch;">
+      I don't write production code. I do use Claude — specifically Claude Code, plus Cowork, plus the desktop app — every day, in a setup I've built deliberately over the past year. It's the thing in my practice I'd most like to be hired for, and the thing I most enjoy teaching to other PMs.
+    </p>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- SECTION INDEX (secondary nav) -->
+<section class="pad-y-sm" data-screen-label="02 Claude index">
+  <div class="shell-wide">
+    <div class="eyebrow" style="margin-bottom: 24px;">On this page</div>
+    <ol class="case-index two-up">
+      <li><a href="#practice">
+        <span class="n">I.</span>
+        <span class="t">How I use Claude day-to-day</span>
+        <span class="m">Setup · workflow · hard-won tips</span>
+      </a></li>
+      <li><a href="#teaching">
+        <span class="n">II.</span>
+        <span class="t">What I&rsquo;ve written for others</span>
+        <span class="m">Training guide · portable prompt · Cowork</span>
+      </a></li>
+    </ol>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- PART I — PRACTICE -->
+<section class="part-divider case-section" id="practice" data-screen-label="03 Part I· Practice">
+  <div class="shell-wide">
+    <div class="part-divider-row">
+      <span class="part-num">Part I</span>
+      <h2 class="part-title">How I use Claude day-to-day.</h2>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section class="pad-y">
+  <div class="shell">
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Why it matters</div>
+        <h2 style="margin-top: 18px;">Not a chatbot. A <em>teammate.</em></h2>
+      </div>
+      <div style="max-width: 64ch;">
+        <p class="lede">
+          Generic AI output is generic because there's no context. The trick — the only trick, really — is to invest in the context: a project folder Claude lives in, a CLAUDE.md it reads at the start of every conversation, a library of reference files capturing your team's voice and architecture, and MCP connectors so it can actually <em>do</em> things.
+        </p>
+        <p>
+          Once you've done that, Claude stops being "an AI chat" and starts being "a teammate that already knows the project, the team, and how you write." It drafts a ticket in your voice. It pulls release tickets via Jira and writes the release notes the way you would. It triages a Salesforce ↔ Hygraph integration question by reading the actual code. It synthesizes a folder of twelve interview notes and produces a themed write-up.
+        </p>
+        <p>
+          The investment in setup pays back inside a week. The longer you use it, the better it gets, because the context grows into a precise mirror of how you and your team actually work.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SETUP — visual -->
+<section class="pad-y" style="background: var(--bg-2);" id="setup">
+  <div class="shell">
+    <div class="eyebrow">The setup</div>
+    <h2 style="margin-top: 18px; max-width: 22ch;">One folder. <em>CLAUDE.md</em>. Context files. MCPs.</h2>
+
+    <div class="feature-row" style="margin-top: 64px;">
+      <div>
+        <h3 style="font-size: clamp(24px, 2.6vw, 36px);">A single project folder Claude lives in.</h3>
+        <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
+          Everything related to Claude work goes here. Claude reads the file tree as part of its context, so a clean, predictable structure means it finds the right reference file every time without you having to point at it.
+        </p>
+      </div>
+      <div class="terminal" aria-label="Project folder structure">
+<span class="com">Claude projects/</span>
+├── <span class="pmt">CLAUDE.md</span>                <span class="com">← standing instructions</span>
+├── .env                     <span class="com">← API keys (gitignored)</span>
+├── context/
+│   ├── ticket-guidelines.md
+│   ├── formatting-strategy.md
+│   ├── product-architecture.md
+│   ├── team-directory.md
+│   ├── research-playbook.md
+│   └── exec-comms-style.md
+├── ticket-templates/
+├── tickets/
+├── release-notes-drafts/
+├── trackers/
+├── comms/
+├── research/
+│   ├── active/
+│   └── archived/
+├── data/
+└── repos/                   <span class="com">← local clones</span></div>
+    </div>
+
+    <div class="feature-row reverse" style="margin-top: 96px;">
+      <div>
+        <h3 style="font-size: clamp(24px, 2.6vw, 36px);">CLAUDE.md as standing instructions.</h3>
+        <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
+          The single most important file. It sits at the root of the project folder and Claude reads it at the start of every conversation. Six sections — overview, folder structure, communication preferences, code style, workflow, integrations note. Iterating on it is the difference between mediocre and excellent output.
+        </p>
+      </div>
+      <div class="terminal">
+<span class="pmt">## Preferences</span>
+<span class="out">- Provide detailed reasoning and tradeoffs.</span>
+<span class="out">- Present options with pros / cons before proceeding.</span>
+<span class="out">- Ask clarifying questions if a request is ambiguous.</span>
+<span class="out">- Match the tone of the destination doc, not your default.</span>
+
+<span class="pmt">## Workflow</span>
+<span class="out">- Read existing context files before drafting.</span>
+<span class="out">- Save outputs to the right subfolder, named clearly.</span>
+<span class="out">- For Jira: output HTML, not Markdown.</span>
+<span class="out">- For exec recaps: no em dashes, no bug fixes,</span>
+<span class="out">  business-outcome framing only.</span></div>
+    </div>
+
+    <div class="feature-row" style="margin-top: 96px;">
+      <div>
+        <h3 style="font-size: clamp(24px, 2.6vw, 36px);">Context files = your team's voice.</h3>
+        <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
+          The <code style="font-family: var(--f-mono); font-size: 0.9em; padding: 2px 6px; background: var(--bg-3); border-radius: 4px;">context/</code> folder is where the magic happens. Markdown files that capture the institutional knowledge Claude needs to do high-quality work — what you'd brief a new hire on. Start with one. Add more whenever Claude misses something. After a few weeks you have a library.
+        </p>
+      </div>
+      <div>
+        <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 14px;">
+          <li class="card" style="padding: 18px 22px;">
+            <span class="meta">ticket-guidelines.md</span>
+            <p style="margin: 0; color: var(--ink-2);">Ticket structure, business-vs-implementation framing, word counts, section order.</p>
+          </li>
+          <li class="card" style="padding: 18px 22px;">
+            <span class="meta">formatting-strategy.md</span>
+            <p style="margin: 0; color: var(--ink-2);">Jira Cloud → HTML. GitHub → Markdown. Confluence → either. Set once, followed forever.</p>
+          </li>
+          <li class="card" style="padding: 18px 22px;">
+            <span class="meta">product-architecture.md</span>
+            <p style="margin: 0; color: var(--ink-2);">Integrations, key flows, terminology — Salesforce ↔ Compass ↔ Hygraph ↔ Auth0 ↔ Algolia.</p>
+          </li>
+          <li class="card" style="padding: 18px 22px;">
+            <span class="meta">exec-comms-style.md</span>
+            <p style="margin: 0; color: var(--ink-2);">Shorter, no bug fixes, business outcomes only. Different voice than the internal release notes.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-row reverse" style="margin-top: 96px;">
+      <div>
+        <h3 style="font-size: clamp(24px, 2.6vw, 36px);">MCPs so Claude can actually <em>do</em> things.</h3>
+        <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
+          Model Context Protocol = the connectors that let Claude talk to the systems your work lives in. Atlassian (Jira + Confluence), Bitbucket, the data warehouse, the CMS. Start with one — Atlassian alone unlocks 80% of the value for a PM.
+        </p>
+      </div>
+      <div>
+        <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1px solid var(--rule);">
+          <li style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule);">
+            <span class="mono" style="font-size: 13px; color: var(--ink-2);">Atlassian</span>
+            <span style="color: var(--ink-2);">Read tickets, JQL search, fetch Confluence pages, post comments, create pages.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule);">
+            <span class="mono" style="font-size: 13px; color: var(--ink-2);">Bitbucket</span>
+            <span style="color: var(--ink-2);">Read PRs, comment on PRs, open new PRs, list branches.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule);">
+            <span class="mono" style="font-size: 13px; color: var(--ink-2);">Hygraph CMS</span>
+            <span style="color: var(--ink-2);">Query content via GraphQL. Trace UI logic to CMS-controlled config.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule);">
+            <span class="mono" style="font-size: 13px; color: var(--ink-2);">Data warehouse</span>
+            <span style="color: var(--ink-2);">SQL queries against analytics. "How many users did X in 30 days?"</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule);">
+            <span class="mono" style="font-size: 13px; color: var(--ink-2);">Figma</span>
+            <span style="color: var(--ink-2);">Pull design context for tickets and handoff specs.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WORKFLOW -->
+<section class="pad-y" id="workflow">
+  <div class="shell">
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">The workflow</div>
+        <h2 style="margin-top: 18px;">A typical day, in <em>prompts.</em></h2>
+      </div>
+      <p class="lede" style="max-width: 56ch;">
+        The setup above is the boring part. Here's what daily work looks like once it's in place — the actual prompts I run, and what Claude does in response.
+      </p>
+    </div>
+
+    <ul class="bullets" style="margin-top: 64px;">
+      <li>
+        <span class="n">01</span>
+        <div>
+          <h3>Drafting a Jira ticket</h3>
+          <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
+            "Draft a feature ticket for adding [X] to the booking flow. The goal is [business outcome]."
+          </p>
+          <p>Claude reads <span class="mono">ticket-guidelines.md</span>, applies my formatting strategy (HTML for Jira Cloud), reads <span class="mono">product-architecture.md</span> for context, uses a template from <span class="mono">ticket-templates/</span>, and saves the result to <span class="mono">tickets/[name].html</span>. I open the file, copy, paste into Jira. Done.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <div>
+          <h3>Release notes</h3>
+          <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
+            "Pull the tickets in the [date] release and draft release notes for Confluence."
+          </p>
+          <p>Claude queries Jira via the Atlassian MCP, groups by Features / Improvements / Bug Fixes, applies my house style, saves to <span class="mono">release-notes-drafts/</span>.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <div>
+          <h3>Exec recap email</h3>
+          <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
+            "Draft the exec recap email covering the last three releases for leadership."
+          </p>
+          <p>Same source data, totally different tone — Claude reads <span class="mono">exec-comms-style.md</span> and produces something measured, business-outcome framed, no bug fixes, no em dashes. Different audience, different draft.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <div>
+          <h3>Research synthesis</h3>
+          <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
+            "Read the interview notes in <span class="mono">research/active/[topic]/</span> and synthesize themes."
+          </p>
+          <p>Claude reads <span class="mono">research-playbook.md</span> for methodology, reads every interview file, extracts themes weighted by frequency and impact, writes the synthesis doc.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">05</span>
+        <div>
+          <h3>Technical investigation</h3>
+          <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
+            "Where does the booking-flow UI decide whether to show the lottery banner? Trace through Hygraph."
+          </p>
+          <p>This is the one I'm proudest of. Claude reads our locally cloned repos, follows the GraphQL trace, finds the CMS-controlled config in Hygraph, and tells me exactly which content block is driving the UI logic. I now triage to root cause independently before engineering escalation.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pad-y" style="background: var(--bg-2);">
+  <div class="shell-narrow">
+    <p class="pull">
+      My job got <span class="accent">measurably better</span> the day I stopped asking Claude what to do, and started telling it how I work.
+    </p>
+  </div>
+</section>
+
+<!-- PART II — TEACHING -->
+<section class="part-divider case-section" id="teaching" data-screen-label="06 Part II· Teaching">
+  <div class="shell-wide">
+    <div class="part-divider-row">
+      <span class="part-num">Part II</span>
+      <h2 class="part-title">What I&rsquo;ve written for the next PM.</h2>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section class="pad-y" id="teaching-content">
+  <div class="shell">
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Teaching others</div>
+        <h2 style="margin-top: 18px;">Three documents, <em>built to travel.</em></h2>
+      </div>
+      <p class="lede" style="max-width: 56ch;">
+        Every time I figure out something worth knowing, I write it up — for my team, and for friends in other companies. These are the three that have traveled furthest.
+      </p>
+    </div>
+
+    <div class="grid-3" style="margin-top: 56px;">
+      <article class="card">
+        <span class="meta">Training guide · 18,700 words</span>
+        <h3>Claude Code for PMs</h3>
+        <p style="color: var(--ink-2);">A complete setup-and-workflow guide for non-engineering PMs. Five parts: overview, one-time setup, daily use, tips, and a five-week onboarding path. Built to hand to a new hire.</p>
+        <a class="arrow" href="resources/claude-code-pm-training-guide.html">Read the guide</a>
+      </article>
+      <article class="card">
+        <span class="meta">Portable prompt</span>
+        <h3>Export your LLM context</h3>
+        <p style="color: var(--ink-2);">I wrote this when I migrated from ChatGPT to Claude. It asks your old AI to summarize what it knows about you and produces three files: a context doc, a custom-instructions block, and a memory dump.</p>
+        <a class="arrow" href="resources/llm-context-export.html">Read the prompt</a>
+      </article>
+      <article class="card" id="cowork">
+        <span class="meta">Practical guide · ~80 sessions in</span>
+        <h3>Cowork for the team</h3>
+        <p style="color: var(--ink-2);">My actual Cowork setup. The automated meeting summarizer that runs every weekday at 5:36 PM. The weekly member-survey analysis pipeline. The connectors, the scheduled tasks, and how to build your own.</p>
+        <a class="arrow" href="resources/cowork-for-pms.html">Read the guide</a>
+      </article>
+    </div>
+
+    <!-- Cowork callout -->
+    <div id="cowork-preview" class="banner-frame" style="margin-top: 88px;">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="eyebrow">Inside the Cowork guide</div>
+      <h3 style="margin-top: 16px; max-width: 28ch; font-size: clamp(28px, 3.4vw, 44px);">
+        Two automations doing about a day's work a week for me.
+      </h3>
+      <div class="grid-2" style="margin-top: 32px; gap: 32px;">
+        <div>
+          <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;">Every weekday · 5:36 PM</p>
+          <p style="font-family: var(--f-display); font-size: clamp(20px, 2vw, 24px); line-height: 1.3; margin-bottom: 10px;">Meeting summarizer.</p>
+          <p style="color: var(--ink-2); margin: 0;">Scans my Zoom transcripts, writes a structured summary per meeting type (eng all-hands, member interviews, tech talks), publishes to the right Confluence parent page. Saves me 30+ minutes a day of note-taking.</p>
+        </div>
+        <div>
+          <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;">Mondays · 9:35 AM</p>
+          <p style="font-family: var(--f-display); font-size: clamp(20px, 2vw, 24px); line-height: 1.3; margin-bottom: 10px;">Weekly survey analysis.</p>
+          <p style="color: var(--ink-2); margin: 0;">A multi-step pipeline that reads the member-satisfaction survey export, calculates distributions and theme analysis across 13 categories, builds a formatted Excel dashboard, and updates the Confluence report — preserving manual notes from engineering.</p>
+        </div>
+      </div>
+      <p style="margin-top: 32px;">
+        <a href="resources/cowork-for-pms.html" style="font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); border: 0;">Read the full guide →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="pad-y" style="background: var(--bg-2);">
+  <div class="shell">
+    <div class="eyebrow">A few hard-won tips</div>
+    <h2 style="margin-top: 18px; max-width: 22ch;">Things I wish someone had told me at the start.</h2>
+    <ul class="bullets" style="margin-top: 48px;">
+      <li>
+        <span class="n">↦</span>
+        <div>
+          <h3>Treat CLAUDE.md as a living doc.</h3>
+          <p>Every time Claude does something wrong twice, add a line. Every time it nails something non-obvious, capture the rule.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">↦</span>
+        <div>
+          <h3>Context files are the secret sauce.</h3>
+          <p>The voice and style files are what make output sound like <em>you</em>, not generic AI prose. Feed Claude your product docs, your style rules, your team directory — quality jumps immediately.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">↦</span>
+        <div>
+          <h3>Match output format to where it's going.</h3>
+          <p>Jira Cloud doesn't paste Markdown cleanly — use HTML. GitHub uses Markdown. Set this expectation once in <span class="mono">formatting-strategy.md</span> and Claude will follow it forever.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">↦</span>
+        <div>
+          <h3>Start with one MCP.</h3>
+          <p>Don't try to wire up everything at once. Get one workflow working end-to-end before you expand. For a PM, Atlassian first.</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">↦</span>
+        <div>
+          <h3>Be specific in prompts.</h3>
+          <p>"Draft release notes" is OK. "Draft release notes for the [date] release using my Confluence style rules, grouped Features / Improvements / Bug Fixes" is great.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="pad-y">
+  <div class="shell-narrow">
+    <div class="eyebrow">Want the full setup?</div>
+    <p class="pull" style="margin-top: 24px;">
+      The full training guide is here, and I'm always happy to <span class="accent">walk a PM through it</span> on a call.
+    </p>
+    <p style="margin-top: 32px;">
+      <a href="resources/claude-code-pm-training-guide.html" style="font-family: var(--f-display); font-size: clamp(22px, 2.6vw, 32px); color: var(--accent-2); border-bottom: 1px solid var(--accent-2); margin-right: 24px;">Read the full guide →</a>
+    </p>
+    <p style="margin-top: 16px;">
+      <a href="mailto:meghan.race@gmail.com" style="font-family: var(--f-display); font-size: clamp(22px, 2.6vw, 32px); color: var(--ink); border-bottom: 1px solid var(--rule);">Or email me — meghan.race@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- COLOPHON -->
+<section class="pad-y" data-screen-label="08 Colophon">
+  <div class="shell">
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Colophon</div>
+        <h2 style="margin-top: 18px;">About this <em>site,</em> specifically.</h2>
+      </div>
+      <div style="max-width: 60ch;">
+        <p class="lede">
+          Yes — the portfolio about how I use Claude was, in fact, built with Claude. It would have been a little awkward otherwise.
+        </p>
+
+        <ol class="pipeline" aria-label="How this site was built and deployed">
+          <li>
+            <span class="pipeline-step">Step 01</span>
+            <span class="pipeline-tool">Claude · designer</span>
+            <span class="pipeline-what">Voice, structure, art direction.</span>
+          </li>
+          <li>
+            <span class="pipeline-step">Step 02</span>
+            <span class="pipeline-tool">Claude Code · builder</span>
+            <span class="pipeline-what">Every page, every line, every revision.</span>
+          </li>
+          <li>
+            <span class="pipeline-step">Step 03</span>
+            <span class="pipeline-tool">GitHub · source of truth</span>
+            <span class="pipeline-what">Version control. Every iteration captured.</span>
+          </li>
+          <li>
+            <span class="pipeline-step">Step 04</span>
+            <span class="pipeline-tool">Vercel · host</span>
+            <span class="pipeline-what">Push to main, deploy in seconds.</span>
+          </li>
+          <li>
+            <span class="pipeline-step">Step 05</span>
+            <span class="pipeline-tool">meghanrace.com · the domain</span>
+            <span class="pipeline-what">Bought almost twenty years ago. Finally given a job.</span>
+          </li>
+        </ol>
+
+        <p style="margin-top: 28px; color: var(--ink-2);">
+          A PM who can take a portfolio from <em>concept</em> to <em>shipped</em> in a long weekend — without an engineer in the loop — is the demonstration, not the credential. Welcome to the new working set.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="index.html">About</a>
+      <a href="work.html">Case studies</a>
+      <a href="art.html">Art</a>
+    </div>
+  </div>
+  <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span>© 2026 Meghan Race</span>
+    <span>Made with Claude</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+
+</body>
+</html>

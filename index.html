@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meghan Race — Product Manager</title>
+<meta name="description" content="Meghan Race. Product Manager at Exclusive Resorts. A PM who reads the repo before the meeting." />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* landing-specific tweaks */
+  .home-hero h1 {
+    font-size: clamp(56px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+  }
+  .home-hero h1 .accent {
+    color: var(--accent-2);
+    font-style: italic;
+  }
+  .home-hero .lede { max-width: 56ch; }
+
+  /* Door cards — featured work tiles */
+  .door-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .door {
+    padding: clamp(28px, 3vw, 44px) clamp(22px, 2vw, 32px);
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color: var(--ink);
+    border-bottom: 0;
+    position: relative;
+    transition: background 200ms ease;
+    min-height: 280px;
+  }
+  .door:last-child { border-right: 0; }
+  .door:hover { background: var(--bg-2); }
+  .door .door-num {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .door h3 {
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.16;
+  }
+  .door .door-outcome {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px dashed color-mix(in oklab, var(--rule) 80%, transparent);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .door .door-outcome .n {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+    color: var(--accent-2);
+  }
+  .door .door-outcome .l {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .door .arrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-2); border: 0;
+  }
+  .door .arrow::after { content: "→"; transition: transform 220ms ease; }
+  .door:hover .arrow::after { transform: translateX(4px); }
+  @media (max-width: 880px) {
+    .door-grid { grid-template-columns: 1fr; }
+    .door { border-right: 0; border-bottom: 1px solid var(--rule); min-height: 0; }
+    .door:last-child { border-bottom: 0; }
+  }
+
+  /* Two-up doorway row (Claude + Art + About) */
+  .doorway-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 2vw, 28px);
+  }
+  @media (max-width: 880px) {
+    .doorway-row { grid-template-columns: 1fr; }
+  }
+  .doorway-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(24px, 2.6vw, 36px);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+    min-height: 240px;
+  }
+  .doorway-card:hover {
+    background: var(--bg-2);
+    border-color: color-mix(in oklab, var(--accent-2) 40%, var(--rule));
+    transform: translateY(-2px);
+  }
+  .doorway-card .meta {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .doorway-card h3 {
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.14;
+  }
+  .doorway-card p {
+    color: var(--ink-2);
+    font-size: 15px;
+    margin: 0;
+  }
+  .doorway-card .arrow {
+    margin-top: auto;
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2); border: 0;
+  }
+  .doorway-card .arrow::after { content: " →"; transition: transform 220ms ease; }
+  .doorway-card:hover .arrow::after { transform: translateX(4px); }
+
+  /* fact-row under hero */
+  .home-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 36px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    align-items: center;
+  }
+  .home-facts .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-3);
+    margin-right: 10px;
+    transform: translateY(-1px);
+  }
+  .home-facts strong {
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAV ─────────── -->
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <input id="nav-open" type="checkbox" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-open" class="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-caret" aria-hidden="true"></span>
+    </label>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="work.html">Work</a>
+      <a href="claude.html">Claude</a>
+      <a href="art.html">Art</a>
+      <a href="about.html">About</a>
+      <a href="connect.html">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero pad-y home-hero" data-screen-label="01 Home hero">
+  <div class="shell-wide">
+    <div class="eyebrow">Meghan Race · Product Manager</div>
+    <h1 style="margin-top: 28px;">
+      A PM who reads<br/>
+      <span class="accent">the repo</span><br/>
+      before the meeting.
+    </h1>
+    <p class="lede" style="margin-top: 36px;">
+      Customer intuition, systems fluency. I'm the rare PM who spent twelve years on the phone with our members, and who can trace a bug through the CMS before lunch. I own the $200M+ Member Portal at Exclusive Resorts end-to-end.
+    </p>
+    <div class="home-facts" style="margin-top: 40px;">
+      <span><span class="dot"></span>Arvada, Colorado</span>
+      <span><strong>PM at Exclusive Resorts</strong> · since 2025</span>
+      <span><strong>~25K</strong> trips supported / year</span>
+      <span><strong>$200M+</strong> Member Portal</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ─────────── FEATURED WORK ─────────── -->
+<section class="pad-y" data-screen-label="02 Featured work">
+  <div class="shell-wide">
+    <div class="cols-2" style="margin-bottom: 48px; align-items: end;">
+      <div>
+        <div class="eyebrow">The work</div>
+        <h2 style="margin-top: 18px;">Five problems,<br/><em>one Portal.</em></h2>
+      </div>
+      <p class="lede" style="max-width: 56ch;">
+        The Member Portal is the digital surface our customers use to plan and book the trips they fly across the world to take. Three cases that show how I work: customer evidence, technical detail, and the outcome.
+      </p>
+    </div>
+
+    <div class="door-grid">
+      <a href="work.html#case-01" class="door plain">
+        <span class="door-num">Case 01 · Pre-arrival workflow</span>
+        <h3>The grocery ordering redesign.</h3>
+        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
+          A confusing form, no confirmations, and members calling Member Services to place orders the Portal should have handled. We rebuilt it.
+        </p>
+        <div class="door-outcome">
+          <span class="n">1,000+</span>
+          <span class="l">Orders driven · 4.7 / 5.0</span>
+        </div>
+        <span class="arrow">Read the case</span>
+      </a>
+
+      <a href="work.html#case-02" class="door plain">
+        <span class="door-num">Case 02 · Data integrity</span>
+        <h3>A new post-trip survey platform.</h3>
+        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
+          The old infrastructure was leaking 200 surveys a year. I replatformed across Salesforce, Compass, and Typeform, and re-established trust in the data.
+        </p>
+        <div class="door-outcome">
+          <span class="n">~25K</span>
+          <span class="l">Trips / year supported</span>
+        </div>
+        <span class="arrow">Read the case</span>
+      </a>
+
+      <a href="work.html#case-03" class="door plain">
+        <span class="door-num">Case 03 · Community 0&nbsp;→&nbsp;1</span>
+        <h3>The Clubhouse.</h3>
+        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
+          Members tell us the people they travel with are part of what makes ER special. We shipped the first community surface from concept to beta.
+        </p>
+        <div class="door-outcome">
+          <span class="n">~200</span>
+          <span class="l">Memberships in beta</span>
+        </div>
+        <span class="arrow">Read the case</span>
+      </a>
+    </div>
+
+    <p style="margin-top: 28px;">
+      <a href="work.html" class="mono" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2);">
+        See all five cases →
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- ─────────── CLAUDE PILLAR ─────────── -->
+<section class="pad-y" style="background: var(--bg-2);" data-screen-label="03 Claude pillar">
+  <div class="shell-wide">
+    <div class="cols-2" style="align-items: end;">
+      <div>
+        <div class="eyebrow">The differentiator</div>
+        <h2 style="margin-top: 18px;">
+          I use <span class="italic" style="color: var(--accent-2);">Claude</span><br/>
+          the way most PMs<br/>
+          wish they used Jira.
+        </h2>
+      </div>
+      <div style="max-width: 56ch;">
+        <p class="lede" style="margin-top: 0;">
+          Not as autocomplete. As a teammate that's read every reference doc, knows our architecture and team directory by name, drafts tickets in our voice, and analyzes the weekly member survey before I'm done with my first coffee on Monday.
+        </p>
+        <p style="margin-top: 24px;">
+          <a href="claude.html" class="mono" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2);">
+            See the setup, the workflow, the teaching →
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── ART · ABOUT · MORE DOORS ─────────── -->
+<section class="pad-y" data-screen-label="04 Doorways">
+  <div class="shell-wide">
+    <div class="eyebrow" style="margin-bottom: 32px;">More about me</div>
+
+    <div class="doorway-row">
+      <a href="about.html" class="doorway-card plain">
+        <span class="meta">About</span>
+        <h3>I forged my own path into product.</h3>
+        <p>Twelve years in Member Services. Twelve months from junior to PM. Six certifications in eighteen months. The full story.</p>
+        <span class="arrow">Read the story</span>
+      </a>
+      <a href="art.html" class="doorway-card plain">
+        <span class="meta">Art</span>
+        <h3>A studio-art degree, still in practice.</h3>
+        <p>I taught myself product the way I taught myself oil painting: on weekends, with intent. The Art page is the other half of the portfolio.</p>
+        <span class="arrow">See the paintings</span>
+      </a>
+      <a href="connect.html" class="doorway-card plain">
+        <span class="meta">Connect</span>
+        <h3>I'd rather have the conversation than the email thread.</h3>
+        <p>If you're hiring, collaborating, or just want to talk product: email, LinkedIn, or a phone call. All work.</p>
+        <span class="arrow">Get in touch</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CLOSING ─────────── -->
+<section class="pad-y" style="background: var(--bg-2);" data-screen-label="05 Closing">
+  <div class="shell-narrow">
+    <div class="eyebrow">Let's connect</div>
+    <p class="pull" style="margin-top: 24px;">
+      I forged my way into product, and I'm <span class="accent">thriving here</span>.
+    </p>
+    <p style="margin-top: 28px; color: var(--ink-2); max-width: 60ch;">
+      Twelve months from junior to PM. Six certifications in eighteen months. A $200M+ platform I own end-to-end. If any of that lines up with what you're building, I'd love to hear about it.
+    </p>
+    <p style="margin-top: 36px;">
+      <a href="connect.html" class="contact-cta">
+        Let's connect
+        <span class="arrow-glyph" aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer class="foot">
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="work.html">Work</a>
+      <a href="claude.html">Claude</a>
+      <a href="art.html">Art</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span>© 2026 Meghan Race</span>
+    <span>Made with Claude</span>
+  </div>
+</footer>
+
+<!-- Tweaks panel: palette switcher -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+
+</body>
+</html>

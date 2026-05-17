@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How I Use Cowork — A Practical Guide for the Team · Meghan Race</title>
+<meta name="description" content="A practical guide to setting up Cowork — connectors, scheduled tasks, custom skills — based on ~80 sessions of real PM use." />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="article.css" />
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">About</a>
+      <a href="../claude.html" class="active">Claude</a>
+      <a href="../work.html">Work</a>
+      <a href="../art.html">Art</a>
+      <a class="muted-on-mobile" href="mailto:meghan.race@gmail.com">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<article class="article">
+  <a class="back-link" href="../claude.html">Back to Claude</a>
+
+  <header class="article-head">
+    <div class="eyebrow" style="margin-bottom: 16px;">Practical guide</div>
+    <h1>How I Use Cowork<br/>— A Practical Guide for the Team</h1>
+    <p class="sub">My actual setup, what it does for me day-to-day, and how to build something similar for your own work.</p>
+    <div class="meta-row">
+      <span>~2,800 words</span>
+      <span>By Meghan Race</span>
+      <span>~80 sessions in</span>
+    </div>
+  </header>
+
+  <h2><span class="num">01</span>What Is Cowork?</h2>
+
+  <p class="lede">Cowork is a mode within the Claude desktop app that turns Claude from a chat assistant into something closer to a digital coworker. It can read and create files on your computer, run code, connect to tools like Jira and Confluence, and follow customized playbooks ("skills") for recurring work.</p>
+
+  <p>Think of it as giving Claude the ability to actually <em>do things</em> — not just answer questions. This guide walks through how I have mine set up, what it does for me day-to-day, and how you could build something similar.</p>
+
+  <hr />
+
+  <h2><span class="num">02</span>The Quick Concepts</h2>
+
+  <p>Before diving into specifics, here are the four things you'll configure:</p>
+
+  <p><strong>Connectors</strong> link Claude to your tools (Jira, Confluence, Figma, Salesforce data, etc.) so it can read and write real data. This is the foundation — without connectors, Claude is just working with whatever you paste into the chat.</p>
+
+  <p><strong>Scheduled Tasks</strong> are automated jobs that run on a timer. Claude wakes up, does the work, and publishes the result — no interaction needed. This is where the biggest time savings come from.</p>
+
+  <p><strong>Skills</strong> are detailed instruction sets that tell Claude exactly how to do a specific type of task — what format to use, what sections to include, where to publish, etc. These can be built-in or custom-made.</p>
+
+  <p><strong>Plugins</strong> are bundles of skills you install from a marketplace. They cover broad areas like product management, engineering, or design.</p>
+
+  <hr />
+
+  <h2><span class="num">03</span>What Cowork Actually Does for Me</h2>
+
+  <p>My setup is centered around two automated pipelines and a set of ad-hoc workflows. Here's the honest breakdown of where the time savings are.</p>
+
+  <h3>The Two Workhorses</h3>
+
+  <h4>1. Automated Meeting Summarizer — runs every weekday at 5:36 PM</h4>
+
+  <p>This is the single most valuable thing in my setup. Every afternoon, Claude scans my local Zoom transcripts folder for new meetings recorded that day. For each new meeting, it reads the transcript, writes a structured summary, and publishes it as a Confluence page under the correct parent page — all without me touching anything.</p>
+
+  <p>What makes it genuinely useful (and not just a generic summary tool) is that it applies different formats depending on the meeting type:</p>
+
+  <ul>
+    <li><strong>Engineering All-Hands</strong> — grouped by themes, includes key quotes from participants, decisions vs. open items clearly separated. Published to the ETR Confluence space under "2026 Engineering Meeting Notes."</li>
+    <li><strong>Member Interviews</strong> — structured around the member's background, pain points with signal strength ratings (Strong / Moderate / Emerging), and direct quotes. Published under "Member Interviews" in the TSV space.</li>
+    <li><strong>Tech Talks</strong> — organized by topics covered, Q&amp;A highlights, and resources mentioned. Published under "Tech Talk - Weekly Training Recordings."</li>
+    <li><strong>All other meetings</strong> — a general format with a High-Level Overview (quick-scan bullet points), Key Outcomes, Decisions Made, dynamic topic sections based on content, Pending Confirmation, Action Items grouped by person, and Next Steps.</li>
+  </ul>
+
+  <p>It tracks what it's already processed via a JSON file so it doesn't re-summarize old meetings. If there are multiple sessions of the same meeting on the same day (reconnects, etc.), it groups them into one summary.</p>
+
+  <div class="callout">
+    <p>This format has evolved over time. I've updated it at least four times — adding the interview format, adding tech talk routing, switching action items from flat tables to grouped-by-person, adding the High-Level Overview section. The key point is that <strong>you keep refining the instructions as you learn what works.</strong> You don't have to get it perfect on day one.</p>
+  </div>
+
+  <h4>2. Weekly Survey Analysis Pipeline — Monday mornings</h4>
+
+  <p>This is a multi-step chain that processes member satisfaction survey data from Salesforce and produces both a Confluence report and an Excel spreadsheet. It runs in stages:</p>
+
+  <ul>
+    <li><strong>9:00 AM</strong> — Claude sends me a reminder to run the Salesforce data export command (it can't access SF directly, so this is a manual step — I run one terminal command and then Claude takes over).</li>
+    <li><strong>9:35 AM</strong> — The analysis task kicks off. It reads the fresh JSON data, calculates satisfaction distributions, booking ease ratings, theme analysis (13 keyword categories like "Mobile App Issues," "Availability/Date Competition," "Navigation/Usability"), identifies top quotes per theme, and ranks members open to follow-up by dissatisfaction level.</li>
+    <li>It then launches two parallel workers: one builds a formatted Excel spreadsheet with a Dashboard sheet (charts, formulas, color-coded), a Follow-Up Members sheet (linked to Salesforce contacts), and an All Responses sheet. The other updates a specific Confluence page with the executive summary, rating tables, theme breakdowns with member quotes, and a follow-up member list — while preserving any "Eng Plan to Address" or "Jira Tickets" content that the engineering team may have manually added.</li>
+    <li>Finally, it reminds me to copy the spreadsheet to OneDrive for sharing.</li>
+  </ul>
+
+  <p>There's also a <strong>comprehensive version</strong> (currently paused) that analyzes ALL survey question areas — not just app/portal — across 8 topic areas using 8 parallel workers (overall membership, sales, ambassadors, onsite experience, residences, booking/availability, app/portal, travel preferences). Each worker does independent theme analysis and the results get assembled into a full Confluence page.</p>
+
+  <h3>Ad-Hoc Work — Where I Spend Interactive Time</h3>
+
+  <p>Beyond the automations, I use Cowork sessions for project management synthesis work. Some real examples:</p>
+
+  <ul>
+    <li><strong>Synthesizing multiple meeting notes into stakeholder communications.</strong> For a Travel Desk transition project, I had Claude read 5 different meeting summaries from Confluence, then draft a "here's what I understand to be true" status update with decisions needed and action items by owner — iterating on tone and length until it was right for a broad audience.</li>
+    <li><strong>Building and maintaining project trackers.</strong> For design work with Anna, I had Claude pull context from Confluence PRDs and meeting notes to build a Design Work in Progress document tracking status, design vs. dev timelines, and stakeholders — eventually landing on a lean markdown format for Confluence rather than a long Word doc.</li>
+    <li><strong>Confluence page management.</strong> Updating roadmap docs, writing epic descriptions for Jira, updating destination page documentation, organizing to-do lists.</li>
+    <li><strong>Preparing for leadership meetings.</strong> Pulling relevant context from Confluence and prior meeting notes to build a focused agenda or talking points.</li>
+    <li><strong>Data investigation.</strong> When survey report numbers didn't match expectations, I had Claude dig into the data to find the discrepancy.</li>
+  </ul>
+
+  <p>The common thread: <strong>most of my interactive sessions involve Claude reading from Confluence, synthesizing across multiple sources, and producing a deliverable</strong> — usually another Confluence page, a markdown doc, or a Word document that I'll share with stakeholders.</p>
+
+  <hr />
+
+  <h2><span class="num">04</span>The Infrastructure That Makes It Work</h2>
+
+  <h3>Connectors</h3>
+
+  <p><strong>Atlassian (Jira + Confluence)</strong> — This is by far the most important connector. Almost everything in my workflow either reads from or writes to Confluence. Meeting summaries get published there. Survey analyses get published there. Project trackers live there. Without this connector, about 80% of what I use Cowork for wouldn't work.</p>
+
+  <p><strong>Figma</strong> — Useful for pulling design context when reviewing work with the design team. Claude can take screenshots of specific frames, browse component libraries, and pull metadata.</p>
+
+  <p>Both of these were set up at the org level — I didn't have to configure them myself. If you're getting started with Cowork and don't see these connectors, check with your admin. There are also a few other utility connectors available at the org level (Mermaid for diagrams, a docs library, AWS Marketplace) that you may see in your setup.</p>
+
+  <h3>Scheduled Tasks</h3>
+
+  <table>
+    <thead><tr><th>Task</th><th>Schedule</th><th>What It Does</th></tr></thead>
+    <tbody>
+      <tr><td>Meeting Summarizer</td><td>Weekdays 5:36 PM</td><td>Scans Zoom transcripts, summarizes, publishes to Confluence</td></tr>
+      <tr><td>Survey Data Pull Reminder</td><td>Mondays 9:00 AM</td><td>Reminds me to run the SF export command</td></tr>
+      <tr><td>Full Survey Data Pull Reminder</td><td>Mondays 9:08 AM</td><td>Reminds me to run the full-field SF export</td></tr>
+      <tr><td>Weekly Survey Refresh</td><td>Mondays 9:35 AM</td><td>Analyzes app/portal survey data, builds spreadsheet, updates Confluence</td></tr>
+      <tr><td>Weekly Full Survey Analysis</td><td>Mondays 10:35 AM</td><td>Comprehensive 8-topic analysis (currently paused)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Plugins Installed</h3>
+
+  <p>I have seven plugins installed but use them unevenly. Here's the honest breakdown:</p>
+
+  <p><strong>Heavily used:</strong> Product Management — the only plugin I installed myself. Specs, roadmaps, stakeholder updates.</p>
+
+  <p><strong>Moderately used:</strong> Design (design critique, handoff specs — useful when working with Anna), Engineering (code review, architecture discussions), PDF Viewer (contract review, form filling).</p>
+
+  <p><strong>Installed but lighter use:</strong> Brand Voice (for content consistency — useful if you're writing external-facing content), Zoom (developer-oriented), Cowork Plugin Management (meta-tool for creating/customizing plugins).</p>
+
+  <h3>Built-in Skills I Actually Use</h3>
+
+  <ul>
+    <li><strong>Document creation (docx, xlsx)</strong> — Excel spreadsheets for survey analysis, Word docs for stakeholder communications when markdown won't cut it.</li>
+    <li><strong>Schedule</strong> — This is how I set up the automated tasks above.</li>
+    <li><strong>Internal Comms (custom skill)</strong> — Templates for 3P updates, company newsletters, FAQ roundups, and general comms. Each template defines the exact format, tone, length, and data sources. This is a custom skill I built, not something from a plugin.</li>
+    <li><strong>Skill Creator</strong> — Used to build and refine the Internal Comms skill and other custom workflows.</li>
+  </ul>
+
+  <hr />
+
+  <h2><span class="num">05</span>How to Build Your Own Setup</h2>
+
+  <h3>Start Here — Day 1</h3>
+
+  <ol>
+    <li><strong>Install the Claude desktop app</strong> and open Cowork mode.</li>
+    <li><strong>Check your connectors.</strong> Atlassian (Jira + Confluence) and Figma are set up at the org level, so you should already have them. If you don't see them, check with your admin.</li>
+    <li><strong>Set your user preferences.</strong> In Settings, add a few sentences about how you want Claude to work with you. Mine are:
+      <ul>
+        <li>Ask clarifying questions before providing answers to avoid making inaccurate assumptions</li>
+        <li>Recognize that I may not know all the details of our tech stack</li>
+        <li>Be clear, concise, well-formatted, professional</li>
+        <li>Occasional emojis are okay</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h3>Build Your First Automation — Week 1</h3>
+
+  <p>Think about what you do repeatedly that follows a predictable pattern. Good candidates:</p>
+
+  <ul>
+    <li><strong>Meeting notes</strong> — If you record meetings in Zoom, you can set up a meeting summarizer similar to mine. The key is defining the format you want (what sections, how action items should be structured, where to publish).</li>
+    <li><strong>Weekly reports</strong> — Any report that pulls from the same data sources every week and publishes to the same place.</li>
+    <li><strong>Data processing</strong> — If you regularly export data, analyze it, and share results.</li>
+  </ul>
+
+  <p>To create a scheduled task, tell Claude: <em>"I want to set up a scheduled task that [does X] every [when]."</em> It'll walk you through defining the instructions and setting the cron schedule.</p>
+
+  <h3>Refine Over Time</h3>
+
+  <p>The most important thing I've learned: <strong>your automations will not be perfect on the first try, and that's fine.</strong> My meeting summarizer has gone through at least four major revisions. I added the interview format when I realized those meetings needed a different structure. I switched to grouped action items after flat tables proved hard to scan. I added the High-Level Overview section after feedback that summaries needed a quicker entry point.</p>
+
+  <p>Each time, I just opened a new session and said something like <em>"Update the meeting summarizer to group action items by person instead of using a flat table"</em> — and Claude updated the scheduled task instructions.</p>
+
+  <h3>What To Do for Your Role</h3>
+
+  <p><strong>If you're in Product/PM:</strong> Install the Product Management plugin. You already have the Atlassian and Figma connectors at the org level. Set up meeting note automation first. Then build a custom skill for whatever recurring communications your team does.</p>
+
+  <p><strong>If you're in Engineering:</strong> The Engineering plugin has useful skills for code review, architecture decisions, and incident response. The Atlassian connector lets Claude read and update Jira tickets directly.</p>
+
+  <p><strong>If you're in Design:</strong> You already have Figma connected. Add the Design plugin for critique, accessibility audits, and handoff spec generation. Useful for getting a structured second opinion on a design.</p>
+
+  <p><strong>If you're in Ops/Member Services:</strong> The Atlassian connector is already available for Confluence-based documentation. Focus on building custom skills for whatever recurring reports or communications you produce.</p>
+
+  <hr />
+
+  <h2><span class="num">06</span>Tips From ~80 Sessions of Use</h2>
+
+  <ul>
+    <li><strong>Confluence is the hub.</strong> Almost everything I do starts or ends in Confluence. The Atlassian connector is set up at the org level, so you should have it from day one.</li>
+    <li><strong>Scheduled tasks are the highest ROI.</strong> The meeting summarizer alone saves me 30+ minutes per day of note-taking and formatting. It runs automatically — I just review the output occasionally and refine the instructions when needed.</li>
+    <li><strong>Custom formats matter more than fancy plugins.</strong> The most valuable thing in my setup isn't a plugin — it's the specific instructions I've written for how meeting notes should be structured, what sections a survey analysis should have, and how action items should be grouped. Start with format, not features.</li>
+    <li><strong>Iterate in small batches.</strong> Don't try to build the perfect automation on day one. Get a basic version working, use it for a week, then refine based on what bothers you.</li>
+    <li><strong>Claude is good at synthesis.</strong> Its sweet spot is reading multiple sources (meeting notes, Confluence pages, data exports) and producing a coherent summary or communication. Lean into that.</li>
+    <li><strong>Be specific about where things should go.</strong> When setting up Confluence publishing, specify exact parent page IDs and space keys. Claude can look these up, but being explicit avoids pages ending up in the wrong place.</li>
+    <li><strong>The SF data export is my one manual step.</strong> Claude can't access Salesforce directly, so I have a reminder task that tells me to run a terminal command before the analysis task kicks off. It's a small friction point but worth it for the analysis automation that follows.</li>
+  </ul>
+
+  <p style="text-align: center; margin-top: 56px;">
+    <a href="../claude.html" class="back-link">Back to Claude</a>
+  </p>
+</article>
+
+<footer class="foot">
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../index.html">About</a>
+      <a href="../work.html">Work</a>
+      <a href="../art.html">Art</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="../tweaks-panel.jsx"></script>
+<script type="text/babel" src="../tweaks.jsx"></script>
+
+</body>
+</html>
