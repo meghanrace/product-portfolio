@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>How I Use Cowork — A Practical Guide for the Team · Meghan Race</title>
+<title>How I Use Cowork · A Practical Guide for PMs · Meghan Race</title>
 <meta name="description" content="A practical guide to setting up Cowork — connectors, scheduled tasks, custom skills — based on ~80 sessions of real PM use." />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="article.css" />
@@ -31,7 +31,7 @@
 
   <header class="article-head">
     <div class="eyebrow" style="margin-bottom: 16px;">Practical guide</div>
-    <h1>How I Use Cowork<br/>— A Practical Guide for the Team</h1>
+    <h1>How I Use Cowork<br/>A Practical Guide for PMs</h1>
     <p class="sub">My actual setup, what it does for me day-to-day, and how to build something similar for your own work.</p>
     <div class="meta-row">
       <span>~2,800 words</span>
@@ -75,9 +75,9 @@
   <p>What makes it genuinely useful (and not just a generic summary tool) is that it applies different formats depending on the meeting type:</p>
 
   <ul>
-    <li><strong>Engineering All-Hands</strong> — grouped by themes, includes key quotes from participants, decisions vs. open items clearly separated. Published to the ETR Confluence space under "2026 Engineering Meeting Notes."</li>
-    <li><strong>Member Interviews</strong> — structured around the member's background, pain points with signal strength ratings (Strong / Moderate / Emerging), and direct quotes. Published under "Member Interviews" in the TSV space.</li>
-    <li><strong>Tech Talks</strong> — organized by topics covered, Q&amp;A highlights, and resources mentioned. Published under "Tech Talk - Weekly Training Recordings."</li>
+    <li><strong>Engineering All-Hands</strong> — grouped by themes, includes key quotes from participants, decisions vs. open items clearly separated. Published to the engineering team's Confluence space.</li>
+    <li><strong>User Interviews</strong> — structured around the user's background, pain points with signal strength ratings (Strong / Moderate / Emerging), and direct quotes. Published to the research team's Confluence space.</li>
+    <li><strong>Tech Talks</strong> — organized by topics covered, Q&amp;A highlights, and resources mentioned. Published to the team's learning and development Confluence space.</li>
     <li><strong>All other meetings</strong> — a general format with a High-Level Overview (quick-scan bullet points), Key Outcomes, Decisions Made, dynamic topic sections based on content, Pending Confirmation, Action Items grouped by person, and Next Steps.</li>
   </ul>
 
@@ -89,25 +89,25 @@
 
   <h4>2. Weekly Survey Analysis Pipeline — Monday mornings</h4>
 
-  <p>This is a multi-step chain that processes member satisfaction survey data from Salesforce and produces both a Confluence report and an Excel spreadsheet. It runs in stages:</p>
+  <p>This is a multi-step chain that processes customer satisfaction survey data from Salesforce and produces both a Confluence report and an Excel spreadsheet. It runs in stages:</p>
 
   <ul>
     <li><strong>9:00 AM</strong> — Claude sends me a reminder to run the Salesforce data export command (it can't access SF directly, so this is a manual step — I run one terminal command and then Claude takes over).</li>
-    <li><strong>9:35 AM</strong> — The analysis task kicks off. It reads the fresh JSON data, calculates satisfaction distributions, booking ease ratings, theme analysis (13 keyword categories like "Mobile App Issues," "Availability/Date Competition," "Navigation/Usability"), identifies top quotes per theme, and ranks members open to follow-up by dissatisfaction level.</li>
-    <li>It then launches two parallel workers: one builds a formatted Excel spreadsheet with a Dashboard sheet (charts, formulas, color-coded), a Follow-Up Members sheet (linked to Salesforce contacts), and an All Responses sheet. The other updates a specific Confluence page with the executive summary, rating tables, theme breakdowns with member quotes, and a follow-up member list — while preserving any "Eng Plan to Address" or "Jira Tickets" content that the engineering team may have manually added.</li>
+    <li><strong>9:35 AM</strong> — The analysis task kicks off. It reads the fresh JSON data, calculates satisfaction distributions, ease-of-use ratings, theme analysis (13 keyword categories like "Mobile App Issues," "Availability/Date Friction," "Navigation/Usability"), identifies top quotes per theme, and ranks customers open to follow-up by dissatisfaction level.</li>
+    <li>It then launches two parallel workers: one builds a formatted Excel spreadsheet with a Dashboard sheet (charts, formulas, color-coded), a Follow-Up Customers sheet (linked to Salesforce contacts), and an All Responses sheet. The other updates a specific Confluence page with the executive summary, rating tables, theme breakdowns with customer quotes, and a follow-up customer list — while preserving any "Eng Plan to Address" or "Jira Tickets" content that the engineering team may have manually added.</li>
     <li>Finally, it reminds me to copy the spreadsheet to OneDrive for sharing.</li>
   </ul>
 
-  <p>There's also a <strong>comprehensive version</strong> (currently paused) that analyzes ALL survey question areas — not just app/portal — across 8 topic areas using 8 parallel workers (overall membership, sales, ambassadors, onsite experience, residences, booking/availability, app/portal, travel preferences). Each worker does independent theme analysis and the results get assembled into a full Confluence page.</p>
+  <p>There's also a <strong>comprehensive version</strong> (currently paused) that analyzes ALL survey question areas — not just app/portal — across 8 topic areas using 8 parallel workers (overall satisfaction, sales, support team, onsite experience, product experience, booking/availability, app/portal, customer preferences). Each worker does independent theme analysis and the results get assembled into a full Confluence page.</p>
 
   <h3>Ad-Hoc Work — Where I Spend Interactive Time</h3>
 
   <p>Beyond the automations, I use Cowork sessions for project management synthesis work. Some real examples:</p>
 
   <ul>
-    <li><strong>Synthesizing multiple meeting notes into stakeholder communications.</strong> For a Travel Desk transition project, I had Claude read 5 different meeting summaries from Confluence, then draft a "here's what I understand to be true" status update with decisions needed and action items by owner — iterating on tone and length until it was right for a broad audience.</li>
-    <li><strong>Building and maintaining project trackers.</strong> For design work with Anna, I had Claude pull context from Confluence PRDs and meeting notes to build a Design Work in Progress document tracking status, design vs. dev timelines, and stakeholders — eventually landing on a lean markdown format for Confluence rather than a long Word doc.</li>
-    <li><strong>Confluence page management.</strong> Updating roadmap docs, writing epic descriptions for Jira, updating destination page documentation, organizing to-do lists.</li>
+    <li><strong>Synthesizing multiple meeting notes into stakeholder communications.</strong> For a cross-team transition project, I had Claude read several meeting summaries from Confluence, then draft a "here's what I understand to be true" status update with decisions needed and action items by owner — iterating on tone and length until it was right for a broad audience.</li>
+    <li><strong>Building and maintaining project trackers.</strong> For a design project, I had Claude pull context from Confluence PRDs and meeting notes to build a Design Work in Progress document tracking status, design vs. dev timelines, and stakeholders — eventually landing on a lean markdown format for Confluence rather than a long Word doc.</li>
+    <li><strong>Confluence page management.</strong> Updating roadmap docs, writing epic descriptions for Jira, updating product documentation, organizing to-do lists.</li>
     <li><strong>Preparing for leadership meetings.</strong> Pulling relevant context from Confluence and prior meeting notes to build a focused agenda or talking points.</li>
     <li><strong>Data investigation.</strong> When survey report numbers didn't match expectations, I had Claude dig into the data to find the discrepancy.</li>
   </ul>
@@ -124,7 +124,7 @@
 
   <p><strong>Figma</strong> — Useful for pulling design context when reviewing work with the design team. Claude can take screenshots of specific frames, browse component libraries, and pull metadata.</p>
 
-  <p>Both of these were set up at the org level — I didn't have to configure them myself. If you're getting started with Cowork and don't see these connectors, check with your admin. There are also a few other utility connectors available at the org level (Mermaid for diagrams, a docs library, AWS Marketplace) that you may see in your setup.</p>
+  <p>Both of these were set up at the admin level for my org — I didn't have to configure them myself. If you're getting started with Cowork and don't see these connectors, check with your admin. There are also utility connectors that may be available depending on your organization's setup (Mermaid for diagrams, docs libraries, cloud integrations).</p>
 
   <h3>Scheduled Tasks</h3>
 
@@ -145,7 +145,7 @@
 
   <p><strong>Heavily used:</strong> Product Management — the only plugin I installed myself. Specs, roadmaps, stakeholder updates.</p>
 
-  <p><strong>Moderately used:</strong> Design (design critique, handoff specs — useful when working with Anna), Engineering (code review, architecture discussions), PDF Viewer (contract review, form filling).</p>
+  <p><strong>Moderately used:</strong> Design (design critique, handoff specs — useful when collaborating with a design team), Engineering (code review, architecture discussions), PDF Viewer (contract review, form filling).</p>
 
   <p><strong>Installed but lighter use:</strong> Brand Voice (for content consistency — useful if you're writing external-facing content), Zoom (developer-oriented), Cowork Plugin Management (meta-tool for creating/customizing plugins).</p>
 
@@ -166,7 +166,7 @@
 
   <ol>
     <li><strong>Install the Claude desktop app</strong> and open Cowork mode.</li>
-    <li><strong>Check your connectors.</strong> Atlassian (Jira + Confluence) and Figma are set up at the org level, so you should already have them. If you don't see them, check with your admin.</li>
+    <li><strong>Check your connectors.</strong> Atlassian (Jira + Confluence) and Figma are common org-level connectors. Check with your admin to see what's already available — you may have more than you think.</li>
     <li><strong>Set your user preferences.</strong> In Settings, add a few sentences about how you want Claude to work with you. Mine are:
       <ul>
         <li>Ask clarifying questions before providing answers to avoid making inaccurate assumptions</li>
@@ -197,20 +197,20 @@
 
   <h3>What To Do for Your Role</h3>
 
-  <p><strong>If you're in Product/PM:</strong> Install the Product Management plugin. You already have the Atlassian and Figma connectors at the org level. Set up meeting note automation first. Then build a custom skill for whatever recurring communications your team does.</p>
+  <p><strong>If you're in Product/PM:</strong> Install the Product Management plugin. Confirm you have Atlassian and Figma connectors available. Set up meeting note automation first — it's the fastest return on setup time. Then build a custom skill for whatever recurring communications your team produces.</p>
 
   <p><strong>If you're in Engineering:</strong> The Engineering plugin has useful skills for code review, architecture decisions, and incident response. The Atlassian connector lets Claude read and update Jira tickets directly.</p>
 
-  <p><strong>If you're in Design:</strong> You already have Figma connected. Add the Design plugin for critique, accessibility audits, and handoff spec generation. Useful for getting a structured second opinion on a design.</p>
+  <p><strong>If you're in Design:</strong> Start with the Figma connector and the Design plugin for critique, accessibility audits, and handoff spec generation. Useful for getting a structured second opinion on a design.</p>
 
-  <p><strong>If you're in Ops/Member Services:</strong> The Atlassian connector is already available for Confluence-based documentation. Focus on building custom skills for whatever recurring reports or communications you produce.</p>
+  <p><strong>If you're in Ops/Customer Success:</strong> The Atlassian connector is useful for Confluence-based documentation and status tracking. Focus on building custom skills for whatever recurring reports or communications you produce.</p>
 
   <hr />
 
   <h2><span class="num">06</span>Tips From ~80 Sessions of Use</h2>
 
   <ul>
-    <li><strong>Confluence is the hub.</strong> Almost everything I do starts or ends in Confluence. The Atlassian connector is set up at the org level, so you should have it from day one.</li>
+    <li><strong>Confluence is the hub.</strong> Almost everything I do starts or ends in Confluence. Check with your admin to confirm the Atlassian connector is available — it's typically one of the first things orgs set up.</li>
     <li><strong>Scheduled tasks are the highest ROI.</strong> The meeting summarizer alone saves me 30+ minutes per day of note-taking and formatting. It runs automatically — I just review the output occasionally and refine the instructions when needed.</li>
     <li><strong>Custom formats matter more than fancy plugins.</strong> The most valuable thing in my setup isn't a plugin — it's the specific instructions I've written for how meeting notes should be structured, what sections a survey analysis should have, and how action items should be grouped. Start with format, not features.</li>
     <li><strong>Iterate in small batches.</strong> Don't try to build the perfect automation on day one. Get a basic version working, use it for a week, then refine based on what bothers you.</li>
