@@ -130,8 +130,8 @@ a.plain { border-bottom: 0; }
 .shell-narrow { width: min(100% - calc(var(--shell-pad) * 2), 760px); margin-inline: auto; }
 
 section { position: relative; }
-.pad-y { padding-block: clamp(72px, 11vw, 160px); }
-.pad-y-sm { padding-block: clamp(48px, 7vw, 96px); }
+.pad-y { padding-block: clamp(64px, 8vw, 112px); }
+.pad-y-sm { padding-block: clamp(40px, 5vw, 64px); }
 
 hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
 
