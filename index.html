@@ -19,124 +19,6 @@
   }
   .home-hero .lede { max-width: 56ch; }
 
-  /* Door cards — featured work tiles */
-  .door-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-  .door {
-    padding: clamp(28px, 3vw, 44px) clamp(22px, 2vw, 32px);
-    border-right: 1px solid var(--rule);
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    color: var(--ink);
-    border-bottom: 0;
-    position: relative;
-    transition: background 200ms ease;
-    min-height: 280px;
-  }
-  .door:last-child { border-right: 0; }
-  .door:hover { background: var(--bg-2); }
-  .door .door-num {
-    font-family: var(--f-mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .door h3 {
-    font-size: clamp(22px, 2vw, 28px);
-    line-height: 1.16;
-  }
-  .door .door-outcome {
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px dashed color-mix(in oklab, var(--rule) 80%, transparent);
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-  .door .door-outcome .n {
-    font-family: var(--f-display);
-    font-size: clamp(28px, 3vw, 40px);
-    line-height: 1;
-    color: var(--accent-2);
-  }
-  .door .door-outcome .l {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .door .arrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-2); border: 0;
-  }
-  .door .arrow::after { content: "→"; transition: transform 220ms ease; }
-  .door:hover .arrow::after { transform: translateX(4px); }
-  @media (max-width: 880px) {
-    .door-grid { grid-template-columns: 1fr; }
-    .door { border-right: 0; border-bottom: 1px solid var(--rule); min-height: 0; }
-    .door:last-child { border-bottom: 0; }
-  }
-
-  /* Two-up doorway row (Claude + Art + About) */
-  .doorway-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 2vw, 28px);
-  }
-  @media (max-width: 880px) {
-    .doorway-row { grid-template-columns: 1fr; }
-  }
-  .doorway-card {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: clamp(24px, 2.6vw, 36px);
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    color: var(--ink);
-    transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
-    min-height: 240px;
-  }
-  .doorway-card:hover {
-    background: var(--bg-2);
-    border-color: color-mix(in oklab, var(--accent-2) 40%, var(--rule));
-    transform: translateY(-2px);
-  }
-  .doorway-card .meta {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .doorway-card h3 {
-    font-size: clamp(24px, 2.4vw, 32px);
-    line-height: 1.14;
-  }
-  .doorway-card p {
-    color: var(--ink-2);
-    font-size: 15px;
-    margin: 0;
-  }
-  .doorway-card .arrow {
-    margin-top: auto;
-    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-2); border: 0;
-  }
-  .doorway-card .arrow::after { content: " →"; transition: transform 220ms ease; }
-  .doorway-card:hover .arrow::after { transform: translateX(4px); }
-
   /* fact-row under hero */
   .home-facts {
     display: flex;
@@ -182,7 +64,6 @@
       <a href="work.html">Work</a>
       <a href="claude.html">Claude</a>
       <a href="art.html">Art</a>
-      <a href="about.html">About</a>
       <a href="connect.html">Connect</a>
     </div>
   </nav>
@@ -211,131 +92,304 @@
 
 <hr class="rule" />
 
-<!-- ─────────── FEATURED WORK ─────────── -->
-<section class="pad-y" data-screen-label="02 Featured work">
-  <div class="shell-wide">
-    <div class="cols-2" style="margin-bottom: 48px; align-items: end;">
+<!-- ─────────── ABOUT / NARRATIVE ─────────── -->
+<section class="pad-y" data-screen-label="02 About">
+  <div class="shell">
+    <div class="cols-2">
       <div>
-        <div class="eyebrow">The work</div>
-        <h2 style="margin-top: 18px;">Five problems,<br/><em>one Portal.</em></h2>
+        <div class="eyebrow">The story</div>
+        <h2 style="margin-top: 18px;">I <em>forged</em><br/>this path.</h2>
+        <figure style="margin: 36px 0 0; max-width: 260px;">
+          <img src="assets/meghan-headshot.png" alt="Portrait of Meghan Race smiling, wearing a black-and-white patterned blazer over a black top, photographed against a neutral gray studio background." style="width: 100%; height: auto; border: 1px solid var(--rule); box-shadow: 0 1px 0 color-mix(in oklab, var(--ink) 8%, transparent), 0 20px 40px -28px color-mix(in oklab, var(--ink) 35%, transparent);" />
+          <figcaption style="margin-top: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);">
+            <span style="font-family: var(--f-display); font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--ink-2);">Meghan Race</span>
+            &nbsp;·&nbsp;Denver, 2025
+          </figcaption>
+        </figure>
+      </div>
+      <div style="max-width: 64ch;">
+        <p class="lede">
+          I started in hospitality at twenty-one — Martha's Vineyard, then Vail for five years at a private mountain club, then Denver. Twelve years on the Member Services team at Exclusive Resorts, eventually leading a team of nine to eleven account managers responsible for ~900 high-end memberships across the Northeast.
+        </p>
+        <p>
+          At every job I've ever had, I've been the person who digs into how the systems actually work — and then becomes the one training everyone else on them. That instinct is what changed my trajectory.
+        </p>
+        <p>
+          In <strong>April 2022</strong> I became the key Member Services stakeholder for our new Member Portal. The job description was "bring the member perspective." I went well past that. I trained the whole MS team on the new product. I created the feedback Slack channel still used today. I was inside Jira from week one learning how it worked. I was troubleshooting inside our Auth0 authentication platform a full year before anyone thought of moving me to Engineering.
+        </p>
+        <p>
+          Exclusive Resorts created a Product role on the Engineering team specifically for me — because I'd already forged that path through the work, and through the relationships I built with PMs, UX, developers, and the Head of Engineering. Twelve months after that, they promoted me again. I now own a $200M+ customer platform end-to-end.
+        </p>
+        <p>
+          What I bring to product is unusual: I deeply understand our customers because I spent twelve years on the phone with them, and I deeply understand our complex technical systems because I refused to treat them as a black box. That combination is what I optimize for.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── STATS ─────────── -->
+<section class="pad-y-sm">
+  <div class="shell">
+    <div class="stats">
+      <div class="stat"><div class="n">$200M+</div><div class="l">Member platform owned</div></div>
+      <div class="stat"><div class="n">~25K</div><div class="l">Trips supported annually</div></div>
+      <div class="stat"><div class="n">12 yrs</div><div class="l">In Member Services first</div></div>
+      <div class="stat"><div class="n">12 mo</div><div class="l">Junior → PM</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── WHAT I DO NOW ─────────── -->
+<section class="pad-y" style="background: var(--bg-2);" data-screen-label="03 What I do">
+  <div class="shell">
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">What I do now</div>
+        <h2 style="margin-top: 18px;">PM at Exclusive Resorts.</h2>
+        <p style="margin-top: 16px; color: var(--ink-2); max-width: 30ch;">
+          A members-only luxury travel club. I own the Member Portal — the $200M+ digital surface our customers use to plan and book the trips they fly across the world to take.
+        </p>
+        <a href="work.html" class="mono" style="margin-top: 24px; display: inline-block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2);">
+          See the case studies →
+        </a>
+      </div>
+      <ul class="bullets">
+        <li>
+          <span class="n">01</span>
+          <div>
+            <h3>I own the roadmap end-to-end.</h3>
+            <p>Discovery, prioritization, sprint planning, release. Booking, trip planning, customer engagement workflows — the whole portal. I held the mobile app too, for the first year of the role.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <div>
+            <h3>I challenge solutions until I understand the problem.</h3>
+            <p>When an architect comes with a recommendation, I dig until I'm sure we're solving the <em>right</em> problem — not just the first problem someone named. I'd rather slow a meeting by ten minutes than ship a fix that solves the wrong thing.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <div>
+            <h3>I do my own technical investigation.</h3>
+            <p>DevTools, GraphQL traces, API analysis, Auth0 spelunking, AI-assisted repo triage with Claude Code. I triage independently before I escalate — engineering's time is for the part that's actually theirs.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <div>
+            <h3>I ship from a place of customer evidence.</h3>
+            <p>Twelve years on the phone with members means I know exactly which moments are sacred. Pre-arrival friction. Post-trip follow-through. Booking flow under a lottery release. I prioritize there.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">05</span>
+          <div>
+            <h3>I move the cadence forward.</h3>
+            <p>When I took ownership, features were stalling across multiple sprints. We now ship bi-weekly major releases with continuous hotfixes, with a real release-notes practice tuned for both internal and exec audiences.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CLAUDE TEASER ─────────── -->
+<section class="pad-y" data-screen-label="04 Claude pillar">
+  <div class="shell">
+    <div class="eyebrow">The differentiator</div>
+    <h2 style="margin-top: 18px; max-width: 22ch;">
+      I use <span class="italic" style="color: var(--accent-2);">Claude</span> the way most PMs wish they used Jira.
+    </h2>
+    <p class="lede" style="margin-top: 28px; max-width: 60ch;">
+      Not as an autocomplete. As a teammate that's read every reference doc, knows our architecture and team directory by name, drafts tickets in our voice, summarizes my Zoom transcripts to Confluence every afternoon at 5:36, and analyzes the weekly member survey before I'm done with my first coffee on Monday.
+    </p>
+
+    <div class="grid-3" style="margin-top: 56px;">
+      <a href="claude.html" class="card plain">
+        <span class="meta">The setup</span>
+        <h3><em>CLAUDE.md</em> as standing instructions.</h3>
+        <p style="color: var(--ink-2);">My project folder, the six-section CLAUDE.md that defines how I work, and the context files that capture my team's voice.</p>
+        <span class="arrow">Read the setup</span>
+      </a>
+      <a href="claude.html#workflow" class="card plain">
+        <span class="meta">The workflow</span>
+        <h3>One folder. One assistant. <em>Every doc.</em></h3>
+        <p style="color: var(--ink-2);">Tickets, release notes, exec recaps, research synthesis, survey analysis, repo questions — all from the same project with the same context.</p>
+        <span class="arrow">See the workflow</span>
+      </a>
+      <a href="claude.html#teaching" class="card plain">
+        <span class="meta">The teaching</span>
+        <h3>What I've written for <em>other PMs.</em></h3>
+        <p style="color: var(--ink-2);">A training guide for non-engineering PMs adopting Claude Code. A portable prompt for migrating context between LLMs. A Cowork guide built on ~80 sessions.</p>
+        <span class="arrow">See what I've made</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── RESOURCES ─────────── -->
+<section class="pad-y" style="background: var(--bg-2);" data-screen-label="05 Resources">
+  <div class="shell">
+    <div class="cols-2" style="margin-bottom: 56px;">
+      <div>
+        <div class="eyebrow">Resources I've made</div>
+        <h2 style="margin-top: 18px;">Teaching is<br/>part of the<br/><em>practice.</em></h2>
       </div>
       <p class="lede" style="max-width: 56ch;">
-        The Member Portal is the digital surface our customers use to plan and book the trips they fly across the world to take. Three cases that show how I work: customer evidence, technical detail, and the outcome.
+        When I figure out how to do something well — especially with AI tools that change month to month — I write it up. These are documents I created for other PMs and friends. Each one is a thing I wish someone had handed me.
       </p>
     </div>
 
-    <div class="door-grid">
-      <a href="work.html#case-01" class="door plain">
-        <span class="door-num">Case 01 · Pre-arrival workflow</span>
-        <h3>The grocery ordering redesign.</h3>
-        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
-          A confusing form, no confirmations, and members calling Member Services to place orders the Portal should have handled. We rebuilt it.
-        </p>
-        <div class="door-outcome">
-          <span class="n">1,000+</span>
-          <span class="l">Orders driven · 4.7 / 5.0</span>
-        </div>
-        <span class="arrow">Read the case</span>
-      </a>
-
-      <a href="work.html#case-02" class="door plain">
-        <span class="door-num">Case 02 · Data integrity</span>
-        <h3>A new post-trip survey platform.</h3>
-        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
-          The old infrastructure was leaking 200 surveys a year. I replatformed across Salesforce, Compass, and Typeform, and re-established trust in the data.
-        </p>
-        <div class="door-outcome">
-          <span class="n">~25K</span>
-          <span class="l">Trips / year supported</span>
-        </div>
-        <span class="arrow">Read the case</span>
-      </a>
-
-      <a href="work.html#case-03" class="door plain">
-        <span class="door-num">Case 03 · Community 0&nbsp;→&nbsp;1</span>
-        <h3>The Clubhouse.</h3>
-        <p style="color: var(--ink-2); font-size: 15px; margin: 0;">
-          Members tell us the people they travel with are part of what makes ER special. We shipped the first community surface from concept to beta.
-        </p>
-        <div class="door-outcome">
-          <span class="n">~200</span>
-          <span class="l">Memberships in beta</span>
-        </div>
-        <span class="arrow">Read the case</span>
-      </a>
+    <div class="grid-3">
+      <article class="card">
+        <span class="meta">Doc · 18,700 words</span>
+        <h3>Claude Code for PMs — Setup &amp; Workflow Guide</h3>
+        <p style="color: var(--ink-2);">A complete training doc for non-engineering PMs who want Claude Code to feel like a teammate, not a chatbot. Folder structure, CLAUDE.md, context files, MCP connectors, daily workflows.</p>
+        <a class="arrow" href="resources/claude-code-pm-training-guide.html">Read the guide</a>
+      </article>
+      <article class="card">
+        <span class="meta">Prompt · portable</span>
+        <h3>Export your LLM context to a new platform</h3>
+        <p style="color: var(--ink-2);">When I migrated from ChatGPT to Claude, I didn't want to lose everything the model already knew about me. This is the prompt I used — and now share — to make context portable.</p>
+        <a class="arrow" href="resources/llm-context-export.html">Read the prompt</a>
+      </article>
+      <article class="card">
+        <span class="meta">Practical guide · ~80 sessions in</span>
+        <h3>How I use Cowork — a guide for the team</h3>
+        <p style="color: var(--ink-2);">My actual Cowork setup: the automated meeting summarizer that runs every weekday at 5:36 PM, the weekly survey analysis pipeline, the connectors, the scheduled tasks, and how to build your own.</p>
+        <a class="arrow" href="resources/cowork-for-pms.html">Read the guide</a>
+      </article>
     </div>
-
-    <p style="margin-top: 28px;">
-      <a href="work.html" class="mono" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2);">
-        See all five cases →
-      </a>
-    </p>
   </div>
 </section>
 
-<!-- ─────────── CLAUDE PILLAR ─────────── -->
-<section class="pad-y" style="background: var(--bg-2);" data-screen-label="03 Claude pillar">
-  <div class="shell-wide">
-    <div class="cols-2" style="align-items: end;">
+<!-- ─────────── CERTIFICATIONS ─────────── -->
+<section class="pad-y" data-screen-label="06 Certifications">
+  <div class="shell">
+    <div class="cols-2" style="margin-bottom: 40px;">
       <div>
-        <div class="eyebrow">The differentiator</div>
-        <h2 style="margin-top: 18px;">
-          I use <span class="italic" style="color: var(--accent-2);">Claude</span><br/>
-          the way most PMs<br/>
-          wish they used Jira.
-        </h2>
+        <div class="eyebrow">Credentials</div>
+        <h2 style="margin-top: 18px;">Six certifications in <em>eighteen months.</em></h2>
       </div>
-      <div style="max-width: 56ch;">
-        <p class="lede" style="margin-top: 0;">
-          Not as autocomplete. As a teammate that's read every reference doc, knows our architecture and team directory by name, drafts tickets in our voice, and analyzes the weekly member survey before I'm done with my first coffee on Monday.
-        </p>
-        <p style="margin-top: 24px;">
-          <a href="claude.html" class="mono" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2);">
-            See the setup, the workflow, the teaching →
-          </a>
-        </p>
+      <p style="max-width: 56ch; color: var(--ink-2);">
+        I taught myself product the way I taught myself oil painting — by committing to it on weekends. These are the certifications I picked up between the promotion and now.
+      </p>
+    </div>
+
+    <div class="certs">
+      <div class="cert">
+        <span class="when">Feb 2026</span>
+        <span class="name">AI Product Manager</span>
+        <span class="org">Product School</span>
+      </div>
+      <div class="cert">
+        <span class="when">Oct 2025</span>
+        <span class="name">Salesforce Platform Associate</span>
+        <span class="org">Salesforce</span>
+      </div>
+      <div class="cert">
+        <span class="when">Jul 2025</span>
+        <span class="name">AWS Certified Practitioner</span>
+        <span class="org">Amazon Web Services</span>
+      </div>
+      <div class="cert">
+        <span class="when">Feb 2025</span>
+        <span class="name">Product Manager Certification</span>
+        <span class="org">Product School</span>
+      </div>
+      <div class="cert">
+        <span class="when">Jan 2025</span>
+        <span class="name">Atlassian Agile Project Management</span>
+        <span class="org">Atlassian</span>
+      </div>
+      <div class="cert">
+        <span class="when">Aug 2024</span>
+        <span class="name">Aha! Product Management Professional</span>
+        <span class="org">Aha!</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── ART · ABOUT · MORE DOORS ─────────── -->
-<section class="pad-y" data-screen-label="04 Doorways">
-  <div class="shell-wide">
-    <div class="eyebrow" style="margin-bottom: 32px;">More about me</div>
+<!-- ─────────── EXPERIENCE TIMELINE ─────────── -->
+<section class="pad-y" style="background: var(--bg-2);" data-screen-label="07 Experience">
+  <div class="shell">
+    <div class="cols-2" style="margin-bottom: 40px;">
+      <div>
+        <div class="eyebrow">Experience</div>
+        <h2 style="margin-top: 18px;">From Member Services<br/>to <em>owning the platform.</em></h2>
+      </div>
+      <p style="max-width: 56ch; color: var(--ink-2);">
+        Four roles at Exclusive Resorts, each one a closer step to product. I joined as a Membership Account Manager in 2012, was promoted into regional leadership, then into Member Portal stakeholder, then into Engineering as a Product Manager. Promoted again twelve months later.
+      </p>
+    </div>
 
-    <div class="doorway-row">
-      <a href="about.html" class="doorway-card plain">
-        <span class="meta">About</span>
-        <h3>I forged my own path into product.</h3>
-        <p>Twelve years in Member Services. Twelve months from junior to PM. Six certifications in eighteen months. The full story.</p>
-        <span class="arrow">Read the story</span>
-      </a>
-      <a href="art.html" class="doorway-card plain">
-        <span class="meta">Art</span>
-        <h3>A studio-art degree, still in practice.</h3>
-        <p>I taught myself product the way I taught myself oil painting: on weekends, with intent. The Art page is the other half of the portfolio.</p>
-        <span class="arrow">See the paintings</span>
-      </a>
-      <a href="connect.html" class="doorway-card plain">
-        <span class="meta">Connect</span>
-        <h3>I'd rather have the conversation than the email thread.</h3>
-        <p>If you're hiring, collaborating, or just want to talk product: email, LinkedIn, or a phone call. All work.</p>
-        <span class="arrow">Get in touch</span>
-      </a>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-when">Feb 2025 — Present</div>
+        <div>
+          <div class="tl-role">Product Manager, Engineering</div>
+          <div class="tl-org">Exclusive Resorts · Denver, CO</div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-when">Apr 2022 — Jan 2025</div>
+        <div>
+          <div class="tl-role">Member Services Stakeholder, Member Portal</div>
+          <div class="tl-org">Exclusive Resorts · the trajectory shift</div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-when">Oct 2015 — Jan 2025</div>
+        <div>
+          <div class="tl-role">Regional Manager, Member Services — Northeast</div>
+          <div class="tl-org">Exclusive Resorts</div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-when">Sep 2012 — Sep 2015</div>
+        <div>
+          <div class="tl-role">Membership Account Manager</div>
+          <div class="tl-org">Exclusive Resorts</div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-when">2007 — 2012</div>
+        <div>
+          <div class="tl-role">Vail Resorts · hospitality</div>
+          <div class="tl-org">Vail &amp; Beaver Creek, CO</div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-when">Education</div>
+        <div>
+          <div class="tl-role">Bachelor of Arts, Studio Art</div>
+          <div class="tl-org">Colby College · Waterville, ME&nbsp;&nbsp;·&nbsp;&nbsp;Semester abroad at University of Melbourne</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ─────────── CLOSING ─────────── -->
-<section class="pad-y" style="background: var(--bg-2);" data-screen-label="05 Closing">
-  <div class="shell-narrow">
+<section class="pad-y" data-screen-label="08 Closing">
+  <div class="shell-narrow" style="text-align: left;">
     <div class="eyebrow">Let's connect</div>
     <p class="pull" style="margin-top: 24px;">
       I forged my way into product, and I'm <span class="accent">thriving here</span>.
     </p>
-    <p style="margin-top: 28px; color: var(--ink-2); max-width: 60ch;">
-      Twelve months from junior to PM. Six certifications in eighteen months. A $200M+ platform I own end-to-end. If any of that lines up with what you're building, I'd love to hear about it.
+    <p style="margin-top: 32px; color: var(--ink-2); max-width: 60ch;">
+      The transition wasn't a side door. It was years of being the person who learned the system before anyone asked me to — and then the relationships, the credentials, and the work to back it up. Twelve months from junior to PM, six certifications in eighteen months, and a platform I own end-to-end now.
+    </p>
+    <p style="margin-top: 16px; color: var(--ink-2); max-width: 60ch;">
+      If you're hiring, collaborating, or just want to talk product — I'd rather have the conversation than the email thread.
     </p>
     <p style="margin-top: 36px;">
       <a href="connect.html" class="contact-cta">
@@ -359,7 +413,6 @@
       <a href="work.html">Work</a>
       <a href="claude.html">Claude</a>
       <a href="art.html">Art</a>
-      <a href="about.html">About</a>
     </div>
   </div>
   <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
