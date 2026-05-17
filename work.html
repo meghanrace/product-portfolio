@@ -96,22 +96,21 @@
         </div>
       </div>
       <div style="max-width: 64ch;">
-        <p class="lede">
-          Members arriving at our properties want a few specific things waiting in the fridge. The original grocery workflow was a friction point — confusing form, fragmented options, no confirmation. Members were calling Member Services to place orders the Portal should have handled, taxing the team and signaling that the workflow itself was the problem.
-        </p>
-        <p>
-          Partnering with design and engineering, I led the redesign of the pre-arrival grocery experience end-to-end: simpler form, clear destination-specific options, real confirmations, surfaced reviews. The hypothesis was that the call volume to Member Services was a symptom — the underlying problem was a workflow that didn't feel trustworthy enough to submit through.
-        </p>
-        <p>
-          Twelve months in, the redesigned flow has driven <strong>1,000+ orders</strong>, sustained a <strong>4.7 / 5.0 satisfaction score</strong> across <strong>650+ customer reviews</strong>, and meaningfully reduced the call-volume tax on Member Services for the same workflow.
-        </p>
-
-        <div class="stats" style="margin-top: 40px;">
+        <div class="stats" style="margin-bottom: 40px;">
           <div class="stat"><div class="n">1,000+</div><div class="l">Orders driven</div></div>
           <div class="stat"><div class="n">4.7/5</div><div class="l">Satisfaction</div></div>
           <div class="stat"><div class="n">650+</div><div class="l">Reviews collected</div></div>
           <div class="stat"><div class="n">↓</div><div class="l">Call volume</div></div>
         </div>
+        <p class="lede">
+          Members arriving at our properties want a few specific things waiting in the fridge. The original grocery workflow was a friction point: confusing form, fragmented options, no confirmation. Members were calling Member Services to place orders the Portal should have handled, taxing the team and signaling that the workflow itself was the problem.
+        </p>
+        <p>
+          Partnering with design and engineering, I led the redesign of the pre-arrival grocery experience end-to-end: simpler form, clear destination-specific options, real confirmations, surfaced reviews. The hypothesis was that the call volume to Member Services was a symptom: the underlying problem was a workflow that didn't feel trustworthy enough to submit through.
+        </p>
+        <p>
+          Twelve months in, the redesigned flow has driven <strong>1,000+ orders</strong>, sustained a <strong>4.7 / 5.0 satisfaction score</strong> across <strong>650+ customer reviews</strong>, and meaningfully reduced the call-volume tax on Member Services for the same workflow.
+        </p>
       </div>
     </div>
   </div>
@@ -177,22 +176,24 @@
         </div>
       </div>
       <div style="max-width: 64ch;">
-        <p class="lede">
-          Our old post-trip survey infrastructure was leaking — ~200 surveys per year were being missed entirely. Failure rates were significant. The surveys feed our NPS reporting, ambassador feedback loops, and property-level decisions — and the team didn't fully trust the numbers it was reporting.
-        </p>
-        <p>
-          I delivered a new post-trip survey platform supporting our <strong>~25K annual trips</strong>. The replatform eliminated the ~200 missed surveys per year, drove failure rates to near zero, and re-established data integrity across the systems consuming survey output downstream.
-        </p>
-        <p>
-          The work crossed three system boundaries: Salesforce (trigger), our proprietary booking platform Compass (source of truth for trip data), and Typeform / our reporting layer. The hardest part wasn't building it — it was reconciling how each system's understanding of "a trip" differed, so the survey would fire exactly once, at the right time, for the right traveler.
-        </p>
-
-        <div class="stats" style="margin-top: 40px;">
+        <div class="stats" style="margin-bottom: 40px;">
           <div class="stat"><div class="n">~25K</div><div class="l">Trips / year supported</div></div>
           <div class="stat"><div class="n">~200</div><div class="l">Missed surveys eliminated</div></div>
           <div class="stat"><div class="n">→0%</div><div class="l">Failure rate</div></div>
           <div class="stat"><div class="n">3</div><div class="l">Systems reconciled</div></div>
         </div>
+        <p class="lede">
+          Our old post-trip survey infrastructure was leaking: ~200 surveys per year were being missed entirely. Failure rates were significant. The surveys feed our NPS reporting, ambassador feedback loops, and property-level decisions, and the team didn't fully trust the numbers it was reporting.
+        </p>
+        <p>
+          I delivered a new post-trip survey platform supporting our <strong>~25K annual trips</strong>. The replatform eliminated the ~200 missed surveys per year, drove failure rates to near zero, and re-established data integrity across the systems consuming survey output downstream.
+        </p>
+        <p>
+          The work crossed three system boundaries: Salesforce (trigger), our proprietary booking platform Compass (source of truth for trip data), and Typeform / our reporting layer.
+        </p>
+        <blockquote style="border-left: 2px solid var(--accent-2); padding-left: 24px; margin: 32px 0; font-family: var(--f-display); font-size: clamp(16px, 1.8vw, 20px); line-height: 1.5; color: var(--ink-1);">
+          The hardest part wasn't building it. It was reconciling how each system's understanding of "a trip" differed, so the survey would fire exactly once, at the right time, for the right traveler.
+        </blockquote>
       </div>
     </div>
   </div>
@@ -242,22 +243,21 @@
         </div>
       </div>
       <div style="max-width: 64ch;">
-        <p class="lede">
-          Members tell us the people they travel with are part of what makes Exclusive Resorts special — but the Portal had no way for them to find each other, share what they know, or extend a trip relationship beyond a single week. That gap matters to the business: Members who feel connected to other Members renew, upgrade, and bring guests who become Members themselves.
-        </p>
-        <p>
-          I led the Clubhouse from concept to launch as a feature-flagged beta to <strong>~200 Memberships</strong> participating in the Seabourn Once-in-a-Lifetime Journey — a cohort small enough to learn from quickly, passionate enough to engage honestly. The MVP shipped four core surfaces — an onboarding wizard, a landing page, a Member directory, and a discussion board — built on GetStream, Salesforce, DynamoDB, and Algolia. The questions framing every scoping decision were measurable: will Members complete a profile, what fields will they choose to share, will they post on the discussion board, will the directory help them find Members they want to connect with.
-        </p>
-        <p>
-          The cohort gave us real answers — and the harder lesson that a directory and a discussion board aren't enough on their own. Connection without context falls flat. The signal is clear: engagement needs to live where Members are already thinking about ER — when they're planning a trip and when they're on one. That's what Phase 2 builds toward: destination-specific discussion forums embedded in the trip-planning flow, a My Feed homepage that surfaces relevant conversations, and notifications that close the engagement loop. Community woven into the Member experience, not parked next to it.
-        </p>
-
-        <div class="stats" style="margin-top: 40px;">
+        <div class="stats" style="margin-bottom: 40px;">
           <div class="stat"><div class="n">~200</div><div class="l">Memberships in beta</div></div>
           <div class="stat"><div class="n">~450</div><div class="l">Individual Members</div></div>
           <div class="stat"><div class="n">4</div><div class="l">MVP surfaces shipped</div></div>
           <div class="stat"><div class="n">5</div><div class="l">Systems integrated</div></div>
         </div>
+        <p class="lede">
+          Members tell us the people they travel with are part of what makes Exclusive Resorts special. But the Portal had no way for them to find each other, share what they know, or extend a trip relationship beyond a single week. That gap matters to the business: Members who feel connected to other Members renew, upgrade, and bring guests who become Members themselves.
+        </p>
+        <p>
+          I led the Clubhouse from concept to launch as a feature-flagged beta to <strong>~200 Memberships</strong> participating in the Seabourn Once-in-a-Lifetime Journey (a cohort small enough to learn from quickly, passionate enough to engage honestly). The MVP shipped four core surfaces (an onboarding wizard, a landing page, a Member directory, and a discussion board) built on GetStream, Salesforce, DynamoDB, and Algolia. The questions framing every scoping decision were measurable: will Members complete a profile, what fields will they choose to share, will they post on the discussion board, will the directory help them find Members they want to connect with.
+        </p>
+        <p>
+          The cohort gave us real answers — and the harder lesson that a directory and a discussion board aren't enough on their own. Connection without context falls flat. The signal is clear: engagement needs to live where Members are already thinking about ER, when they're planning a trip and when they're on one. That's what Phase 2 builds toward: destination-specific discussion forums embedded in the trip-planning flow, a My Feed homepage that surfaces relevant conversations, and notifications that close the engagement loop. Community woven into the Member experience, not parked next to it.
+        </p>
       </div>
     </div>
   </div>
@@ -317,28 +317,28 @@
         <div class="eyebrow">Case 04</div>
         <h2 style="margin-top: 18px;">Destination page reimagined.</h2>
         <div class="chips" style="margin-top: 28px;">
+          <span class="chip" style="color: var(--accent-2); border-color: var(--accent-2);">In flight</span>
           <span class="chip">UX architecture</span>
           <span class="chip">Information design</span>
           <span class="chip">Member experience</span>
         </div>
       </div>
       <div style="max-width: 64ch;">
-        <p class="lede">
-          The information Members need to plan a trip is scattered. The destination page is a long-scroll wall of editorial content. The insider knowledge that matters most — what's the closest airport, what's gratuity etiquette here, is March a good time to go — lives in ambassadors' heads, in internal tools, or in third-party apps Members have to leave the Portal to find. The page hasn't kept pace with the portfolio, and it doesn't meet Members where they're actually making a decision.
-        </p>
-        <p>
-          I led a rethink of the destination page as an intent-based experience, organized around what Members actually need at each stage — browsing, planning, prepping, traveling — with new components to fill the information gaps. <strong>Destination Tips</strong> surface the insider knowledge ambassadors carry in their heads, in a place every Member can see. <strong>Maps</strong> show where ER homes sit relative to one another and to the area — a request Members make constantly, especially for multi-generational trips that need several homes booked together. A revamped <strong>Know Before You Go</strong> replaces text-heavy guides with a clean, scannable presentation of pre-trip essentials. A <strong>weather component</strong> sits on the booking calendar itself, so a Member considering a destination in March doesn't have to leave the Portal to decide if it's the right time to go.
-        </p>
-        <p>
-          The structural goal is to give Members the relevant information in the place where they're making the decision — booking, planning, or already on a trip — without sending them elsewhere. Marketing controls layout per destination through the CMS, so each destination can lean into what makes it distinctive. Built-in guardrails: per-destination configuration with automatic fallback to the current layout for any destination not yet enabled — no big-bang migration. Costa Rica pilots first, then rolls out to flagship destinations based on engagement.
-        </p>
-
-        <div class="stats" style="margin-top: 40px;">
+        <div class="stats" style="margin-bottom: 40px;">
           <div class="stat"><div class="n">4</div><div class="l">New Member-facing components</div></div>
           <div class="stat"><div class="n">150+</div><div class="l">Configurable destination pages</div></div>
           <div class="stat"><div class="n">0</div><div class="l">Dev work to enable a destination</div></div>
           <div class="stat"><div class="n">1</div><div class="l">Pilot destination</div></div>
         </div>
+        <p class="lede">
+          The information Members need to plan a trip is scattered. The destination page is a long-scroll wall of editorial content. The insider knowledge that matters most (what's the closest airport, what's gratuity etiquette here, is March a good time to go) lives in ambassadors' heads, in internal tools, or in third-party apps Members have to leave the Portal to find. The page hasn't kept pace with the portfolio, and it doesn't meet Members where they're actually making a decision.
+        </p>
+        <p>
+          I led a rethink of the destination page as an intent-based experience, organized around what Members actually need at each stage (browsing, planning, prepping, traveling) with new components to fill the information gaps. <strong>Destination Tips</strong> surface the insider knowledge ambassadors carry in their heads, in a place every Member can see. <strong>Maps</strong> show where ER homes sit relative to one another and to the area, a request Members make constantly, especially for multi-generational trips that need several homes booked together. A revamped <strong>Know Before You Go</strong> replaces text-heavy guides with a clean, scannable presentation of pre-trip essentials. A <strong>weather component</strong> sits on the booking calendar itself, so a Member considering a destination in March doesn't have to leave the Portal to decide if it's the right time to go.
+        </p>
+        <p>
+          The structural goal is to give Members the relevant information in the place where they're making the decision (booking, planning, or already on a trip) without sending them elsewhere. Marketing controls layout per destination through the CMS, so each destination can lean into what makes it distinctive. Built-in guardrails: per-destination configuration with automatic fallback to the current layout for any destination not yet enabled (no big-bang migration). Costa Rica pilots first, then rolls out to flagship destinations based on engagement.
+        </p>
       </div>
     </div>
   </div>
@@ -390,28 +390,28 @@
         <div class="eyebrow">Case 05</div>
         <h2 style="margin-top: 18px;">Destination Browse.</h2>
         <div class="chips" style="margin-top: 28px;">
+          <span class="chip" style="color: var(--accent-2); border-color: var(--accent-2);">In flight</span>
           <span class="chip">Discovery</span>
           <span class="chip">Member research</span>
           <span class="chip">Roadmap strategy</span>
         </div>
       </div>
       <div style="max-width: 64ch;">
-        <p class="lede">
-          Every ambassador call starts the same way: "Where do you want to go?" And Members say "I don't know." The portfolio has grown to <strong>150+ destinations and 400+ residences</strong>, but the tools for browsing it haven't evolved past a text directory. Members can search for a specific date — that part works — but there's no way to narrow before they're ready to book. The result: decision paralysis, plan days left unused, and ambassador conversations that start from scratch every time.
-        </p>
-        <p>
-          The work started with a single in-depth Member interview — a long-tenured Member who'd built his own spreadsheet cataloging the entire portfolio because the Portal couldn't help him decide where to go. His frustrations weren't unique. I connected them to patterns I'd been hearing in ambassador conversations for years and to my own time on the Member Services side, where every call followed the same "I don't know" → "let me list some options" → "maybe" loop. The real gap was a missing stage in the Member journey: dreaming and narrowing, the work that happens before checking availability. We had a strong tool for booking. We had nothing for the stage that leads to it.
-        </p>
-        <p>
-          I built a prototype: a sortable view of the full portfolio, filter pills matching the existing Search &amp; Book pattern, collection tabs, saved views, and a direct bridge from filtered results into Search &amp; Book for availability. Shared it with leadership, ambassadors, and a small group of Members for feedback. Members recognized it as the tool they'd been working around. Ambassadors recognized it as something they'd use during calls. Leadership signed off on the direction. The prototype isn't shipped yet — it's earning the alignment needed to move from concept to roadmap, and the foundation is in place: filters reuse patterns Members already know, the data exists, the UI primitives exist. The build is a question of when, not whether.
-        </p>
-
-        <div class="stats" style="margin-top: 40px;">
+        <div class="stats" style="margin-bottom: 40px;">
           <div class="stat"><div class="n">150+</div><div class="l">Destinations in portfolio</div></div>
           <div class="stat"><div class="n">400+</div><div class="l">Residences</div></div>
           <div class="stat"><div class="n">4</div><div class="l">Journey stages mapped</div></div>
           <div class="stat"><div class="n">3</div><div class="l">Evidence streams triangulated</div></div>
         </div>
+        <p class="lede">
+          Every ambassador call starts the same way: "Where do you want to go?" And Members say "I don't know." The portfolio has grown to <strong>150+ destinations and 400+ residences</strong>, but the tools for browsing it haven't evolved past a text directory. Members can search for a specific date (that part works), but there's no way to narrow before they're ready to book. The result: decision paralysis, plan days left unused, and ambassador conversations that start from scratch every time.
+        </p>
+        <p>
+          The work started with a single in-depth Member interview — a long-tenured Member who'd built his own spreadsheet cataloging the entire portfolio because the Portal couldn't help him decide where to go. His frustrations weren't unique. I connected them to patterns I'd been hearing in ambassador conversations for years and to my own time on the Member Services side, where every call followed the same "I don't know" → "let me list some options" → "maybe" loop. The real gap was a missing stage in the Member journey: dreaming and narrowing, the work that happens before checking availability. We had a strong tool for booking. We had nothing for the stage that leads to it.
+        </p>
+        <p>
+          I built a prototype: a sortable view of the full portfolio, filter pills matching the existing Search &amp; Book pattern, collection tabs, saved views, and a direct bridge from filtered results into Search &amp; Book for availability. Shared it with leadership, ambassadors, and a small group of Members for feedback. Members recognized it as the tool they'd been working around. Ambassadors recognized it as something they'd use during calls. Leadership signed off on the direction. The prototype isn't shipped yet. It's earning the alignment needed to move from concept to roadmap, and the foundation is in place: filters reuse patterns Members already know, the data exists, the UI primitives exist. The build is a question of when, not whether.
+        </p>
       </div>
     </div>
   </div>
@@ -457,7 +457,7 @@
       <div class="card">
         <span class="meta">Principle 01</span>
         <h3>Customer evidence first.</h3>
-        <p style="color: var(--ink-2);">I came from twenty years of member services. I know which moments are sacred. I prioritize there before I prioritize anywhere else.</p>
+        <p style="color: var(--ink-2);">I came from twelve years of member experience. I know which moments are sacred. I prioritize there before I prioritize anywhere else.</p>
       </div>
       <div class="card">
         <span class="meta">Principle 02</span>
