@@ -599,6 +599,12 @@ footer.foot {
   .gallery figure, .gallery figure.wide, .gallery figure.narrow, .gallery figure.full { grid-column: span 12; }
 }
 
+/* framed painting figures — oil paintings gallery */
+.gallery figure.framed img {
+  border: 12px solid #c4a97a;
+  box-shadow: inset 0 0 0 2px rgba(70,42,8,0.30), 0 8px 36px rgba(0,0,0,0.22);
+}
+
 /* figure-row caption above case-study galleries */
 .case-figs-meta {
   display: flex;
