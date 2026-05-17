@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Destination page reimagined — Meghan Race</title>
+<meta name="description" content="How I led a rethink of the destination page as an intent-based experience — four new Member-facing components, 150+ configurable pages, zero dev work to enable a destination." />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="case.css" />
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <input id="nav-open" type="checkbox" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-open" class="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-caret" aria-hidden="true"></span>
+    </label>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../work.html" class="active">Work</a>
+      <a href="../claude.html">Claude</a>
+      <a href="../art.html">Art</a>
+      <a href="../connect.html">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<section class="pad-y case-section" id="case-04" style="background: var(--bg-2);" data-screen-label="Case · Destination page">
+  <div class="shell">
+    <a class="back-link" href="../work.html">Back to Work</a>
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Case 04</div>
+        <h2 style="margin-top: 18px;">Destination page reimagined.</h2>
+        <div class="chips" style="margin-top: 28px;">
+          <span class="chip" style="color: var(--accent-2); border-color: var(--accent-2);">In flight</span>
+          <span class="chip">UX architecture</span>
+          <span class="chip">Information design</span>
+          <span class="chip">Member experience</span>
+        </div>
+      </div>
+      <div style="max-width: 64ch;">
+        <div class="stats" style="margin-bottom: 40px;">
+          <div class="stat"><div class="n">4</div><div class="l">New Member-facing components</div></div>
+          <div class="stat"><div class="n">150+</div><div class="l">Configurable destination pages</div></div>
+          <div class="stat"><div class="n">0</div><div class="l">Dev work to enable a destination</div></div>
+          <div class="stat"><div class="n">1</div><div class="l">Pilot destination</div></div>
+        </div>
+        <p class="lede">
+          The information Members need to plan a trip is scattered. The destination page is a long-scroll wall of editorial content. The insider knowledge that matters most (what's the closest airport, what's gratuity etiquette here, is March a good time to go) lives in ambassadors' heads, in internal tools, or in third-party apps Members have to leave the Portal to find. The page hasn't kept pace with the portfolio, and it doesn't meet Members where they're actually making a decision.
+        </p>
+        <p>
+          I led a rethink of the destination page as an intent-based experience, organized around what Members actually need at each stage (browsing, planning, prepping, traveling) with new components to fill the information gaps. <strong>Destination Tips</strong> surface the insider knowledge ambassadors carry in their heads, in a place every Member can see. <strong>Maps</strong> show where ER homes sit relative to one another and to the area, a request Members make constantly, especially for multi-generational trips that need several homes booked together. A revamped <strong>Know Before You Go</strong> replaces text-heavy guides with a clean, scannable presentation of pre-trip essentials. A <strong>weather component</strong> sits on the booking calendar itself, so a Member considering a destination in March doesn't have to leave the Portal to decide if it's the right time to go.
+        </p>
+        <p>
+          The structural goal is to give Members the relevant information in the place where they're making the decision (booking, planning, or already on a trip) without sending them elsewhere. Marketing controls layout per destination through the CMS, so each destination can lean into what makes it distinctive. Built-in guardrails: per-destination configuration with automatic fallback to the current layout for any destination not yet enabled (no big-bang migration). Costa Rica pilots first, then rolls out to flagship destinations based on engagement.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell-wide" style="margin-top: clamp(64px, 8vw, 112px);">
+    <div class="case-gallery-block">
+      <div class="case-figs-meta">
+        <span>Figures</span>
+        <span>Destination page · selected components</span>
+      </div>
+      <div class="gallery" style="margin-top: 20px;">
+
+        <figure class="full">
+          <img src="../assets/work/destination/destination-tips.png" alt="The new Destination Tips component — a serif headline reading &ldquo;6 Things to Know about The Rocks Club&rdquo; over a soft cream background, with six numbered insider tips arranged in a three-column grid." loading="lazy" />
+          <figcaption>
+            <span class="title">Destination Tips</span>
+            <span>Insider knowledge, on the page</span>
+          </figcaption>
+        </figure>
+
+        <figure class="wide">
+          <img src="../assets/work/destination/know-before-you-go.png" alt="The Pauoa Beach Club destination page in the Know Before You Go view, showing an Essential Amenities row of icon tiles for airport, transportation, wifi, grocery orders, pack-n-play, health note, and pet friendly, followed by a Gratuity Guide card and a Local Considerations card about overseeding." loading="lazy" />
+          <figcaption>
+            <span class="title">Know Before You Go</span>
+            <span>Scannable pre-trip essentials</span>
+          </figcaption>
+        </figure>
+
+        <figure class="narrow">
+          <img src="../assets/work/destination/explore-the-area.png" alt="The Explore the Area component — a hand-illustrated watercolor-style map of a tropical residential club, with numbered residences #1 through #16 labeled around the property; tabs above the map switch between Residences, The Resort, and Local Area views." loading="lazy" />
+          <figcaption>
+            <span class="title">Explore the Area</span>
+            <span>Residences · resort · local</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<div class="shell" style="padding: 40px 0 64px;">
+  <a class="back-link" href="../work.html">Back to Work</a>
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a href="clubhouse.html" class="case-nav-prev">← Previous: The Clubhouse</a>
+    <a href="destination-browse.html" class="case-nav-next">Next: Destination Browse →</a>
+  </nav>
+</div>
+
+<footer class="foot">
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../work.html">Work</a>
+      <a href="../claude.html">Claude</a>
+      <a href="../art.html">Art</a>
+    </div>
+  </div>
+  <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span>Meghan Race · Paintings are her own.</span>
+    <span>Made with Claude</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="../tweaks-panel.jsx"></script>
+<script type="text/babel" src="../tweaks.jsx"></script>
+
+</body>
+</html>

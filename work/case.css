@@ -1,0 +1,33 @@
+/* case.css — shared styles for work/ case study subpages */
+
+.back-link {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.back-link:hover { color: var(--accent-2); }
+.back-link::before { content: "←"; }
+
+.case-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.case-nav a {
+  color: var(--ink-3);
+  border: 0;
+}
+.case-nav a:hover { color: var(--accent-2); }
+.case-nav-next { margin-left: auto; }

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A new post-trip survey platform — Meghan Race</title>
+<meta name="description" content="How I delivered a new post-trip survey platform supporting ~25K annual trips, eliminating missed surveys and driving failure rates to near zero." />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="case.css" />
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <input id="nav-open" type="checkbox" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-open" class="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-caret" aria-hidden="true"></span>
+    </label>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../work.html" class="active">Work</a>
+      <a href="../claude.html">Claude</a>
+      <a href="../art.html">Art</a>
+      <a href="../connect.html">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<section class="pad-y case-section" id="case-02" style="background: var(--bg-2);" data-screen-label="Case · Post-trip survey">
+  <div class="shell">
+    <a class="back-link" href="../work.html">Back to Work</a>
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Case 02</div>
+        <h2 style="margin-top: 18px;">A new post-trip survey platform.</h2>
+        <div class="chips" style="margin-top: 28px;">
+          <span class="chip">Platform replacement</span>
+          <span class="chip">Data integrity</span>
+          <span class="chip">25K trips / year</span>
+        </div>
+      </div>
+      <div style="max-width: 64ch;">
+        <div class="stats" style="margin-bottom: 40px;">
+          <div class="stat"><div class="n">~25K</div><div class="l">Trips / year supported</div></div>
+          <div class="stat"><div class="n">~200</div><div class="l">Missed surveys eliminated</div></div>
+          <div class="stat"><div class="n">→0%</div><div class="l">Failure rate</div></div>
+          <div class="stat"><div class="n">3</div><div class="l">Systems reconciled</div></div>
+        </div>
+        <p class="lede">
+          Our old post-trip survey infrastructure was leaking: ~200 surveys per year were being missed entirely. Failure rates were significant. The surveys feed our NPS reporting, ambassador feedback loops, and property-level decisions, and the team didn't fully trust the numbers it was reporting.
+        </p>
+        <p>
+          I delivered a new post-trip survey platform supporting our <strong>~25K annual trips</strong>. The replatform eliminated the ~200 missed surveys per year, drove failure rates to near zero, and re-established data integrity across the systems consuming survey output downstream.
+        </p>
+        <p>
+          The work crossed three system boundaries: Salesforce (trigger), our proprietary booking platform Compass (source of truth for trip data), and Typeform / our reporting layer.
+        </p>
+        <blockquote style="border-left: 2px solid var(--accent-2); padding-left: 24px; margin: 32px 0; font-family: var(--f-display); font-size: clamp(16px, 1.8vw, 20px); line-height: 1.5; color: var(--ink-1);">
+          The hardest part wasn't building it. It was reconciling how each system's understanding of "a trip" differed, so the survey would fire exactly once, at the right time, for the right traveler.
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell-wide" style="margin-top: clamp(64px, 8vw, 112px);">
+    <div class="case-gallery-block">
+      <div class="case-figs-meta">
+        <span>Figures</span>
+        <span>Post-trip survey · trip-branded entry &amp; question</span>
+      </div>
+      <div class="gallery" style="margin-top: 20px;">
+
+        <figure>
+          <img src="../assets/work/survey/landing.png" alt="The post-trip survey landing screen, branded with the Exclusive Resorts logo over a turquoise-water hero image and headlined &lsquo;Post-Trip Survey for Your Trip To: Turkey: Treasures and Highlights, September 2–12, 2025,&rsquo; with a Get Started button and a four-minute completion estimate." loading="lazy" />
+          <figcaption>
+            <span class="title">Trip-branded entry</span>
+            <span>Trip data hydrated from Compass</span>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="../assets/work/survey/nps-question.png" alt="A split-screen survey question screen. On the left, a full-bleed aerial photograph of a kayaker on turquoise water. On the right, the question &lsquo;How likely are you to recommend Exclusive Resorts to friends or family?&rsquo; with a 5-star rating scale labeled Dissatisfied to Satisfied, and Previous and Next buttons." loading="lazy" />
+          <figcaption>
+            <span class="title">NPS &amp; rating question</span>
+            <span>Feeds reporting + ambassador loops</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<div class="shell" style="padding: 40px 0 64px;">
+  <a class="back-link" href="../work.html">Back to Work</a>
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a href="grocery-redesign.html" class="case-nav-prev">← Previous: The grocery ordering redesign</a>
+    <a href="clubhouse.html" class="case-nav-next">Next: The Clubhouse →</a>
+  </nav>
+</div>
+
+<footer class="foot">
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../work.html">Work</a>
+      <a href="../claude.html">Claude</a>
+      <a href="../art.html">Art</a>
+    </div>
+  </div>
+  <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span>Meghan Race · Paintings are her own.</span>
+    <span>Made with Claude</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="../tweaks-panel.jsx"></script>
+<script type="text/babel" src="../tweaks.jsx"></script>
+
+</body>
+</html>
