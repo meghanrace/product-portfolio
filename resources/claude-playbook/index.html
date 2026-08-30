@@ -231,19 +231,30 @@
   }
 
   /* Sticky, like every other page on the site, so Resources is always one
-     click away from inside a guide. The guide's own bar stacks directly
-     beneath it, and the TOC rail beneath that. --navh is measured at runtime
-     so the offsets survive the nav's own responsive breakpoints.
-     z-index sits above the doc bar (40) but below the mobile TOC drawer (60)
-     and its scrim (55), which are meant to cover everything. */
-  :root{--navh:69px}
-  .nav{position:sticky;top:0;z-index:45;
+     click away from inside a guide.
+
+     The site nav and the guide's own bar live in ONE sticky wrapper rather
+     than two stacked sticky elements offset by a measured height. A measured
+     offset can latch onto a transient value (a mid-transition menu, a
+     pre-webfont layout) and then has no way to correct itself, which showed
+     up on mobile as the doc bar detaching and floating below the nav. Inside
+     a single wrapper the two bars cannot separate: there is no number to get
+     wrong. Both are static; the wrapper does the sticking.
+
+     z-index sits above the doc bar but below the mobile TOC drawer (60) and
+     its scrim (55), which are meant to cover everything. */
+  :root{--stickh:132px}
+  .stickytop{position:sticky;top:0;z-index:45}
+  .nav{position:static;
     background:color-mix(in oklab,var(--s-bg) 92%,transparent);
     backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
     border-bottom:1px solid color-mix(in oklab,var(--s-rule) 50%,transparent);font-family:var(--s-body)}
-  .topbar{top:var(--navh)}
+  .topbar{position:static;top:auto}
+  /* Only the TOC rail still needs a number, and being a few px off there just
+     nudges the rail; it cannot break the header. A ResizeObserver keeps it
+     honest through breakpoints, webfont swap and the menu opening. */
   @media (min-width:901px){
-    .sidebar{top:calc(var(--navh) + 57px);max-height:calc(100vh - var(--navh) - 57px)}
+    .sidebar{top:calc(var(--stickh) + 4px);max-height:calc(100vh - var(--stickh) - 4px)}
   }
   .nav-row{width:min(100% - clamp(40px,8vw,128px),1480px);margin-inline:auto;
     display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:24px;position:relative}
@@ -302,6 +313,7 @@
 </style>
 </head>
 <body>
+<div class="stickytop">
 
 <header class="nav">
   <nav class="nav-row" aria-label="Primary">
@@ -324,30 +336,34 @@
     </div>
   </nav>
 </header>
-
-<script>
-(function(){
-  var nav = document.querySelector('header.nav'), box = document.getElementById('nav-open');
-  if (!nav) return;
-  function sync(){
-    // Skip while the mobile menu is open: the nav is taller then, and we want
-    // the collapsed height for the sticky offsets.
-    if (box && box.checked) return;
-    document.documentElement.style.setProperty('--navh', Math.round(nav.getBoundingClientRect().height) + 'px');
-  }
-  sync();
-  window.addEventListener('resize', sync);
-  if (box) box.addEventListener('change', function(){ if (!box.checked) sync(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
-})();
-</script>
 <div class="topbar">
   <div class="docbrand"><span class="mark">▶</span><span>The Claude Playbook</span><small>v1.0</small></div>
   <span class="spacer"></span>
   <a class="companion" href="/resources/claude-101/">← Back to Claude 101</a>
   <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
 </div>
+</div>
 
+<script>
+(function(){
+  var bar = document.querySelector('.stickytop');
+  if (!bar) return;
+  function sync(){
+    document.documentElement.style.setProperty(
+      '--stickh', Math.round(bar.getBoundingClientRect().height) + 'px');
+  }
+  sync();
+  // Several triggers on purpose: ResizeObserver is the precise one, but it is
+  // delivered on a rendering step and can be throttled in a backgrounded or
+  // hidden view. resize and load cover the breakpoint change and late layout;
+  // fonts.ready covers the webfont swap changing the bar's height.
+  if (window.ResizeObserver) new ResizeObserver(sync).observe(bar);
+  window.addEventListener('resize', sync);
+  window.addEventListener('orientationchange', sync);
+  window.addEventListener('load', sync);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+})();
+</script>
 <div class="scrim" id="scrim"></div>
 
 <div class="shell">
