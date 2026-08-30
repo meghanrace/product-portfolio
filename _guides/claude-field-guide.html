@@ -1,0 +1,808 @@
+<title>Claude 101</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  /* ---------- TOKENS ---------- */
+  :root{
+    --bg:#F6F5F2;--surface:#FFFFFF;--surface-2:#EFEDE7;--inset:#F0EEE8;
+    --ink:#211E1B;--ink-soft:#3C3833;--muted:#75706A;--faint:#9B958C;
+    --line:#E4E0D8;--line-strong:#D6D1C6;
+    --accent:#B5451F;--accent-ink:#8F3213;--accent-soft:rgba(181,69,31,0.09);--accent-line:rgba(181,69,31,0.28);
+    --good:#2E7D5B;--good-soft:rgba(46,125,91,0.10);--bad:#C0442E;--bad-soft:rgba(192,68,46,0.09);
+    --l1:#2E7D5B;--l2:#2B6CB0;--l3:#7A4FB0;
+    --shadow:0 1px 2px rgba(33,30,27,0.04),0 8px 30px rgba(33,30,27,0.06);
+    --shadow-soft:0 1px 2px rgba(33,30,27,0.03);
+    --radius:14px;--radius-sm:9px;--maxread:68ch;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#181715;--surface:#211F1C;--surface-2:#2A2723;--inset:#1E1C19;
+      --ink:#ECE8E1;--ink-soft:#D3CEC5;--muted:#A39D93;--faint:#7C766C;
+      --line:#332F2A;--line-strong:#413C35;
+      --accent:#E8794E;--accent-ink:#F0946E;--accent-soft:rgba(232,121,78,0.13);--accent-line:rgba(232,121,78,0.34);
+      --good:#6FC49A;--good-soft:rgba(111,196,154,0.13);--bad:#E8836B;--bad-soft:rgba(232,131,107,0.13);
+      --l1:#6FC49A;--l2:#78ADE8;--l3:#B692E0;
+      --shadow:0 1px 2px rgba(0,0,0,0.3),0 10px 34px rgba(0,0,0,0.36);--shadow-soft:0 1px 2px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#181715;--surface:#211F1C;--surface-2:#2A2723;--inset:#1E1C19;
+    --ink:#ECE8E1;--ink-soft:#D3CEC5;--muted:#A39D93;--faint:#7C766C;
+    --line:#332F2A;--line-strong:#413C35;
+    --accent:#E8794E;--accent-ink:#F0946E;--accent-soft:rgba(232,121,78,0.13);--accent-line:rgba(232,121,78,0.34);
+    --good:#6FC49A;--good-soft:rgba(111,196,154,0.13);--bad:#E8836B;--bad-soft:rgba(232,131,107,0.13);
+    --l1:#6FC49A;--l2:#78ADE8;--l3:#B692E0;
+    --shadow:0 1px 2px rgba(0,0,0,0.3),0 10px 34px rgba(0,0,0,0.36);--shadow-soft:0 1px 2px rgba(0,0,0,0.25);
+  }
+
+  /* ---------- BASE ---------- */
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:0.001ms!important;transition-duration:0.001ms!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--accent-ink);text-decoration:none}
+  a:hover{text-decoration:underline}
+  ::selection{background:var(--accent-soft)}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.15;text-wrap:balance;color:var(--ink)}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:600;font-size:1.02rem;letter-spacing:-0.01em}
+  .brand .mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;flex:none}
+  .brand small{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:0.66rem;color:var(--faint);letter-spacing:0.02em;text-transform:uppercase}
+  .topbar .spacer{flex:1}
+  .companion{font-size:0.8rem;color:var(--muted);white-space:nowrap}
+  a.companion{text-decoration:none}
+  a.companion:hover{color:var(--accent-ink);text-decoration:underline}
+  @media (max-width:620px){.companion{display:none}}
+  a.pairnav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:26px 0 0;padding:18px 20px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:var(--radius);text-decoration:none}
+  a.pairnav:hover{text-decoration:none;border-color:var(--accent)}
+  .pairnav .pn-label{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
+  .pairnav .pn-title{font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600;color:var(--ink);display:block}
+  .pairnav .pn-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:0.9rem;padding:10px 16px;border-radius:100px;white-space:nowrap}
+  .toc-toggle{display:none;font:inherit;font-size:0.82rem;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .theme-toggle{font:inherit;font-size:0.82rem;display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink-soft);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .theme-toggle:hover{border-color:var(--accent-line)}
+
+  /* ---------- SHELL ---------- */
+  .shell{display:grid;grid-template-columns:288px minmax(0,1fr);gap:clamp(24px,4vw,64px);max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,40px);align-items:start}
+
+  /* ---------- SIDEBAR / TOC ---------- */
+  .sidebar{position:sticky;top:57px;align-self:start;max-height:calc(100vh - 57px);overflow-y:auto;padding:28px 0 40px}
+  .toc-label{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);padding:0 0 10px 14px}
+  nav.toc ol{list-style:none;margin:0;padding:0}
+  nav.toc a{display:flex;gap:11px;align-items:baseline;padding:7px 14px;border-radius:8px;color:var(--muted);font-size:0.9rem;line-height:1.35;border-left:2px solid transparent}
+  nav.toc a .num{font-family:"IBM Plex Mono",monospace;font-size:0.72rem;color:var(--faint);flex:none;width:1.6em}
+  nav.toc a:hover{color:var(--ink);background:var(--surface-2);text-decoration:none}
+  nav.toc a.active{color:var(--accent-ink);background:var(--accent-soft);border-left-color:var(--accent);font-weight:600}
+  nav.toc a.active .num{color:var(--accent)}
+
+  /* ---------- CONTENT ---------- */
+  main{padding:16px 0 120px;min-width:0}
+  .prose{max-width:var(--maxread)}
+  section{scroll-margin-top:74px;padding-top:22px}
+  section+section{margin-top:26px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  h2.sec{font-size:clamp(1.7rem,3.4vw,2.25rem);letter-spacing:-0.015em;margin:0 0 4px}
+  h3{font-size:1.28rem;letter-spacing:-0.01em;margin:34px 0 8px}
+  h4{font-size:1.03rem;font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin:22px 0 6px;letter-spacing:0}
+  p{margin:0 0 15px;color:var(--ink-soft)}
+  .prose ul,.prose ol{margin:0 0 16px;padding-left:1.35em;color:var(--ink-soft)}
+  .prose li{margin:0 0 7px}
+  .mini{font-size:0.88rem;color:var(--muted)}
+  .prose li::marker{color:var(--faint)}
+  strong{color:var(--ink);font-weight:600}
+  hr.rule{border:0;border-top:1px solid var(--line);margin:44px 0}
+  .lead{font-size:1.12rem;color:var(--muted);line-height:1.6}
+  code:not(pre code){font-family:"IBM Plex Mono",monospace;font-size:0.86em;background:var(--inset);border:1px solid var(--line);padding:0.1em 0.4em;border-radius:5px;color:var(--ink)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:52px 0 8px;max-width:var(--maxread)}
+  .hero .kicker{font-family:"IBM Plex Mono",monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .hero h1{font-size:clamp(2.5rem,6vw,3.9rem);line-height:1.02;letter-spacing:-0.03em;margin:0 0 18px;font-weight:600}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero p{font-size:1.2rem;color:var(--muted);line-height:1.55;max-width:56ch}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .stamp{font-family:"IBM Plex Mono",monospace;font-size:0.76rem;color:var(--faint);letter-spacing:0.02em}
+  .levels{display:flex;flex-wrap:wrap;gap:8px}
+  .lv{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;font-weight:500;padding:4px 11px 4px 9px;border-radius:100px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft)}
+  .lv .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .lv.l1 .dot{background:var(--l1)}.lv.l2 .dot{background:var(--l2)}.lv.l3 .dot{background:var(--l3)}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:0.66rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;vertical-align:middle}
+  .badge .dot{width:6px;height:6px;border-radius:50%}
+  .badge.l1{color:var(--l1);background:var(--good-soft)}.badge.l1 .dot{background:var(--l1)}
+  .badge.l2{color:var(--l2);background:rgba(43,108,176,0.1)}.badge.l2 .dot{background:var(--l2)}
+  .badge.l3{color:var(--l3);background:rgba(122,79,176,0.1)}.badge.l3 .dot{background:var(--l3)}
+  .h-badges{display:inline-flex;gap:6px;margin-left:2px;vertical-align:middle}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{display:grid;grid-template-columns:auto 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:15px 18px;margin:20px 0;box-shadow:var(--shadow-soft)}
+  .callout .ico{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);padding-top:3px;white-space:nowrap}
+  .callout p{margin:0;font-size:0.96rem}
+  .callout p+p{margin-top:8px}
+  .callout.tip{border-left-color:var(--good)}.callout.tip .ico{color:var(--good)}
+  .callout.warn{border-left-color:var(--bad)}.callout.warn .ico{color:var(--bad)}
+  .callout.rule{border-left-color:var(--l2)}.callout.rule .ico{color:var(--l2)}
+
+  /* ---------- CODE / FILE BLOCKS ---------- */
+  .code{background:var(--inset);border:1px solid var(--line);border-radius:var(--radius-sm);margin:18px 0;overflow:hidden;box-shadow:var(--shadow-soft)}
+  .code .cap{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:0.72rem;color:var(--muted);padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+  .code .cap .fname{color:var(--accent-ink);font-weight:500}
+  .code pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:0.82rem;line-height:1.62;color:var(--ink-soft)}
+  .code pre .fm{color:var(--faint)}
+  .code pre .key{color:var(--accent-ink)}
+  .code pre .cmt{color:var(--faint);font-style:italic}
+
+  /* ---------- GOOD / BAD PROMPT COMPARE ---------- */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  .pcard{border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .pcard .ph{display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:0.8rem;font-weight:600;border-bottom:1px solid var(--line)}
+  .pcard.bad .ph{color:var(--bad);background:var(--bad-soft)}
+  .pcard.good .ph{color:var(--good);background:var(--good-soft)}
+  .pcard .ph .tag{font-family:"IBM Plex Mono",monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;margin-left:auto;opacity:0.8}
+  .pcard .pq{padding:14px;font-size:0.92rem;line-height:1.55;color:var(--ink);font-style:italic}
+  .pcard .why{padding:0 14px 14px;font-size:0.83rem;color:var(--muted);font-style:normal;line-height:1.5}
+
+  /* ---------- TABLE ---------- */
+  .tablewrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-soft)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:0.9rem}
+  th,td{text-align:left;padding:12px 15px;vertical-align:top;border-bottom:1px solid var(--line)}
+  thead th{background:var(--surface-2);font-weight:600;color:var(--ink);font-size:0.82rem;letter-spacing:0.01em}
+  tbody tr:last-child td{border-bottom:0}
+  td:first-child,th:first-child{color:var(--ink);font-weight:500}
+  td{color:var(--ink-soft)}
+  .tablewrap.tools td:first-child{font-family:"Fraunces",serif;font-size:1rem;font-weight:600;white-space:nowrap}
+
+  /* ---------- STEP LIST ---------- */
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:20px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:2px 0 16px 46px;margin:0;border-left:1px solid var(--line);margin-left:15px}
+  ol.steps>li:last-child{border-left-color:transparent}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-15px;top:-2px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:0.82rem;font-weight:600;background:var(--surface);border:1px solid var(--line-strong);color:var(--accent)}
+  ol.steps>li p{margin:0}
+  ol.steps>li strong{display:block;margin-bottom:2px}
+
+  /* ---------- MODEL CARDS ---------- */
+  .models{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+  .model{border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .model h4{margin:0 0 3px;font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600}
+  .model .tier{font-family:"IBM Plex Mono",monospace;font-size:0.66rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .model p{font-size:0.88rem;margin:0 0 10px;color:var(--muted)}
+  .model .use{font-size:0.83rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:10px}
+  .model .use b{color:var(--ink);font-weight:600}
+
+  /* ---------- MISC ---------- */
+  .footer{max-width:var(--maxread);margin-top:60px;padding-top:26px;border-top:1px solid var(--line);font-size:0.88rem;color:var(--muted)}
+  .anchor-h{scroll-margin-top:74px}
+  .tldr{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;margin:22px 0}
+  .tldr .t{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .tldr p{margin:0;font-size:0.96rem;color:var(--ink-soft)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr}
+    .toc-toggle{display:inline-block}
+    .sidebar{position:fixed;top:0;left:0;bottom:0;width:min(84vw,320px);z-index:60;background:var(--surface);border-right:1px solid var(--line);max-height:100vh;padding:22px 8px;transform:translateX(-102%);transition:transform 0.22s ease;box-shadow:var(--shadow)}
+    .sidebar.open{transform:translateX(0)}
+    .scrim{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:55;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    .scrim.show{opacity:1;pointer-events:auto}
+    .compare,.models{grid-template-columns:1fr}
+    body{font-size:16px}
+  }
+  @media (min-width:901px){.scrim{display:none}}
+</style>
+
+<div class="topbar">
+  <div class="brand"><span class="mark">✳</span><span>Claude 101</span><small>v1.1</small></div>
+  <span class="spacer"></span>
+  <a class="companion" href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener">Next: The Playbook →</a>
+  <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
+  <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><span id="themeIcon">◐</span><span id="themeLabel">Theme</span></button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="toc-label">Contents</div>
+    <nav class="toc" id="toc">
+      <ol>
+        <li><a href="#start"><span class="num">00</span><span>Start here</span></a></li>
+        <li><a href="#how"><span class="num">01</span><span>How Claude actually works</span></a></li>
+        <li><a href="#basics"><span class="num">02</span><span>Getting started: the core habits</span></a></li>
+        <li><a href="#threads"><span class="num">03</span><span>One thread or a new one?</span></a></li>
+        <li><a href="#surfaces"><span class="num">04</span><span>Chat vs. Cowork vs. Code</span></a></li>
+        <li><a href="#projects"><span class="num">05</span><span>Projects</span></a></li>
+        <li><a href="#skills"><span class="num">06</span><span>Skills</span></a></li>
+        <li><a href="#voice"><span class="num">07</span><span>Make Claude sound like you</span></a></li>
+        <li><a href="#connectors"><span class="num">08</span><span>Connectors &amp; MCPs</span></a></li>
+        <li><a href="#models"><span class="num">09</span><span>Choosing a model</span></a></li>
+        <li><a href="#recap"><span class="num">10</span><span>The one-page recap</span></a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <!-- HERO -->
+    <header class="hero" id="start">
+      <div class="kicker">A practical, plain-English handbook</div>
+      <h1>Get genuinely good at working with <em>Claude</em>.</h1>
+      <p>Most people use Claude like a smarter search box. That's the shallow end. This guide walks you from "what even is this" to running your own automated workflows - no computer science degree required.</p>
+      <div class="meta-row">
+        <span class="stamp">Version 1.1 · Updated August 2026</span>
+        <div class="levels">
+          <span class="lv l1"><span class="dot"></span>Level 1 · Everyone</span>
+          <span class="lv l2"><span class="dot"></span>Level 2 · Power user</span>
+          <span class="lv l3"><span class="dot"></span>Level 3 · Technical</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p style="margin-top:34px;color:var(--muted)">Read it top to bottom the first time, then keep it as a reference. Each section is tagged with a level so you can stop wherever your needs stop - <strong>Level 1</strong> is for everyone, <strong>Level 2</strong> is for people who want to get real work off their plate, and <strong>Level 3</strong> involves a little light setup (nothing scary, and we explain every term). When you're ready to put this to work on real tasks, its companion, <a href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener"><em>the Playbook</em></a>, is full of copyable recipes.</p>
+
+      <div class="callout rule">
+        <div class="ico">Why this exists</div>
+        <div><p>The gap between people who find Claude "kind of useful" and people who find it transformative is almost never intelligence or technical skill. It's <strong>knowing which tool to reach for and how to ask.</strong> That's learnable in an afternoon. This is that afternoon.</p></div>
+      </div>
+
+      <hr class="rule">
+
+      <!-- 01 HOW IT WORKS -->
+      <section id="how">
+        <p class="eyebrow">01 - Foundations</p>
+        <h2 class="sec anchor-h">How Claude actually works <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h2>
+        <p class="lead">You don't need to understand the engine to drive the car. But knowing a few things about the engine explains almost every weird thing Claude does - and turns "why did it do that?" into "ah, of course."</p>
+
+        <h3>It predicts, it doesn't look up</h3>
+        <p>Claude is a <strong>large language model (LLM)</strong>. During training it read an enormous amount of text and learned the patterns of how language, ideas, and reasoning fit together. When you ask it something, it isn't retrieving an answer from a database - it's generating a response one piece at a time, each piece chosen because it's the most sensible continuation of everything so far.</p>
+        <p>This one fact explains a lot:</p>
+        <ul>
+          <li><strong>It's brilliant at anything language-shaped</strong> - drafting, summarizing, translating, explaining, reformatting, brainstorming, reasoning through a problem. This is its home turf.</li>
+          <li><strong>It can sound completely confident and still be wrong.</strong> This is called a <em>hallucination</em>. Because it's generating plausible text, a made-up statistic can look exactly as fluent as a real one. Always verify facts, figures, names, quotes, and citations.</li>
+          <li><strong>By default it doesn't know today's news or anything private to you.</strong> Its knowledge stops at a training cutoff date, and it can't see your email, your files, or the live web - <em>unless you give it a way to.</em> That "way" is web search, connectors, and uploads, which we cover later.</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="ico">Mental model</div>
+          <div><p>Think of Claude as an exceptionally well-read, quick-thinking colleague who has been asleep since its training cutoff, can't see your screen, and will earnestly guess rather than say "I don't know" unless you make it safe to do so. Give it context, give it tools, and ask it to flag uncertainty - and it gets dramatically more reliable.</p></div>
+        </div>
+
+        <h3>The context window is its working memory</h3>
+        <p>Everything in your current conversation - your messages, its replies, any files you've attached - sits in what's called the <strong>context window</strong>. Think of it as the desk Claude is working at. It's large, but not infinite. When a conversation gets extremely long, the earliest things can effectively slide off the desk, and Claude may start to lose the thread.</p>
+        <p>The practical takeaway: <strong>a focused conversation beats a sprawling one.</strong> More on when to start fresh in <a href="#threads">section 03</a>.</p>
+
+        <h3>It's a mirror for your input</h3>
+        <p>The single biggest lever you control is the quality and specificity of what you put in. A vague question gets a generic answer; a specific, well-framed request with examples gets something genuinely useful. That's not a limitation - it's the whole skill, and it's the next section.</p>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 02 GETTING STARTED -->
+      <section id="basics">
+        <p class="eyebrow">02 - The essentials</p>
+        <h2 class="sec anchor-h">Getting started: the core habits <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h2>
+        <p class="lead">If you take nothing else from this guide, take these. They're the difference between a party trick and a tool you rely on.</p>
+
+        <h4>1. Give it a role, a goal, and the guardrails</h4>
+        <p>The most reliable prompt formula isn't magic words - it's just telling Claude what you'd tell a capable new hire: <strong>who to be, what you want, and what "good" looks like.</strong></p>
+        <ul>
+          <li><strong>Role / context</strong> - "You're helping me, a marketing manager, prep for a client meeting."</li>
+          <li><strong>The actual task</strong> - "Draft a one-page agenda."</li>
+          <li><strong>Constraints &amp; format</strong> - "Keep it under 200 words, use bullet points, professional but warm tone."</li>
+        </ul>
+
+        <h4>2. Show it an example</h4>
+        <p>If you want output in a particular shape - a certain email style, a table layout, a tone - paste an example of one you like. Claude is exceptional at matching a pattern. One good example is worth a paragraph of description.</p>
+
+        <h4>3. Treat it like a conversation, not a vending machine</h4>
+        <p>The first answer is a draft, not a verdict. Push back: "shorter," "more skeptical," "you missed the budget angle," "rewrite the third paragraph." Iterating in a thread is where the quality actually comes from - most people quit one turn too early.</p>
+
+        <h4>4. Ask it to think, or to ask</h4>
+        <p>For anything complex, two phrases do a lot of work: <em>"Think it through step by step before answering,"</em> and <em>"Ask me any clarifying questions before you start."</em> The second one is a cheat code - it turns a guessing game into a briefing.</p>
+
+        <h3>What good and bad prompts actually look like</h3>
+        <p>Same underlying need. Watch what specificity does.</p>
+
+        <div class="compare">
+          <div class="pcard bad">
+            <div class="ph">Weak prompt<span class="tag">Don't</span></div>
+            <div class="pq">"Write me a marketing email."</div>
+            <div class="why">No audience, no product, no goal, no tone, no length. Claude has to invent all of it, so you get bland filler you'll rewrite from scratch. This is the "hyper-powered Google" trap - you asked a search-box question and got a search-box answer.</div>
+          </div>
+          <div class="pcard good">
+            <div class="ph">Strong prompt<span class="tag">Do</span></div>
+            <div class="pq">"You're my copywriter. Write a 120-word email to existing customers announcing our new mobile app. Goal: get them to download it. Warm, plain, no hype. One clear call-to-action button. Here's a past email whose tone I like: [paste]."</div>
+            <div class="why">Role, audience, length, goal, tone, structure, and an example. Claude now has everything it needs to nail it on the first or second try.</div>
+          </div>
+        </div>
+
+        <div class="callout rule">
+          <div class="ico">The pattern</div>
+          <div><p>You don't need to write a mini-essay every time. The habit is simply: <strong>before you hit enter, ask yourself "have I told it enough that a smart stranger could do this task?"</strong> If not, add the missing piece. That's 90% of prompting.</p></div>
+        </div>
+
+        <h3>Go beyond "answer my question"</h3>
+        <p>The leap from casual to power user is realizing Claude does whole <em>categories</em> of work, not just Q&amp;A. A starter menu:</p>
+        <ul>
+          <li><strong>Transform</strong> - turn a messy transcript into clean meeting notes; a spreadsheet into a summary; a dense report into three bullet points.</li>
+          <li><strong>Draft</strong> - first versions of emails, docs, proposals, job descriptions, tricky replies. Getting to a rough draft is the slow part; Claude erases it.</li>
+          <li><strong>Think with you</strong> - "poke holes in this plan," "argue the opposite side," "what am I not considering?"</li>
+          <li><strong>Learn</strong> - "explain this like I'm smart but new to it," "quiz me on this material," "walk me through this contract clause by clause."</li>
+          <li><strong>Do multi-step work</strong> - with the right setup (later sections), it can pull from your tools and complete a whole task, not just talk about it.</li>
+        </ul>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 03 THREADS -->
+      <section id="threads">
+        <p class="eyebrow">03 - A common question</p>
+        <h2 class="sec anchor-h">One thread or a new one? <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h2>
+        <p class="lead">Almost everyone gets this slightly wrong at first - either cramming a month of unrelated questions into one endless chat, or starting fresh so often they re-explain themselves constantly. Here's the rule.</p>
+
+        <div class="tldr">
+          <div class="t">Rule of thumb</div>
+          <p><strong>Keep the same thread while the topic and context stay the same. Start a new one when the subject genuinely changes.</strong> A thread is a train of thought - keep it on the rails.</p>
+        </div>
+
+        <h4>Stay in the thread when…</h4>
+        <ul>
+          <li>You're iterating on the same piece of work - refining a draft, going deeper on one analysis.</li>
+          <li>The earlier back-and-forth is useful context Claude should keep in mind.</li>
+          <li>You're building something up over several steps.</li>
+        </ul>
+
+        <h4>Start a new thread when…</h4>
+        <ul>
+          <li>You've switched to a completely unrelated task. (Old context becomes clutter - and can even bleed into the new answer.)</li>
+          <li>The conversation has gotten very long and Claude seems to be "forgetting" or drifting. A fresh start with a quick summary often works better than fighting a bloated thread.</li>
+          <li>You want a clean, unbiased take unaffected by everything said above.</li>
+        </ul>
+
+        <h3>Why this works differently in Chat vs. Code</h3>
+        <p>The principle is the same, but the stakes differ, and it's worth knowing why.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>&nbsp;</th><th>In Claude Chat</th><th>In Claude Code</th></tr></thead>
+            <tbody>
+              <tr><td>What a thread holds</td><td>The conversation and any files you attached.</td><td>The conversation <em>plus</em> everything it has read and done in your project - files, commands, results.</td></tr>
+              <tr><td>Cost of a long thread</td><td>Answers may drift; easy to just start over.</td><td>The working memory fills with old file contents and steps, which crowds out room for the current task and can slow it down.</td></tr>
+              <tr><td>When to reset</td><td>New topic, or it's clearly lost the plot.</td><td>Start a fresh session for each distinct task or feature. Between big tasks, resetting keeps it sharp and focused on what's in front of it.</td></tr>
+              <tr><td>Carrying context over</td><td>Paste a short recap into the new chat, or use a Project (section 05).</td><td>It re-reads the actual files, so it re-grounds itself quickly. A brief "here's what we're doing" still helps.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip">
+          <div class="ico">In short</div>
+          <div><p>In <strong>Chat</strong>, a stale thread mostly costs you quality. In <strong>Code</strong>, a stale session also costs you focus and speed, because it's juggling real files and actions. Both reward the same instinct: <strong>one thread per train of thought.</strong></p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 04 SURFACES -->
+      <section id="surfaces">
+        <p class="eyebrow">04 - Know your tools</p>
+        <h2 class="sec anchor-h">Chat vs. Cowork vs. Code <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">These are three different ways to work with the same underlying Claude. Picking the right one for the task is one of the most useful things you'll learn here.</p>
+
+        <div class="tablewrap tools">
+          <table>
+            <thead><tr><th>Surface</th><th>What it is</th><th>Reach for it when…</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Claude Chat</td>
+                <td>The classic conversation - you type, it responds. Available on the web and in the desktop and mobile apps.</td>
+                <td>You want to <strong>think, write, learn, or get a quick answer.</strong> The everyday workhorse. Start here for anything conversational.</td>
+              </tr>
+              <tr>
+                <td>Cowork</td>
+                <td>Claude working as an <strong>agent</strong> - it can take multiple steps on its own, use your connected tools, and complete an actual task, all without you writing any code.</td>
+                <td>You want to <strong>delegate a whole job</strong>, not just have a conversation: "pull this week's numbers from our tools and draft the update," "process these files and file the results." Multi-step work done for you.</td>
+              </tr>
+              <tr>
+                <td>Claude Code</td>
+                <td>A powerful agent that works in <strong>a folder on your computer</strong>. It reads and changes files, runs programs, and remembers how you work. It runs inside the <strong>desktop app</strong>, which looks and feels like Chat, or in your terminal if you prefer that.</td>
+                <td>You want Claude working on <strong>real files that stay on your machine</strong>, with standing instructions it follows every time. The most capable surface, and the only one that keeps your setup between sessions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout rule">
+          <div class="ico">The throughline</div>
+          <div><p>Think of it as a spectrum of <strong>how much you're handing over</strong>. Chat = you drive, Claude advises. Cowork = you delegate, Claude executes across your tools without code. Code = you delegate the most, with the most power and a folder it keeps coming back to. The magic ingredients - <a href="#projects">Projects</a>, <a href="#skills">Skills</a>, and <a href="#connectors">Connectors</a> - make all three better.</p></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">You don't need a codebase</div>
+          <div>
+            <p>Claude Code has a name that scares people off, and the usual description ("runs in your terminal") makes it sound like a developer tool. Both undersell it. You can open Claude Code inside the <strong>desktop app</strong>, where it looks much like Chat, and point it at any ordinary folder: a job search, a budget, a set of meeting notes, a book you're writing.</p>
+            <p>What makes it different from Chat is not that it writes code. It's that it <strong>works in a real folder that persists</strong>. Chat forgets everything when the thread ends. Claude Code opens the same folder tomorrow, reads the notes you left it, and picks up where you stopped. Three things follow from that:</p>
+            <ul>
+              <li><strong>It reads and edits your actual files</strong>, in place. Not "paste the document in, copy the answer out." It opens the spreadsheet, changes the rows, and saves it.</li>
+              <li><strong>Standing instructions stick.</strong> You write down how you work once, in a file it reads every time, and stop re-explaining yourself at the start of every conversation. (That's a <a href="#skills">Skill</a> and a project file, covered in §06.)</li>
+              <li><strong>It handles many steps without supervision.</strong> "Go through these 40 files, pull out every date, and build me one summary" is a single request, not forty.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Desktop app vs. web browser <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h3>
+        <p>Chat and Cowork both run in a web browser <em>and</em> in a downloadable desktop app. Same account, same conversations synced between them - so which should you use?</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>&nbsp;</th><th>Desktop app</th><th>Web browser</th></tr></thead>
+            <tbody>
+              <tr><td>Best for</td><td>Daily, serious use. It feels like a real application - always a click away, its own window, better keyboard shortcuts.</td><td>Quick access, borrowed or locked-down computers, or when you simply don't want to install anything.</td></tr>
+              <tr><td>Working with your stuff</td><td>Integrates more deeply with your computer - easier file access and richer connections to local tools and connectors.</td><td>Great for uploads and cloud connectors; more limited in reaching into your machine.</td></tr>
+              <tr><td>Staying in flow</td><td>Won't get lost in a sea of browser tabs; can stay open and ready in the background.</td><td>Lives with everything else you have open - convenient, but easy to lose.</td></tr>
+              <tr><td>Setup</td><td>A one-time download and sign-in.</td><td>None - just log in.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip">
+          <div class="ico">Recommendation</div>
+          <div><p>If you use Claude on a daily basis or even just a couple times a week, I highly recommend <strong>using the desktop app</strong>, as it has better functionality and is easier to access than having to open a browser tab.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 05 PROJECTS -->
+      <section id="projects">
+        <p class="eyebrow">05 - Stop repeating yourself</p>
+        <h2 class="sec anchor-h">Projects <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">A Project is a dedicated workspace in Claude Chat that remembers your context so you never have to re-explain it. If you find yourself pasting the same background into chat after chat, this is the fix.</p>
+
+        <h3>What a Project actually is</h3>
+        <p>Two things bundled together, shared across every conversation you start inside that Project:</p>
+        <ul>
+          <li><strong>Custom instructions</strong> - standing directions for how Claude should behave here. ("You're my brand's copy assistant. Always use British spelling. Never use exclamation marks. Our tone is dry and understated.")</li>
+          <li><strong>Knowledge / files</strong> - reference material you upload once: style guides, product docs, past examples, a spreadsheet of facts. Claude can draw on all of it in any chat within the Project.</li>
+        </ul>
+
+        <h3>Why they're worth it</h3>
+        <ul>
+          <li><strong>No more re-briefing.</strong> Every chat starts already knowing your context.</li>
+          <li><strong>Consistency.</strong> Outputs stay on-tone and on-brand because the rules live in one place.</li>
+          <li><strong>Organization.</strong> All the chats for one client, initiative, or area of your life live together instead of scattered across your history.</li>
+        </ul>
+
+        <h3>When to create one</h3>
+        <p>Make a Project whenever a topic is <strong>recurring</strong> and carries <strong>reusable context</strong>. Good candidates: a specific client, an ongoing initiative, "my writing," a course you're taking, a product you own. Skip it for genuine one-offs - a normal chat is fine for those.</p>
+
+        <ol class="steps">
+          <li><strong>Create the Project</strong><p>In Claude Chat, create a new Project and give it a clear name.</p></li>
+          <li><strong>Write custom instructions</strong><p>Describe the role, the rules, the tone, and anything Claude should always keep in mind. This is where you encode "how we do things here."</p></li>
+          <li><strong>Add knowledge</strong><p>Upload the reference files and examples Claude should rely on. Add to this over time as you find yourself wishing it "just knew" something.</p></li>
+          <li><strong>Work inside it</strong><p>Start your chats from within the Project. Each one inherits the instructions and knowledge automatically - you just get to work.</p></li>
+        </ol>
+
+        <div class="callout tip">
+          <div class="ico">Try this</div>
+          <div><p>Create one Project called <strong>"My writing"</strong>. In the instructions, describe your voice and paste two or three things you've written that sound like you. From then on, every draft you ask for in that Project comes back already sounding like you - not like a generic AI. (More on this in <a href="#voice">section 07</a>.)</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 06 SKILLS -->
+      <section id="skills">
+        <p class="eyebrow">06 - Teach it once, reuse forever</p>
+        <h2 class="sec anchor-h">Skills <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">A Skill is a saved set of instructions that teaches Claude how to do a specific, repeatable task <em>your</em> way. Where a Project holds context, a Skill holds a <strong>procedure</strong> - and Claude pulls it up automatically when it's relevant.</p>
+
+        <h3>First: what's an "MD file"?</h3>
+        <p>Skills are written in a file format called <strong>Markdown</strong> - the file ends in <code>.md</code>. Don't let the tech-y name put you off. A Markdown file is just a <strong>plain text file with a few simple formatting rules</strong>:</p>
+        <ul>
+          <li><code># Heading</code> makes a heading.</li>
+          <li><code>**bold**</code> makes text bold.</li>
+          <li>A line starting with <code>-</code> makes a bullet point.</li>
+        </ul>
+        <p>That's basically it. You can open, read, and edit an <code>.md</code> file in any text editor - the free Notes-style apps that come with your computer, or a code editor. It's the same plain writing you already do; Markdown is just the lightweight way of marking what's a heading and what's a bullet. Claude reads and writes Markdown fluently, which is why Skills use it.</p>
+
+        <h3>Anatomy of a Skill</h3>
+        <p>A Skill is a Markdown file (conventionally named <code>SKILL.md</code>) with two parts: a short <strong>label</strong> at the very top, then the <strong>instructions</strong> below it.</p>
+        <div class="code">
+          <div class="cap"><span>📄</span><span class="fname">SKILL.md</span></div>
+<pre><span class="fm">---
+</span><span class="key">name</span>: weekly-report
+<span class="key">description</span>: Turn my raw notes into our team's weekly
+  status format. Use when I paste notes and ask for a
+  weekly update.
+<span class="fm">---</span>
+
+<span class="key"># Weekly Report</span>
+
+<span class="cmt">When I give you raw notes, produce an update with:</span>
+
+1. **Shipped** - what got done, one line each
+2. **In progress** - with a status
+3. **Blockers** - what's stuck and who can help
+
+Keep it under 200 words. Plain language, no jargon.</pre>
+        </div>
+        <p>The <strong>label</strong> is the bit between the two rows of dashes. The dashes do nothing clever; they just mark where the label starts and stops. Inside it you write two lines:</p>
+        <ul>
+          <li><strong>name</strong> - what you're calling the skill.</li>
+          <li><strong>description</strong> - a one-line summary of <em>what it does and when to use it.</em> This part matters enormously: it's how Claude decides, on its own, when to reach for this Skill. Write it the way you'd describe the task to a coworker.</li>
+        </ul>
+        <p>Everything below the label is the actual instruction manual - as detailed as you like.</p>
+
+        <p class="mini">If you go looking for more on Skills elsewhere, you'll see this label called <em>frontmatter</em>. Same thing, and you never have to use the word.</p>
+
+        <h4>How to create one with Claude</h4>
+        <p>You've now seen what a Skill looks like, which is useful for reading one. Don't write one by hand. Have Claude write it, and spend your effort on telling it what good looks like.</p>
+
+        <div class="code">
+          <div class="cap"><span>💬</span><span class="fname">Say this, in Chat or in Code</span></div>
+          <div class="pq">"I want to create a skill for [routine task you do], and here's what's important we include in that skill: [fill in details]. Ask me questions to better understand what I want this skill to do."</div>
+        </div>
+
+        <p>That last sentence is the one that does the work. Without it you get a Skill built from whatever Claude assumed. With it, Claude interviews you first, and the questions are usually the ones you'd have forgotten to answer: what format do you want, who reads this, what should it never do, what does a good one look like versus a bad one.</p>
+
+        <ol class="steps">
+          <li><strong>Answer the questions properly</strong><p>This is where the quality comes from. Vague answers make a vague Skill. If you have a past example of the task done well, paste it in.</p></li>
+          <li><strong>Let Claude write the file</strong><p>It produces the whole <code>SKILL.md</code>, label and all. Read it once and check it sounds like how you'd explain the task to a new hire. Anything that reads wrong, say so and have it revise.</p></li>
+          <li><strong>Put it where Claude can reach it</strong><p>Chat and Code each have their own spot for this. Both are covered just below.</p></li>
+          <li><strong>Run it on a real task, then fix it</strong><p>The first version is rarely right. Use it on actual work, tell Claude what was off, and have it update the Skill. A Skill you've corrected three times is worth more than one you wrote perfectly in theory.</p></li>
+        </ol>
+
+        <div class="callout tip">
+          <div class="ico">Already have a process written down</div>
+          <div><p>If the steps live in a doc, an email, or an old checklist, paste it in and say <em>"turn this into a Skill."</em> Starting from something real beats starting from a blank file.</p></div>
+        </div>
+
+        <h3>Using Skills in Chat</h3>
+        <ol class="steps">
+          <li><strong>Upload it</strong><p>In Claude Chat's settings, find the Skills section and add your Skill (or its folder). This makes it available to your conversations.</p></li>
+          <li><strong>Let it fire automatically</strong><p>Because you wrote a good <code>description</code>, Claude recognizes when a task matches and applies the Skill on its own. Paste your notes and say "weekly update," and it follows your recipe.</p></li>
+          <li><strong>Or invoke it directly</strong><p>You can also call a Skill by name to be explicit - for example, many surfaces let you type a slash command like <code>/weekly-report</code>. Either way, Claude runs your saved procedure instead of improvising.</p></li>
+        </ol>
+
+        <h3>Using Skills in Code <span class="h-badges"><span class="badge l3"><span class="dot"></span>L3</span></span></h3>
+        <p>Claude Code uses the same Skills, just stored in a specific place. You put each skill in a folder inside a <code>.claude/skills/</code> directory - either in your project (so it's specific to that project) or in your home folder (so it's available everywhere).</p>
+        <div class="code">
+          <div class="cap"><span class="fname">your-project/.claude/skills/</span></div>
+<pre>.claude/
+  skills/
+    weekly-report/
+      <span class="key">SKILL.md</span>       <span class="cmt"># the skill itself</span>
+    release-notes/
+      <span class="key">SKILL.md</span></pre>
+        </div>
+        <p>Once a Skill lives there, Claude Code discovers it automatically and - just like in Chat - either applies it when the task matches the description, or runs it when you invoke it by name (e.g. <code>/weekly-report</code>). The <code>.claude/skills/</code> folder is the only new idea; the Skill file is identical to the one you'd use in Chat.</p>
+        <div class="callout rule">
+          <div class="ico">The payoff</div>
+          <div><p>Skills are how you stop re-teaching Claude the same task. Write down "how I like this done" <em>once</em>, and every future request - across Chat, Cowork, and Code - follows your standard automatically. This is the moment Claude goes from assistant to teammate.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 07 VOICE -->
+      <section id="voice">
+        <p class="eyebrow">07 - Personalization</p>
+        <h2 class="sec anchor-h">Make Claude sound like you <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">The best part of using Claude over time: it stops feeling generic. You can teach it your voice, your standards, and your preferences <em>once</em> - so you stop re-explaining "keep it brief, non-technical, no em-dashes" every single time.</p>
+
+        <p>Out of the box, Claude writes in a competent but neutral, faintly corporate voice - the "AI voice" everyone can spot. Getting past that isn't about a magic prompt. It's about giving Claude a durable sense of who you are and how you like things, and storing that in the right place.</p>
+
+        <h3>Show, don't tell - the fastest lever</h3>
+        <p>Whatever method you use, the single most effective way to teach your voice is <strong>examples</strong>. Paste two or three things you've actually written and say "match this voice." Claude is far better at copying a real sample than interpreting adjectives like "professional but warm." Even better, turn your samples into reusable rules:</p>
+        <div class="tldr">
+          <div class="t">Try this first</div>
+          <p>Paste 3–5 things you've written and ask: <em>"What are the consistent rules of my style - tone, structure, word choices, things I avoid? Write them as a set of preferences I can save."</em> Now your voice is written down, in Claude's words, ready to store wherever it belongs below.</p>
+        </div>
+
+        <h3>Match the preference to the right home</h3>
+        <p>There are a few places to store "how I like things," and the trick is matching the <em>scope</em> of a preference to the right one. A universal rule shouldn't live inside one Skill; a niche deliverable's format shouldn't clog your global settings.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>If the preference is…</th><th>Store it in…</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>A universal rule for everything you do</td><td><strong>Profile preferences</strong> (settings)</td><td>"Never use em-dashes. Default to plain, non-technical language."</td></tr>
+              <tr><td>A fact about you Claude should just know</td><td><strong>Memory</strong></td><td>"I'm a product manager; my updates go to a non-technical exec audience."</td></tr>
+              <tr><td>The context + rules for one area or client</td><td>A <strong>Project</strong> <span style="white-space:nowrap">(§05)</span></td><td>"For Acme: British spelling, formal tone, here's their brand guide."</td></tr>
+              <tr><td>The exact recipe + voice for one recurring deliverable</td><td>A <strong>Skill</strong> <span style="white-space:nowrap">(§06)</span></td><td>"My exec release recap: ~350 words, no bug fixes, lead with who it impacts."</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>1. Profile preferences - the global baseline <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h4>
+        <p>In Claude's settings there's a place for standing instructions that apply to <em>every</em> conversation. This is home for your always-true rules - tone, formatting, pet peeves. Set "keep it brief, non-technical, no em-dashes" once here and it follows you everywhere, no Project or Skill required. If you do one thing from this section, do this.</p>
+
+        <h4>2. Memory - and its two different flavors</h4>
+        <p>"Memory" means two different things depending on where you're working, and it's worth not mixing them up:</p>
+        <ul>
+          <li><strong>In Claude Chat</strong> (the browser, the mobile app, or the desktop app): Claude can build up a memory of you across conversations, so useful facts and preferences carry forward without you repeating them. You can nudge it directly: <em>"remember that I prefer bullet points over paragraphs."</em> This is the automatic, no-setup kind. (Exactly how it works varies by product and plan, so where you have it, lean on it.)</li>
+          <li><strong>In Claude Code</strong>: memory is a set of plain files you control, not something it learns on its own. Claude Code reads a project memory file and a global one in your home folder every time it starts (often a <code>memory.md</code>, alongside a <code>CLAUDE.md</code> that holds project instructions), so your standing facts and rules are always in front of it. Same goal, but here you write and edit the memory yourself.</li>
+        </ul>
+
+        <h4>3. Projects - personalization scoped to an area</h4>
+        <p>A Project (§05) shapes every chat inside it with its own instructions and knowledge. Perfect when your voice or rules <em>change by context</em> - one client wants formal, another wants breezy, your personal writing is different again.</p>
+
+        <h4>4. Skills - bottle a specific deliverable's voice</h4>
+        <p>When a particular thing you produce has its own exact standard, a Skill (§06) captures not just the steps but the <em>voice and the rules</em>. This is the most precise form of "sound like me," and it travels - you can share the Skill so a whole team's output matches.</p>
+
+        <div class="callout rule">
+          <div class="ico">A real example</div>
+          <div><p>Take a recurring <strong>executive update email</strong>. The preferences that make it <em>yours</em> might be: high-level only (no bug fixes, no technical detail), brief (~350 words), lead with <em>who the change impacts most</em>, written for a non-technical audience, no em-dashes, themed headers, bold lead-in bullets. That's seven specific rules you'd otherwise repeat every month. Captured once as a Skill, you just say <em>"draft the exec recap from these release notes"</em> and it comes back sounding like you wrote it - because, in effect, you did. The rules are yours; Claude just follows them.</p></div>
+        </div>
+
+        <h3>Keep teaching it</h3>
+        <p>Personalization compounds. Every time Claude gets something wrong, don't just fix it in the moment - decide <em>where the correction belongs.</em> A one-off? Just say it. A forever rule? Add it to your profile. Specific to one deliverable? Update the Skill. Treat those corrections as deposits: a little effort now, paid back every future time.</p>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 08 CONNECTORS -->
+      <section id="connectors">
+        <p class="eyebrow">08 - Give Claude hands</p>
+        <h2 class="sec anchor-h">Connectors &amp; MCPs <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">By default Claude can't see your Slack, your email, your files, or your company's data. Connectors change that. They're the bridges that let Claude read from - and sometimes act in - the tools you already use.</p>
+
+        <h3>Connector, MCP - what's the difference?</h3>
+        <p>Mostly just vocabulary. <strong>MCP</strong> (Model Context Protocol) is the open standard - the shared "language" that lets Claude plug into an outside tool. A <strong>connector</strong> is a friendly, ready-made MCP connection you can turn on with a click. So: all connectors are MCPs under the hood; "connector" is just the polished, no-setup version. When someone says "add the Slack MCP," they mean "connect Slack."</p>
+
+        <div class="callout warn">
+          <div class="ico">Before you connect anything</div>
+          <div><p>A connector grants Claude access to real data and sometimes the ability to act (send a message, edit a record). Only connect tools you trust, review the permissions you're granting, and start with read-only access when you can. Treat it like giving a new assistant a key to a system - deliberately.</p></div>
+        </div>
+
+        <h3>Kind 1 - Connectors already in Claude's directory <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span></span></h3>
+        <p>Claude ships with a built-in directory of popular connectors - the likes of Slack, Gmail, Google Drive, Google Calendar, and more. These are the easy ones: no technical setup, just sign in and approve.</p>
+        <ol class="steps">
+          <li><strong>Open the connectors directory</strong><p>In Claude's settings, go to Connectors and browse what's available.</p></li>
+          <li><strong>Pick one and connect</strong><p>Click Connect on, say, Gmail. You'll be taken to a familiar sign-in screen for that service.</p></li>
+          <li><strong>Approve the access</strong><p>The service asks whether to let Claude in, and shows what it'll be able to do. Review it, approve, and you're bounced back to Claude. This standard "sign in and approve" handshake is called <em>OAuth</em> - the same thing that happens when one app asks to use your Google login.</p></li>
+          <li><strong>Use it in conversation</strong><p>Now you can say "search my inbox for the contract from Acme" or "what's on my calendar Thursday?" and Claude actually goes and looks.</p></li>
+        </ol>
+
+        <h3>Kind 2 - Connecting a vendor's own MCP <span class="h-badges"><span class="badge l3"><span class="dot"></span>L3</span></span></h3>
+        <p>Not every tool is in the directory. Many software vendors now offer their <em>own</em> MCP server that you connect to manually. A content-management platform like <strong>Hygraph</strong>, for example, exposes an MCP so Claude can query your CMS data directly. Connecting one is a little more hands-on, but it's the same idea, and it's very doable.</p>
+        <p>You'll typically need two things from the vendor:</p>
+        <ol class="steps">
+          <li><strong>The server address (URL)</strong><p>The vendor publishes an MCP endpoint - a web address, usually in their docs, that looks something like <code>https://api.your-vendor.com/mcp</code>. That's where Claude will connect.</p></li>
+          <li><strong>An access token</strong><p>Because this is <em>your</em> private data, the vendor needs to know it's really you. You generate a token in that tool's settings - often called an <strong>API key</strong> or a <strong>Personal Access Token (PAT)</strong>. Think of it as a long, secret password made specifically for apps to use on your behalf.</p></li>
+          <li><strong>Add a custom connector in Claude</strong><p>In Claude's Connectors settings, choose to add a custom connector, then paste in the server URL and the token where prompted.</p></li>
+          <li><strong>Test it</strong><p>Ask Claude something only that tool would know - "list the last five entries in my CMS." A real answer means you're connected.</p></li>
+        </ol>
+        <div class="callout warn">
+          <div class="ico">Treat that token like a password</div>
+          <div><p>An access token / API key <em>is</em> a credential. Don't paste it into random chats, don't share it, don't commit it into a file that gets shared or backed up publicly. Store it somewhere safe (a password manager is ideal), and if a tool lets you scope a token to read-only or to expire, do it.</p></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Where this gets powerful</div>
+          <div><p>Connectors are what turn Cowork and Code from "smart writer" into "does the actual job." Connect your data sources and task tools, and Claude can pull real numbers, draft from real context, and complete work end to end - the difference between "help me write the update" and "write the update from this week's real data."</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 09 MODELS -->
+      <section id="models">
+        <p class="eyebrow">09 - Right tool, right job</p>
+        <h2 class="sec anchor-h">Choosing a model <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">Claude comes in a few models. They trade off speed and cost against raw capability. The <em>names</em> change as new versions ship - but the <em>tiers</em> have stayed remarkably stable, so learn the tiers and you'll never be lost.</p>
+
+        <div class="models">
+          <div class="model">
+            <h4>Haiku</h4>
+            <div class="tier">Fast &amp; light</div>
+            <p>The quickest and most economical. Handles straightforward tasks with very low latency.</p>
+            <div class="use"><b>Use for:</b> quick questions, simple rewrites, high-volume or repetitive tasks where speed wins.</div>
+          </div>
+          <div class="model">
+            <h4>Sonnet</h4>
+            <div class="tier">The balanced workhorse</div>
+            <p>Strong reasoning at a sensible speed. The sweet spot for the vast majority of real work.</p>
+            <div class="use"><b>Use for:</b> most everyday tasks - drafting, analysis, coding, summarizing. When unsure, start here.</div>
+          </div>
+          <div class="model">
+            <h4>Opus</h4>
+            <div class="tier">Most capable</div>
+            <p>The deepest reasoning and best judgment on genuinely hard, nuanced, or multi-step problems. Slower and more expensive.</p>
+            <div class="use"><b>Use for:</b> complex strategy, thorny analysis, big agentic tasks, anything where quality clearly outweighs speed.</div>
+          </div>
+        </div>
+
+        <div class="callout rule">
+          <div class="ico">The evergreen rule</div>
+          <div><p><strong>Default to the balanced tier (Sonnet). Drop to the fast tier (Haiku) when speed matters more than depth. Reach for the top tier (Opus) when the problem is hard and getting it right matters most.</strong> This logic outlives any specific version number.</p></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Current lineup - as of August 2026</div>
+          <div><p>Model names move fast, so treat this as a snapshot, not gospel: the latest generation is the <strong>Claude 5</strong> family - <strong>Opus 5</strong> (top tier) and <strong>Sonnet 5</strong> (balanced) - alongside <strong>Haiku 4.5</strong> (fast). There are also specialized and newer point-releases beyond these. When in doubt, pick the newest model in the tier you want, and check the model selector for what's current. <em>This is the section most likely to age - update it as new models land.</em></p></div>
+        </div>
+
+        <h4>A few practical notes</h4>
+        <ul>
+          <li><strong>You can switch mid-conversation.</strong> Draft with a fast model, then switch to the top tier for the one hard question.</li>
+          <li><strong>Better prompting often beats a bigger model.</strong> A clear prompt to Sonnet frequently outperforms a lazy prompt to Opus. Section 02 is cheaper than an upgrade.</li>
+          <li><strong>For agents doing long, multi-step work</strong> (Cowork, Code), the top tier's judgment usually pays for itself - a small mistake early can cascade through many steps.</li>
+        </ul>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 10 RECAP -->
+      <section id="recap">
+        <p class="eyebrow">10 - Keep this bit</p>
+        <h2 class="sec anchor-h">The one-page recap</h2>
+        <p class="lead">Everything above, compressed to what you'll actually remember.</p>
+        <ul>
+          <li><strong>It predicts, it doesn't look up.</strong> Great with language, can be confidently wrong, and only knows what you or its tools give it. Verify facts.</li>
+          <li><strong>Specificity is the whole game.</strong> Role + goal + constraints + an example. If a smart stranger couldn't do the task from your prompt, add more.</li>
+          <li><strong>Iterate - don't accept the first draft.</strong> And ask it to think step by step, or to ask <em>you</em> questions first.</li>
+          <li><strong>One thread per train of thought.</strong> New topic → new chat. This matters even more in Code, where sessions carry real work.</li>
+          <li><strong>Pick the right surface.</strong> Chat to think and write · Cowork to delegate multi-step work without code · Code for technical, hands-on power. Install the desktop app if you're using it daily.</li>
+          <li><strong>Projects</strong> save your context so you stop re-explaining. <strong>Skills</strong> save your procedures so you stop re-teaching. <strong>Connectors</strong> give Claude access to your real tools and data.</li>
+          <li><strong>Teach it your voice once.</strong> Global rules (no jargon, no em-dashes) go in your profile preferences; a specific deliverable's style goes in a Skill. Stop re-explaining how you like things.</li>
+          <li><strong>Models:</strong> default to balanced (Sonnet), go fast (Haiku) for speed, go top (Opus) for hard problems.</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="ico">The real takeaway</div>
+          <div><p>There's no single "right" way to use Claude - the point is that there are <em>many</em>. A quick answer, a thinking partner, a tireless drafter, a workflow that runs itself. The people who get the most from it are simply the ones who learned to reach for the right mode at the right moment. Now you're one of them. When you're ready to turn this into real, hands-off workflows, head to the <strong>Playbook</strong>.</p></div>
+        </div>
+
+        <a class="pairnav" href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener">
+          <div>
+            <p class="pn-label">Part 2 of 2 · Put it to work</p>
+            <span class="pn-title">The Claude Playbook</span>
+          </div>
+          <span class="pn-btn">Open the Playbook →</span>
+        </a>
+
+        <div class="footer">
+          <p><strong>Claude 101</strong> - a living document, paired with the Playbook. Because models, features, and product names change, revisit the sections marked as most likely to age (models, connectors) and update the version stamp when you do. Built to be shared: send the link to anyone who's ready to move past treating Claude like a search box.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, icon=document.getElementById('themeIcon'), label=document.getElementById('themeLabel');
+  function apply(t){
+    if(t==='light'||t==='dark'){root.setAttribute('data-theme',t);}else{root.removeAttribute('data-theme');}
+    var dark = t==='dark' || (t!=='light' && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    icon.textContent = dark ? '☀' : '☾';
+    label.textContent = dark ? 'Light' : 'Dark';
+  }
+  var saved;try{saved=localStorage.getItem('cfg-theme');}catch(e){saved=null;}
+  apply(saved||'system');
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var cur;try{cur=localStorage.getItem('cfg-theme');}catch(e){cur=null;}
+    var dark = cur==='dark' || (cur!=='light' && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    try{localStorage.setItem('cfg-theme',next);}catch(e){}
+    apply(next);
+  });
+  var sb=document.getElementById('sidebar'), scrim=document.getElementById('scrim'), tt=document.getElementById('tocToggle');
+  function openToc(){sb.classList.add('open');scrim.classList.add('show');}
+  function closeToc(){sb.classList.remove('open');scrim.classList.remove('show');}
+  tt.addEventListener('click',openToc);
+  scrim.addEventListener('click',closeToc);
+  var links=[].slice.call(document.querySelectorAll('nav.toc a')), map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;a.addEventListener('click',function(){if(window.innerWidth<=900)closeToc();});});
+  var sections=[].slice.call(document.querySelectorAll('main section'));
+  if('IntersectionObserver' in window){
+    var current=null;
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){var id=en.target.id;if(current)current.classList.remove('active');if(map[id]){map[id].classList.add('active');current=map[id];}}
+      });
+    },{rootMargin:'-20% 0px -70% 0px',threshold:0});
+    sections.forEach(function(s){obs.observe(s);});
+  }
+})();
+</script>

@@ -1,0 +1,686 @@
+<title>The Claude Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  /* ---------- TOKENS (shared identity with the Field Guide) ---------- */
+  :root{
+    --bg:#F6F5F2;--surface:#FFFFFF;--surface-2:#EFEDE7;--inset:#F0EEE8;
+    --ink:#211E1B;--ink-soft:#3C3833;--muted:#75706A;--faint:#9B958C;
+    --line:#E4E0D8;--line-strong:#D6D1C6;
+    --accent:#B5451F;--accent-ink:#8F3213;--accent-soft:rgba(181,69,31,0.09);--accent-line:rgba(181,69,31,0.28);
+    --good:#2E7D5B;--good-soft:rgba(46,125,91,0.10);--bad:#C0442E;--bad-soft:rgba(192,68,46,0.09);
+    --l1:#2E7D5B;--l2:#2B6CB0;--l3:#7A4FB0;
+    --shadow:0 1px 2px rgba(33,30,27,0.04),0 8px 30px rgba(33,30,27,0.06);
+    --shadow-soft:0 1px 2px rgba(33,30,27,0.03);
+    --radius:14px;--radius-sm:9px;--maxread:68ch;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#181715;--surface:#211F1C;--surface-2:#2A2723;--inset:#1E1C19;
+      --ink:#ECE8E1;--ink-soft:#D3CEC5;--muted:#A39D93;--faint:#7C766C;
+      --line:#332F2A;--line-strong:#413C35;
+      --accent:#E8794E;--accent-ink:#F0946E;--accent-soft:rgba(232,121,78,0.13);--accent-line:rgba(232,121,78,0.34);
+      --good:#6FC49A;--good-soft:rgba(111,196,154,0.13);--bad:#E8836B;--bad-soft:rgba(232,131,107,0.13);
+      --l1:#6FC49A;--l2:#78ADE8;--l3:#B692E0;
+      --shadow:0 1px 2px rgba(0,0,0,0.3),0 10px 34px rgba(0,0,0,0.36);--shadow-soft:0 1px 2px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#181715;--surface:#211F1C;--surface-2:#2A2723;--inset:#1E1C19;
+    --ink:#ECE8E1;--ink-soft:#D3CEC5;--muted:#A39D93;--faint:#7C766C;
+    --line:#332F2A;--line-strong:#413C35;
+    --accent:#E8794E;--accent-ink:#F0946E;--accent-soft:rgba(232,121,78,0.13);--accent-line:rgba(232,121,78,0.34);
+    --good:#6FC49A;--good-soft:rgba(111,196,154,0.13);--bad:#E8836B;--bad-soft:rgba(232,131,107,0.13);
+    --l1:#6FC49A;--l2:#78ADE8;--l3:#B692E0;
+    --shadow:0 1px 2px rgba(0,0,0,0.3),0 10px 34px rgba(0,0,0,0.36);--shadow-soft:0 1px 2px rgba(0,0,0,0.25);
+  }
+
+  /* ---------- BASE ---------- */
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:0.001ms!important;transition-duration:0.001ms!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--accent-ink);text-decoration:none}
+  a:hover{text-decoration:underline}
+  ::selection{background:var(--accent-soft)}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.15;text-wrap:balance;color:var(--ink)}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:600;font-size:1.02rem;letter-spacing:-0.01em}
+  .brand .mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-size:14px;flex:none}
+  .brand small{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:0.66rem;color:var(--faint);letter-spacing:0.02em;text-transform:uppercase}
+  .topbar .spacer{flex:1}
+  .toc-toggle{display:none;font:inherit;font-size:0.82rem;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .theme-toggle{font:inherit;font-size:0.82rem;display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink-soft);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .theme-toggle:hover{border-color:var(--accent-line)}
+  .companion{font-size:0.8rem;color:var(--muted);white-space:nowrap}
+  a.companion{text-decoration:none}
+  a.companion:hover{color:var(--accent-ink);text-decoration:underline}
+  @media (max-width:620px){.companion{display:none}}
+  a.pairnav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:26px 0 0;padding:18px 20px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:var(--radius);text-decoration:none}
+  a.pairnav:hover{text-decoration:none;border-color:var(--accent)}
+  .pairnav .pn-label{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
+  .pairnav .pn-title{font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600;color:var(--ink);display:block}
+  .pairnav .pn-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:0.9rem;padding:10px 16px;border-radius:100px;white-space:nowrap}
+
+  /* ---------- SHELL ---------- */
+  .shell{display:grid;grid-template-columns:288px minmax(0,1fr);gap:clamp(24px,4vw,64px);max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,40px);align-items:start}
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{position:sticky;top:57px;align-self:start;max-height:calc(100vh - 57px);overflow-y:auto;padding:28px 0 40px}
+  .toc-label{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);padding:0 0 10px 14px}
+  nav.toc ol{list-style:none;margin:0;padding:0}
+  nav.toc a{display:flex;gap:11px;align-items:baseline;padding:7px 14px;border-radius:8px;color:var(--muted);font-size:0.9rem;line-height:1.35;border-left:2px solid transparent}
+  nav.toc a .num{font-family:"IBM Plex Mono",monospace;font-size:0.72rem;color:var(--faint);flex:none;width:1.6em}
+  nav.toc a:hover{color:var(--ink);background:var(--surface-2);text-decoration:none}
+  nav.toc a.active{color:var(--accent-ink);background:var(--accent-soft);border-left-color:var(--accent);font-weight:600}
+  nav.toc a.active .num{color:var(--accent)}
+
+  /* ---------- CONTENT ---------- */
+  main{padding:16px 0 120px;min-width:0}
+  .prose{max-width:var(--maxread)}
+  section{scroll-margin-top:74px;padding-top:22px}
+  section+section{margin-top:26px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  h2.sec{font-size:clamp(1.7rem,3.4vw,2.25rem);letter-spacing:-0.015em;margin:0 0 4px}
+  h3{font-size:1.28rem;letter-spacing:-0.01em;margin:34px 0 8px}
+  h4{font-size:1.03rem;font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin:22px 0 6px;letter-spacing:0}
+  p{margin:0 0 15px;color:var(--ink-soft)}
+  .prose ul,.prose ol{margin:0 0 16px;padding-left:1.35em;color:var(--ink-soft)}
+  .prose li{margin:0 0 7px}
+  .prose li::marker{color:var(--faint)}
+  strong{color:var(--ink);font-weight:600}
+  hr.rule{border:0;border-top:1px solid var(--line);margin:44px 0}
+  .lead{font-size:1.12rem;color:var(--muted);line-height:1.6}
+  code:not(pre code){font-family:"IBM Plex Mono",monospace;font-size:0.86em;background:var(--inset);border:1px solid var(--line);padding:0.1em 0.4em;border-radius:5px;color:var(--ink)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:52px 0 8px;max-width:var(--maxread)}
+  .hero .kicker{font-family:"IBM Plex Mono",monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .hero h1{font-size:clamp(2.4rem,5.6vw,3.7rem);line-height:1.03;letter-spacing:-0.03em;margin:0 0 18px;font-weight:600}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero p{font-size:1.2rem;color:var(--muted);line-height:1.55;max-width:56ch}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .stamp{font-family:"IBM Plex Mono",monospace;font-size:0.76rem;color:var(--faint);letter-spacing:0.02em}
+  .levels{display:flex;flex-wrap:wrap;gap:8px}
+  .lv{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;font-weight:500;padding:4px 11px 4px 9px;border-radius:100px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft)}
+  .lv .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .lv.l1 .dot{background:var(--l1)}.lv.l2 .dot{background:var(--l2)}.lv.l3 .dot{background:var(--l3)}
+
+  /* level badges in headings */
+  .badge{display:inline-flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:0.66rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;vertical-align:middle}
+  .badge .dot{width:6px;height:6px;border-radius:50%}
+  .badge.l1{color:var(--l1);background:var(--good-soft)}.badge.l1 .dot{background:var(--l1)}
+  .badge.l2{color:var(--l2);background:rgba(43,108,176,0.1)}.badge.l2 .dot{background:var(--l2)}
+  .badge.l3{color:var(--l3);background:rgba(122,79,176,0.1)}.badge.l3 .dot{background:var(--l3)}
+  .h-badges{display:inline-flex;gap:6px;margin-left:2px;vertical-align:middle}
+
+  /* ---------- THREE QUESTIONS ---------- */
+  .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 8px}
+  .qcard{border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .qcard .qn{font-family:"IBM Plex Mono",monospace;font-size:0.72rem;color:var(--accent);margin-bottom:10px}
+  .qcard p{margin:0;font-size:0.98rem;font-family:"Fraunces",serif;font-style:italic;color:var(--ink);line-height:1.35}
+  .qcard .ans{margin-top:12px;font-family:"IBM Plex Sans",sans-serif;font-style:normal;font-size:0.82rem;color:var(--muted)}
+  .qcard .ans a{font-weight:600}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{display:grid;grid-template-columns:auto 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:15px 18px;margin:20px 0;box-shadow:var(--shadow-soft)}
+  .callout .ico{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);padding-top:3px;white-space:nowrap}
+  .callout p{margin:0;font-size:0.96rem}
+  .callout p+p{margin-top:8px}
+  .callout.tip{border-left-color:var(--good)}.callout.tip .ico{color:var(--good)}
+  .callout.warn{border-left-color:var(--bad)}.callout.warn .ico{color:var(--bad)}
+  .callout.rule{border-left-color:var(--l2)}.callout.rule .ico{color:var(--l2)}
+
+  /* ---------- LADDER ---------- */
+  .ladder{display:grid;gap:12px;margin:22px 0}
+  .rung{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .rung .lvl{font-family:"IBM Plex Mono",monospace;font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 10px;border-radius:100px;white-space:nowrap;align-self:start;margin-top:2px}
+  .rung.r2 .lvl{background:var(--l2)}.rung.r3 .lvl{background:var(--l3)}
+  .rung h4{margin:0 0 2px;font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600}
+  .rung p{margin:0;font-size:0.93rem;color:var(--muted)}
+  .rung p b{color:var(--ink)}
+
+  /* ---------- WORKFLOW PARTS ---------- */
+  .parts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+  .part{border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .part .pt{font-family:"IBM Plex Mono",monospace;font-size:0.66rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .part h4{margin:0 0 6px;font-family:"Fraunces",serif;font-size:1.12rem;font-weight:600}
+  .part p{margin:0;font-size:0.87rem;color:var(--muted)}
+  .flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px;font-family:"IBM Plex Mono",monospace;font-size:0.8rem;color:var(--muted)}
+  .flow .node{background:var(--surface-2);border:1px solid var(--line-strong);border-radius:100px;padding:5px 13px;color:var(--ink)}
+  .flow .arr{color:var(--accent)}
+
+  /* ---------- RECIPE / STEPS ---------- */
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:20px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:2px 0 16px 46px;margin:0;border-left:1px solid var(--line);margin-left:15px}
+  ol.steps>li:last-child{border-left-color:transparent}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-15px;top:-2px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:0.82rem;font-weight:600;background:var(--surface);border:1px solid var(--line-strong);color:var(--accent)}
+  ol.steps>li p{margin:0}
+  ol.steps>li strong{display:block;margin-bottom:2px}
+
+  /* ---------- "IN THE WILD" REAL EXAMPLE ---------- */
+  .wild{border:1px solid var(--accent-line);border-radius:var(--radius);background:var(--accent-soft);margin:24px 0;overflow:hidden}
+  .wild .wh{display:flex;align-items:center;gap:9px;padding:11px 18px;border-bottom:1px solid var(--accent-line);font-family:"IBM Plex Mono",monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+  .wild .wb{padding:16px 18px}
+  .wild .wtitle{font-family:"Fraunces",serif;font-size:1.2rem;font-weight:600;color:var(--ink);margin:0 0 12px}
+  .wild dl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin:0}
+  .wild dt{font-size:0.74rem;font-family:"IBM Plex Mono",monospace;letter-spacing:0.04em;text-transform:uppercase;color:var(--muted);padding-top:2px;white-space:nowrap}
+  .wild dd{margin:0;font-size:0.93rem;color:var(--ink-soft)}
+  .wild dd b{color:var(--ink);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:0.74rem;background:var(--surface);border:1px solid var(--line-strong);border-radius:6px;padding:3px 9px;color:var(--ink-soft)}
+
+  /* ---------- JOB MENU ---------- */
+  .jobs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:22px 0}
+  .job{border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;background:var(--surface);box-shadow:var(--shadow-soft)}
+  .job h4{margin:0 0 8px;font-family:"Fraunces",serif;font-size:1.1rem;font-weight:600}
+  .job ul{margin:0;padding-left:1.15em;font-size:0.9rem}
+  .job li{margin:0 0 5px;color:var(--ink-soft)}
+
+  /* ---------- PROMPT BLOCK ---------- */
+  .promptbox{background:var(--inset);border:1px solid var(--line);border-radius:var(--radius-sm);margin:18px 0;overflow:hidden;box-shadow:var(--shadow-soft)}
+  .promptbox .cap{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:0.72rem;color:var(--muted);padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+  .promptbox .cap b{color:var(--accent-ink);font-weight:500}
+  .promptbox p{margin:0;padding:14px 16px;font-family:"IBM Plex Mono",monospace;font-size:0.83rem;line-height:1.6;color:var(--ink-soft);white-space:pre-wrap}
+
+  .tldr{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;margin:22px 0}
+  .tldr .t{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .tldr p{margin:0;font-size:0.96rem;color:var(--ink-soft)}
+  .anchor-h{scroll-margin-top:74px}
+  .footer{max-width:var(--maxread);margin-top:60px;padding-top:26px;border-top:1px solid var(--line);font-size:0.88rem;color:var(--muted)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr}
+    .toc-toggle{display:inline-block}
+    .sidebar{position:fixed;top:0;left:0;bottom:0;width:min(84vw,320px);z-index:60;background:var(--surface);border-right:1px solid var(--line);max-height:100vh;padding:22px 8px;transform:translateX(-102%);transition:transform 0.22s ease;box-shadow:var(--shadow)}
+    .sidebar.open{transform:translateX(0)}
+    .scrim{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:55;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    .scrim.show{opacity:1;pointer-events:auto}
+    .qgrid,.parts,.jobs{grid-template-columns:1fr}
+    body{font-size:16px}
+  }
+  @media (min-width:901px){.scrim{display:none}}
+</style>
+
+<div class="topbar">
+  <div class="brand"><span class="mark">▶</span><span>The Claude Playbook</span><small>v1.0</small></div>
+  <span class="spacer"></span>
+  <a class="companion" href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f" target="_blank" rel="noopener">← Back to Claude 101</a>
+  <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
+  <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><span id="themeIcon">◐</span><span id="themeLabel">Theme</span></button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="toc-label">Contents</div>
+    <nav class="toc" id="toc">
+      <ol>
+        <li><a href="#start"><span class="num">00</span><span>Start here</span></a></li>
+        <li><a href="#mindset"><span class="num">01</span><span>Ask → Delegate → Automate</span></a></li>
+        <li><a href="#anatomy"><span class="num">02</span><span>How a real workflow is built</span></a></li>
+        <li><a href="#chore"><span class="num">03</span><span>Recipe: automate a chore</span></a></li>
+        <li><a href="#report"><span class="num">04</span><span>Recipe: a report from many tools</span></a></li>
+        <li><a href="#template"><span class="num">05</span><span>Recipe: a standardized deliverable</span></a></li>
+        <li><a href="#routine"><span class="num">06</span><span>Routine tasks: a starter menu</span></a></li>
+        <li><a href="#todo"><span class="num">07</span><span>Managing your to-do list</span></a></li>
+        <li><a href="#build"><span class="num">08</span><span>Build your own, in 5 steps</span></a></li>
+        <li><a href="#recap"><span class="num">09</span><span>Recap</span></a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="hero" id="start">
+      <div class="kicker">Real recipes · a companion to the Field Guide</div>
+      <h1>Now put Claude to <em>work</em>.</h1>
+      <p><a href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f" target="_blank" rel="noopener">Claude 101</a> covered what Claude is and how to use it. This one answers the question people actually ask: <em>"okay, but what do I do with it?"</em> - with real, working examples you can copy.</p>
+      <div class="meta-row">
+        <span class="stamp">Version 1.0 · Updated August 2026</span>
+        <div class="levels">
+          <span class="lv l1"><span class="dot"></span>L1 · Everyone</span>
+          <span class="lv l2"><span class="dot"></span>L2 · Power user</span>
+          <span class="lv l3"><span class="dot"></span>L3 · Technical</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p style="margin-top:34px;color:var(--muted)">These are the three questions I get asked most. The whole guide is organized around answering them - jump to whichever is yours.</p>
+
+      <div class="qgrid">
+        <div class="qcard">
+          <div class="qn">Q1</div>
+          <p>"How do I use this to be more efficient at my job?"</p>
+          <div class="ans">Start with <a href="#mindset">the mindset</a>, then steal a <a href="#chore">recipe</a>.</div>
+        </div>
+        <div class="qcard">
+          <div class="qn">Q2</div>
+          <p>"How do I use this for routine tasks?"</p>
+          <div class="ans">The <a href="#routine">starter menu</a> - find your job, grab a quick win.</div>
+        </div>
+        <div class="qcard">
+          <div class="qn">Q3</div>
+          <p>"How do I use this to manage my to-do list?"</p>
+          <div class="ans">A concrete daily pattern in <a href="#todo">section 07</a>.</div>
+        </div>
+      </div>
+
+      <div class="callout rule">
+        <div class="ico">The big shift</div>
+        <div><p>Efficiency doesn't come from typing faster questions. It comes from a mindset change: <strong>stop thinking "chatbot," start thinking "delegate."</strong> The most valuable things Claude does aren't answers - they're <em>tasks taken off your plate</em>. Everything here is built to move you in that direction.</p></div>
+      </div>
+
+      <hr class="rule">
+
+      <!-- 01 MINDSET -->
+      <section id="mindset">
+        <p class="eyebrow">01 - The efficiency mindset</p>
+        <h2 class="sec anchor-h">Ask → Delegate → Automate <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h2>
+        <p class="lead">There are three levels of payoff, and most people never leave the first. The gains compound as you climb, and you don't need to be technical to reach the top rung, just deliberate.</p>
+
+        <div class="ladder">
+          <div class="rung r1">
+            <span class="lvl">Level 1</span>
+            <div>
+              <h4>Ask</h4>
+              <p>You have a question or a small task; Claude answers. Useful, but you're still doing all the driving. <b>This is where "efficiency" is smallest</b> - you saved a search, maybe a first draft.</p>
+            </div>
+          </div>
+          <div class="rung r2">
+            <span class="lvl">Level 2</span>
+            <div>
+              <h4>Delegate</h4>
+              <p>You hand over a <b>whole task</b>, with the context and tools to finish it: "read these five documents and give me the three risks," "pull this month's numbers and draft the summary." Claude does multi-step work; you review. <b>This is where real time comes back.</b></p>
+            </div>
+          </div>
+          <div class="rung r3">
+            <span class="lvl">Level 3</span>
+            <div>
+              <h4>Automate</h4>
+              <p>You delegate a task <b>once</b>, then it runs itself on a schedule - no prompt required. The report writes itself every Friday; the notes get filed every morning. <b>This is where the work disappears entirely.</b></p>
+            </div>
+          </div>
+        </div>
+
+        <p>The three recipes in this guide are one of each of the higher rungs. But they all rest on the same three building blocks - so let's demystify those first.</p>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 02 ANATOMY -->
+      <section id="anatomy">
+        <p class="eyebrow">02 - The building blocks</p>
+        <h2 class="sec anchor-h">How a real workflow is built <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">Every "wow, it just did that for me" workflow is the same three pieces clicked together. Once you see the pattern, you can build your own version of anything in this guide.</p>
+
+        <div class="parts">
+          <div class="part">
+            <div class="pt">The recipe</div>
+            <h4>A Skill</h4>
+            <p>Your written instructions for a task - "here's how I do this, and what good looks like." Teach it once; reuse it forever. <em>(<a href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f#skills" target="_blank" rel="noopener">Claude 101, §06</a>.)</em></p>
+          </div>
+          <div class="part">
+            <div class="pt">The hands</div>
+            <h4>Connectors</h4>
+            <p>The bridges to your real tools and data - your email, calendar, chat, docs, databases. They let Claude read from and act in the apps you already use. <em>(<a href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f#connectors" target="_blank" rel="noopener">Claude 101, §08</a>.)</em></p>
+          </div>
+          <div class="part">
+            <div class="pt">The clock</div>
+            <h4>A Scheduled Task</h4>
+            <p>In <strong>Cowork</strong>, you can save a task and put it on a schedule. Claude then runs the whole thing on its own - unattended, on the cadence you set.</p>
+          </div>
+        </div>
+
+        <p>Put together, they read like a sentence: <strong>run this skill, using these connectors, on this schedule.</strong></p>
+
+        <div class="flow">
+          <span class="node">Skill</span><span class="arr">+</span>
+          <span class="node">Connectors</span><span class="arr">+</span>
+          <span class="node">Schedule</span><span class="arr">→</span>
+          <span class="node">work that does itself</span>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">About Cowork &amp; scheduling</div>
+          <div><p>A <strong>Scheduled Task</strong> runs in the cloud, unattended - nobody is watching, and nobody can answer a mid-run question. That shapes what's a good fit: tasks with a clear, repeatable recipe and a definite "done." Anything needing your judgment mid-way is better run <em>on demand</em> (you kick it off, then review). Both are delegation; only one runs while you sleep.</p></div>
+        </div>
+
+        <div class="callout warn">
+          <div class="ico">Two habits that make automations safe</div>
+          <div><p><strong>Draft, don't send.</strong> For anything that leaves your hands - an email, a posted message - have the workflow produce a draft and stop, so you approve before it goes out. <strong>And check before writing.</strong> A task that creates records should confirm the item doesn't already exist first, or you'll wake up to duplicates. Both of these are choices you write into the skill.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 03 RECIPE: CHORE -->
+      <section id="chore">
+        <p class="eyebrow">03 - Recipe · automate</p>
+        <h2 class="sec anchor-h">Automate a recurring chore <span class="h-badges"><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">The pattern: a boring, repeatable job that moves information from one place to another on a fixed rhythm. Pull from source → transform → file it in the destination. Perfect for a Scheduled Task, because there's a clear recipe and a clear "done."</p>
+
+        <h4>The recipe</h4>
+        <ol class="steps">
+          <li><strong>Name the trigger and the two ends</strong><p>What kicks it off (a schedule - "every morning"), where the raw material lives (the <em>source</em>), and where the finished thing goes (the <em>destination</em>).</p></li>
+          <li><strong>Connect both ends</strong><p>Add a connector for the source and one for the destination, so Claude can read one and write the other.</p></li>
+          <li><strong>Write the transform as a skill</strong><p>Spell out exactly how raw input becomes finished output - the format, the length, the rules. Include the edge cases (see the guardrails below).</p></li>
+          <li><strong>Build in the safety checks</strong><p>Tell it to skip anything already handled (no duplicates) and to fix the predictable mistakes (e.g. mis-heard names).</p></li>
+          <li><strong>Run it by hand, then schedule it</strong><p>Trigger it manually a few times, tune the instructions until the output is right, then set it loose as a Cowork Scheduled Task.</p></li>
+        </ol>
+
+        <div class="wild">
+          <div class="wh"><span>▶</span> In the wild - a real one I built</div>
+          <div class="wb">
+            <p class="wtitle">The meeting-notes bot</p>
+            <dl>
+              <dt>What it does</dt><dd>Every morning it finds yesterday's call recordings, writes a clean, skimmable summary of each meeting, and files it in the right place in our team wiki - before I'm even online.</dd>
+              <dt>Connects</dt><dd><span class="chips"><span class="chip">Zoom → source</span><span class="chip">Confluence → destination</span></span></dd>
+              <dt>How it runs</dt><dd>As a <b>Cowork Scheduled Task</b>, fully unattended. I read the finished notes with my coffee; I never touch it.</dd>
+              <dt>The clever bits</dt><dd>It <b>checks the wiki first</b> so it never posts a duplicate; it <b>corrects speaker names</b> the transcription mis-hears; and it <b>routes each meeting type</b> (stand-up, all-hands, interview) to its correct folder and format.</dd>
+              <dt>Why it works unattended</dt><dd>The recipe is airtight and the "done" is obvious. There's no judgment call that needs me mid-run - exactly what makes a task safe to schedule.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Make it yours</div>
+          <div><p>The same shape fits a hundred chores: a weekly digest of a busy channel, an inbox that gets triaged and labeled each morning, form responses that get sorted into a tracker, new files that get renamed and filed. If it's "every [cadence], take X from here and put a tidied version there," it's this recipe.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 04 RECIPE: REPORT -->
+      <section id="report">
+        <p class="eyebrow">04 - Recipe · delegate</p>
+        <h2 class="sec anchor-h">A report pulled from many tools <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">The pattern: a status update, digest, or brief whose ingredients are scattered across several systems. The value isn't gathering - it's <em>curating</em>: pulling from everywhere, then ruthlessly cutting to what the reader cares about, in your voice.</p>
+
+        <h4>The recipe</h4>
+        <ol class="steps">
+          <li><strong>List every place the news lives</strong><p>Where does the raw material for this report actually come from? Usually more places than you'd guess - a tracker, a wiki, email, chat.</p></li>
+          <li><strong>Connect them all</strong><p>Add a connector for each source so one pass can read across all of them.</p></li>
+          <li><strong>Write the skill: gather, then cut</strong><p>The instructions do two jobs - (a) pull from each source over a set window, and (b) <em>curate hard</em>: merge duplicates, roll small items into themes, keep only what matters. Give it your format and an example in your voice.</p></li>
+          <li><strong>Make it draft-only</strong><p>Because this goes to a real person, have it produce a draft and stop. You do the final read and send.</p></li>
+          <li><strong>Run it on demand</strong><p>This one usually wants your judgment on the final cut, so trigger it yourself (e.g. every Friday) rather than fully scheduling it.</p></li>
+        </ol>
+
+        <div class="wild">
+          <div class="wh"><span>▶</span> In the wild - a real one I built</div>
+          <div class="wb">
+            <p class="wtitle">The weekly update to my manager</p>
+            <dl>
+              <dt>What it does</dt><dd>Once a week it assembles "here's what my team shipped," drafted in my voice as a short message - 3 to 5 tight bullets, each pairing <b>what shipped</b> with <b>why it matters</b>. I review and send.</dd>
+              <dt>Connects</dt><dd><span class="chips"><span class="chip">Jira</span><span class="chip">Confluence</span><span class="chip">Outlook</span><span class="chip">Slack</span></span> - four sources, read in one pass.</dd>
+              <dt>How it runs</dt><dd>On demand. It drafts the message and <b>stops - it never sends on my behalf.</b> That guardrail is written right into the skill.</dd>
+              <dt>The clever bits</dt><dd>It <b>curates ruthlessly</b>: the same win shows up in the tracker <em>and</em> a wiki page <em>and</em> a chat post - it merges those into one line. A dozen small fixes become a single bullet. It keeps only what a director cares about and drops the rest.</dd>
+              <dt>Why not schedule it?</dt><dd>The final trim needs my judgment (I know what a peer is already reporting), so this stays a delegate-and-review task, not a set-and-forget one.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Make it yours</div>
+          <div><p>Any recurring "pull-together" fits: a Monday priorities brief from your calendar and inbox, a client status from your project tools, a competitor-news digest, a monthly metrics recap. The skill is where you bottle <em>your</em> taste - what to include, what to cut, how it should sound.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 05 RECIPE: TEMPLATE -->
+      <section id="template">
+        <p class="eyebrow">05 - Recipe · standardize</p>
+        <h2 class="sec anchor-h">A standardized deliverable, every time <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">The pattern: something you produce over and over that has to follow a specific structure - a ticket, a brief, a case note, a PRD, a job post. The win is consistency without re-explaining the format each time, and without the blank-page tax.</p>
+
+        <h4>The recipe</h4>
+        <ol class="steps">
+          <li><strong>Capture the standard once</strong><p>Write down the exact structure, rules, and an example of a great one. This becomes the skill - the single source of truth for "how we do these."</p></li>
+          <li><strong>Have it interview you</strong><p>Instead of a giant form, the skill asks only for what's missing, a couple of questions at a time, and marks genuine gaps rather than inventing content.</p></li>
+          <li><strong>Choose the output</strong><p>Hand back something ready to paste, or - if a connector is set up - have it create the item directly in the destination tool.</p></li>
+          <li><strong>Share the skill with your team</strong><p>Now everyone's output matches, and nobody has to memorize the template. The standard lives in one place and travels.</p></li>
+        </ol>
+
+        <div class="wild">
+          <div class="wh"><span>▶</span> In the wild - a real one I built</div>
+          <div class="wb">
+            <p class="wtitle">The ticket writer</p>
+            <dl>
+              <dt>What it does</dt><dd>Turns a rough description of a bug or feature into a properly structured ticket that matches our team's exact house style - background, acceptance criteria, ownership, the lot.</dd>
+              <dt>Connects</dt><dd><span class="chips"><span class="chip">Jira → optional</span></span> It can post the ticket straight into our tracker, or just hand me clean formatted text to paste.</dd>
+              <dt>How it runs</dt><dd>On demand, as a skill I invoke. It <b>reads our ticket guidelines first</b>, then <b>interviews me</b> for only the details it doesn't already have.</dd>
+              <dt>The clever bits</dt><dd>Consistency, for free. Every ticket now follows the same structure with testable acceptance criteria - and I never re-explain the format. It fills genuine gaps with a "TBD" marker instead of making things up.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Voice, not just structure</div>
+          <div><p>A skill captures your <em>voice</em>, not only a format. The same technique that standardizes a ticket can bottle the exact tone and rules of, say, your executive update - brief, non-technical, no em-dashes, lead with who it impacts most. See <a href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f#voice" target="_blank" rel="noopener"><strong>Claude 101, §07 - Make Claude sound like you</strong></a>.</p></div>
+        </div>
+
+        <div class="callout rule">
+          <div class="ico">Why this one's the easy on-ramp</div>
+          <div><p>No scheduling, no unattended run, minimal setup - just a written standard and an interview. If you're new to skills, <strong>build this kind first.</strong> Pick the document you produce most often, hand Claude a great example, and say "help me turn this into a skill." You'll have a reusable template-filler in twenty minutes.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 06 ROUTINE TASKS -->
+      <section id="routine">
+        <p class="eyebrow">06 - Quick wins</p>
+        <h2 class="sec anchor-h">Routine tasks: a starter menu <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h2>
+        <p class="lead">You don't need a skill or a connector to start. Here's the everyday stuff Claude handles well, whatever your job. Find your area, try one this week, and notice how much of your day is actually these.</p>
+
+        <div class="jobs">
+          <div class="job">
+            <h4>Email &amp; communication</h4>
+            <ul>
+              <li>Draft a reply from a few bullet points</li>
+              <li>Summarize a long thread into "what's being asked of me"</li>
+              <li>Soften or sharpen the tone of a tricky message</li>
+              <li>Turn a rambling update into three clear sentences</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h4>Meetings</h4>
+            <ul>
+              <li>Turn messy notes into decisions + action items</li>
+              <li>Draft an agenda from the goal of the meeting</li>
+              <li>Write the follow-up email before you forget</li>
+              <li>Prep questions for a 1:1 or a review</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h4>Writing &amp; documents</h4>
+            <ul>
+              <li>First draft of anything - proposal, post, policy</li>
+              <li>Tighten, restructure, or cut a doc to length</li>
+              <li>Rewrite for a specific audience or reading level</li>
+              <li>Generate an outline you fill in yourself</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h4>Data &amp; spreadsheets</h4>
+            <ul>
+              <li>Summarize what a sheet of numbers is telling you</li>
+              <li>Write or explain a formula in plain English</li>
+              <li>Clean up messy, inconsistent data</li>
+              <li>Spot trends or outliers worth a closer look</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h4>Research &amp; decisions</h4>
+            <ul>
+              <li>Compare options in a clear pros/cons table</li>
+              <li>"Poke holes in this plan" before you commit</li>
+              <li>Brief yourself on an unfamiliar topic, fast</li>
+              <li>Argue the opposite side to test your thinking</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h4>Planning &amp; project work</h4>
+            <ul>
+              <li>Break a big goal into concrete steps</li>
+              <li>Draft a project plan or timeline</li>
+              <li>Turn a request into a scoped task list</li>
+              <li>Draft status updates from your raw notes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">The upgrade path</div>
+          <div><p>Notice which of these you do <em>every week the same way.</em> That one is your first candidate to promote from a one-off chat into a reusable <a href="#build">skill</a>. Routine → recipe is the whole move.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 07 TO-DO LIST -->
+      <section id="todo">
+        <p class="eyebrow">07 - Your daily driver</p>
+        <h2 class="sec anchor-h">Managing your to-do list <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">A to-do list isn't really a memory problem - it's a <em>prioritization and momentum</em> problem. That's exactly where Claude helps. Three moves cover most of it.</p>
+
+        <h4>1. The morning triage</h4>
+        <p>Paste your running list and let Claude turn a wall of tasks into a plan: what to do first, what's actually urgent vs. just loud, and what to ignore today. It's the "where do I even start" fog, lifted in one message.</p>
+
+        <h4>2. The weekly brain-dump</h4>
+        <p>Once a week, dump <em>everything</em> on your mind - no structure. Ask Claude to sort it into <strong>Today / This week / Later / Delegate / Drop.</strong> Getting it out of your head and into buckets is most of the relief.</p>
+
+        <h4>3. The "unstick me" move</h4>
+        <p>For the task you keep sliding to tomorrow, the problem is usually that it's too big to start. Ask for <em>just the first ten-minute action</em>. Claude is very good at shrinking a dreaded task down to a first step you'll actually take.</p>
+
+        <div class="promptbox">
+          <div class="cap"><b>Copy-paste starter</b> · morning triage</div>
+          <p>Here's my to-do list. Act as my chief of staff.
+1. Group these into Today, This week, and Later.
+2. For Today, put them in the order I should tackle them and say why.
+3. Flag anything that's really a 2-minute task I should just knock out.
+4. Pick the one I'm most likely avoiding and give me its first 10-minute step.
+
+[paste your list]</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">Level up</div>
+          <div><p>Two ways to make this stick: keep a <strong>Project</strong> (<a href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f#projects" target="_blank" rel="noopener">Claude 101 §05</a>) that holds your role, goals, and what "high impact" means for you - so every triage is done with your context, not generic advice. Or, if your tasks live in a task app with a connector, let Claude <strong>read and update the list directly</strong> instead of pasting. At that point your to-do list starts managing itself.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 08 BUILD YOUR OWN -->
+      <section id="build">
+        <p class="eyebrow">08 - Your turn</p>
+        <h2 class="sec anchor-h">Build your own, in 5 steps <span class="h-badges"><span class="badge l2"><span class="dot"></span>L2</span><span class="badge l3"><span class="dot"></span>L3</span></span></h2>
+        <p class="lead">Every recipe here started as "ugh, I do this again every week." That complaint is the raw material. Here's how to turn it into a workflow - you don't write code, you write instructions.</p>
+
+        <ol class="steps">
+          <li><strong>Notice the repeat</strong><p>Watch for anything you do on a rhythm, or the same way each time. Recurring + predictable = automatable. Keep a note for a week; you'll be surprised how many there are.</p></li>
+          <li><strong>Describe how you do it</strong><p>In plain language, like you're training a new hire: the steps, the rules, what "good" looks like, and the edge cases that trip people up. This description <em>is</em> the skill.</p></li>
+          <li><strong>Connect the tools it touches</strong><p>Identify where the inputs come from and where the output goes, and turn on those connectors.</p></li>
+          <li><strong>Run it by hand and refine</strong><p>Do it with Claude a few times. Each time the output isn't quite right, add a line to the instructions. This tuning is the actual work - and it's just editing text.</p></li>
+          <li><strong>Decide: on demand or on autopilot</strong><p>If it needs your judgment mid-way, keep triggering it yourself. If it's a clean, unattended-safe recipe, put it on a schedule in Cowork and let it run.</p></li>
+        </ol>
+
+        <div class="promptbox">
+          <div class="cap"><b>Copy-paste starter</b> · turn a chore into a skill</div>
+          <p>Help me turn something I do repeatedly into a reusable Claude skill.
+
+Here's the task: [describe what you do]
+It uses these tools: [where the info comes from / goes]
+Good output looks like: [paste an example, or describe it]
+The rules and edge cases: [anything that must always be true]
+
+Ask me any clarifying questions first, then write the skill for me.</p>
+        </div>
+
+        <div class="callout rule">
+          <div class="ico">You already know how</div>
+          <div><p>Notice that not one of those steps was "learn to code." Building a workflow is describing your own job clearly - a thing you're already an expert at. The technical-looking part (skills, connectors, schedules) is just where you put that description. Start with the <a href="#template">standardized-deliverable recipe</a>; it's the gentlest first build.</p></div>
+        </div>
+      </section>
+
+      <hr class="rule">
+
+      <!-- 09 RECAP -->
+      <section id="recap">
+        <p class="eyebrow">09 - Keep this bit</p>
+        <h2 class="sec anchor-h">Recap</h2>
+        <ul>
+          <li><strong>Delegate, don't just ask.</strong> The efficiency is in handing over whole tasks, not typing better questions. Climb the ladder: Ask → Delegate → Automate.</li>
+          <li><strong>Every workflow is three blocks:</strong> a <em>Skill</em> (the recipe) + <em>Connectors</em> (the hands) + a <em>Scheduled Task</em> (the clock, in Cowork).</li>
+          <li><strong>Three recipes to steal:</strong> automate a recurring chore (source → transform → destination, on a schedule) · draft a report pulled from many tools (gather then curate, draft-only) · standardize a deliverable (capture the format once, let it interview you).</li>
+          <li><strong>Two safety habits:</strong> draft-don't-send for anything outbound, and check-before-you-write to avoid duplicates.</li>
+          <li><strong>For routine work,</strong> start today with the starter menu - no setup needed. Promote your most-repeated task into a skill.</li>
+          <li><strong>For your to-do list,</strong> use Claude to prioritize and to unstick - triage in the morning, brain-dump weekly, ask for the first 10-minute step.</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="ico">The takeaway</div>
+          <div><p>You don't have to build a robot army on day one. Pick the <em>one</em> task that annoys you most this week and delegate it. Then the next. Efficiency with Claude isn't a big leap - it's a habit of noticing "I shouldn't be the one doing this by hand," and doing something about it.</p></div>
+        </div>
+
+        <a class="pairnav" href="https://claude.ai/code/artifact/56cbcaf5-f3ae-492f-9574-c15953fe5f7f" target="_blank" rel="noopener">
+          <div>
+            <p class="pn-label">Need the fundamentals?</p>
+            <span class="pn-title">← Back to Claude 101</span>
+          </div>
+          <span class="pn-btn">Open Claude 101 →</span>
+        </a>
+
+        <div class="footer">
+          <p><strong>The Claude Playbook</strong> - a living companion to Claude 101. The recipes are tool-agnostic on purpose: the real examples happen to use Zoom, Jira, Confluence, Outlook, and Slack, but the shapes fit whatever tools you use. Revisit and add your own recipes as you build them.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, icon=document.getElementById('themeIcon'), label=document.getElementById('themeLabel');
+  function apply(t){
+    if(t==='light'||t==='dark'){root.setAttribute('data-theme',t);}else{root.removeAttribute('data-theme');}
+    var dark = t==='dark' || (t!=='light' && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    icon.textContent = dark ? '☀' : '☾';
+    label.textContent = dark ? 'Light' : 'Dark';
+  }
+  var saved;try{saved=localStorage.getItem('cfg-theme');}catch(e){saved=null;}
+  apply(saved||'system');
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var cur;try{cur=localStorage.getItem('cfg-theme');}catch(e){cur=null;}
+    var dark = cur==='dark' || (cur!=='light' && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    try{localStorage.setItem('cfg-theme',next);}catch(e){}
+    apply(next);
+  });
+  var sb=document.getElementById('sidebar'), scrim=document.getElementById('scrim'), tt=document.getElementById('tocToggle');
+  function openToc(){sb.classList.add('open');scrim.classList.add('show');}
+  function closeToc(){sb.classList.remove('open');scrim.classList.remove('show');}
+  tt.addEventListener('click',openToc);
+  scrim.addEventListener('click',closeToc);
+  var links=[].slice.call(document.querySelectorAll('nav.toc a')), map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;a.addEventListener('click',function(){if(window.innerWidth<=900)closeToc();});});
+  var sections=[].slice.call(document.querySelectorAll('main section'));
+  if('IntersectionObserver' in window){
+    var current=null;
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){var id=en.target.id;if(current)current.classList.remove('active');if(map[id]){map[id].classList.add('active');current=map[id];}}
+      });
+    },{rootMargin:'-20% 0px -70% 0px',threshold:0});
+    sections.forEach(function(s){obs.observe(s);});
+  }
+})();
+</script>
