@@ -6,21 +6,35 @@ Personal portfolio site for Meghan Race, PM at Exclusive Resorts. Static HTML/CS
 
 ## Site map
 
-| File | Page | Purpose |
-|------|------|---------|
-| `index.html` | Home | Hero, about, stats strip |
-| `work.html` | Work index | Case study index + portal screenshot |
-| `claude.html` | Claude | How I use Claude Code day-to-day |
-| `art.html` | Art | Mural sections + oil paintings gallery |
-| `connect.html` | Connect | Contact page |
-| `work/grocery-redesign.html` | Case 01 | Grocery ordering redesign |
-| `work/post-trip-survey.html` | Case 02 | Post-trip survey platform |
-| `work/clubhouse.html` | Case 03 | The Clubhouse |
-| `work/destination-page.html` | Case 04 | Destination page reimagined |
-| `work/destination-browse.html` | Case 05 | Destination Browse |
-| `resources/cowork-for-pms.html` | Resource | Cowork/Claude guide for PMs |
+Clean URLs throughout: every page is `<dir>/index.html` and is linked as `/<dir>/` or `/<dir>`. There are no `.html` paths in links any more, and adding one will 404.
 
----
+| File | URL | Purpose |
+|------|-----|---------|
+| `index.html` | `/` | Home: hero, about, stats, Claude strip, resources strip |
+| `work/index.html` | `/work` | Case study index + portal screenshot |
+| `claude/index.html` | `/claude` | How I use Claude day-to-day (practice only) |
+| `resources/index.html` | `/resources/` | Guide library, grouped by audience |
+| `art/index.html` | `/art` | Mural sections + oil paintings gallery |
+| `connect/index.html` | `/connect` | Contact page |
+| `about/index.html` | `/about` | Longer bio page |
+| `work/<slug>/index.html` | `/work/<slug>` | Five case studies |
+| `resources/<slug>/index.html` | `/resources/<slug>` | Five guides (see below) |
+
+### The resources library
+
+`/resources/` is the entry point and groups the five guides by who they are for:
+
+| Guide | URL | Audience |
+|-------|-----|----------|
+| Claude 101 | `/resources/claude-101/` | Everyone. Part 1 of 2 |
+| The Claude Playbook | `/resources/claude-playbook/` | Everyone. Part 2 of 2 |
+| Claude Code for PMs | `/resources/claude-code-pm-training-guide` | PMs |
+| Export your LLM context | `/resources/llm-context-export` | PMs |
+| Cowork for the team | `/resources/cowork-for-pms` | PMs |
+
+**Claude 101 and The Claude Playbook are different from every other page on this site.** They are authored in `projects/claude-guides/` and ported here. They do not load `styles.css`: they carry their own complete design system (Fraunces + IBM Plex, warm paper palette, sidebar TOC with scroll-spy, in-page theme toggle), because their `.shell` and `.brand` rules collide with the site's. Their nav and footer are hand-built from their own tokens in a `.sitebar` / `.sitefoot` block.
+
+Edit those two in `projects/claude-guides/` first, then re-port. Do not edit them here only, or the next port overwrites the change.
 
 ## Key copy locations
 
@@ -30,22 +44,24 @@ Personal portfolio site for Meghan Race, PM at Exclusive Resorts. Static HTML/CS
 - **About section** — 4 paragraphs inside `data-screen-label="03 About"`. This is the main biographical copy. The lede paragraph starts "Twenty years in hospitality..."
 - **Stats strip** — Numbers (12 yrs, Jan 2025, etc.) in the `data-screen-label="04 Stats"` section below About.
 
-### work.html
+### work/index.html
 - **Hero lede** — `.lede` paragraph under the h1. Describes the Member Portal and five case studies.
 - **Case index** — `<ol class="case-index">` with five list items linking to subpages. Update here when adding/removing cases.
 - **Portal screenshot caption** — figcaption under `assets/work/portal-home.png`.
 
-### claude.html
+### claude/index.html
 - **Hero lede** — The main paragraph describing how Claude Code changed what a PM can own.
-- **Setup details, example sessions, etc.** — Body sections below the hr.
+- **On this page** — `<ol class="case-index three-up">`: Setup, Workflow, Hard-won tips. Update if you add or remove a section.
+- **Body sections** — `#setup`, `#workflow`, `#tips`, then the CTA and colophon. The teaching content that used to live here is now `/resources/`.
+- **Colophon** — the five-step pipeline list. Step 04 is GitHub Pages, which is what actually hosts this site.
 
-### art.html
+### art/index.html
 - **Hero lede** — Studio intro paragraph.
 - **Mural body copy** — Inside `.mural-body` div in the aspen stairwell section.
 - **Oil paintings lede** — Under "From the studio years." heading — describes landscapes + fabric series.
 - **Artist note** — `data-screen-label` not set; the pull quote + two paragraphs near the bottom.
 
-### Case study subpages (work/*.html)
+### Case study subpages (work/<slug>/index.html)
 Each has a cols-2 layout at the top:
 - Left column: eyebrow ("Case 01"), h2 title, chips
 - Right column: stats div + 2–3 lede/body paragraphs
@@ -88,10 +104,11 @@ All pages use `data-palette="marsh"` on the `<html>` element. The palette can be
 - `.stats` / `.stat` — key number display (used in case study headers and index.html)
 - `.chips` / `.chip` — small tag labels (used in case studies for status and topic)
 - `.eyebrow` — small caps mono label above headings
+- `.case-index` — bordered index grid. Defaults to 5 columns (work page); `.two-up` and `.three-up` modifiers override for shorter lists
 - `.lede` — larger intro paragraph
 
 ### Subpage path rule
-Pages in `work/` and `resources/` must use `../` prefix for all asset, CSS, and script paths. Nav links also use `../index.html`, `../work.html`, etc.
+All asset, CSS, script, and nav paths are root-relative (`/styles.css`, `/claude`, `/assets/...`). Do not use `../` prefixes; the clean-URL structure means a page at `/work/clubhouse/` is two levels deep and relative paths break.
 
 ---
 
@@ -148,7 +165,7 @@ Pages in `work/` and `resources/` must use `../` prefix for all asset, CSS, and 
 
 1. Copy `connect.html` (simplest page) as a starting point.
 2. Update `<title>`, `<meta name="description">`, `data-palette` if different.
-3. Add the page to the nav in **every** existing HTML file — the nav appears in: `index.html`, `work.html`, `claude.html`, `art.html`, `connect.html`, and all files in `work/` and `resources/`.
+3. Add the page to the nav in **every** existing HTML file. The canonical nav is Home · Work · Claude · Resources · Art · Connect, inside `<div class="nav-links">`, and it appears in every page including `404.html` and the resource subpages. Claude 101 and the Playbook are the exception: their nav lives in their own `.sitebar` block and must be updated separately.
 4. Update the footer links similarly.
 5. No `../` prefix needed for top-level pages; subpages in `work/` and `resources/` already use `../` so will pick up the new link automatically once nav is updated in their files.
 
