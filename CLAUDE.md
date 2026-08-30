@@ -16,7 +16,6 @@ Clean URLs throughout: every page is `<dir>/index.html` and is linked as `/<dir>
 | `resources/index.html` | `/resources/` | Guide library, grouped by audience |
 | `art/index.html` | `/art` | Mural sections + oil paintings gallery |
 | `connect/index.html` | `/connect` | Contact page |
-| `about/index.html` | `/about` | Longer bio page |
 | `work/<slug>/index.html` | `/work/<slug>` | Five case studies |
 | `resources/<slug>/index.html` | `/resources/<slug>` | Five guides (see below) |
 
@@ -165,7 +164,7 @@ All asset, CSS, script, and nav paths are root-relative (`/styles.css`, `/claude
 
 1. Copy `connect.html` (simplest page) as a starting point.
 2. Update `<title>`, `<meta name="description">`, `data-palette` if different.
-3. Add the page to the nav in **every** existing HTML file. The canonical nav is Home · Work · Claude · Resources · Art · Connect, inside `<div class="nav-links">`, and it appears in every page including `404.html` and the resource subpages. Claude 101 and the Playbook are the exception: their nav lives in their own `.sitebar` block and must be updated separately.
+3. Add the page to the nav in **every** existing HTML file. The canonical nav is Home · Work · Claude · Resources · Art · Connect, identical on every page, inside `<div class="nav-links">`, and it appears in every page including `404.html` and the resource subpages. Claude 101 and the Playbook are the exception: their nav lives in their own `.sitebar` block and must be updated separately.
 4. Update the footer links similarly.
 5. No `../` prefix needed for top-level pages; subpages in `work/` and `resources/` already use `../` so will pick up the new link automatically once nav is updated in their files.
 
