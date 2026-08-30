@@ -50,19 +50,31 @@
   /* ---------- TOP BAR ---------- */
   .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:600;font-size:1.02rem;letter-spacing:-0.01em}
-  .brand .mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;flex:none}
   .brand small{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:0.66rem;color:var(--faint);letter-spacing:0.02em;text-transform:uppercase}
   .topbar .spacer{flex:1}
   .companion{font-size:0.8rem;color:var(--muted);white-space:nowrap}
   a.companion{text-decoration:none}
   a.companion:hover{color:var(--accent-ink);text-decoration:underline}
-  @media (max-width:620px){.companion{display:none}}
+  .c-short{display:none}
+  /* Narrow phones: the pair link used to be display:none here, which left the
+     only route between the two guides inside the page body. Keep it, and buy
+     the room back by shortening the label and dropping the version stamp
+     (the full version line is in the page header a few hundred px below). */
+  @media (max-width:620px){
+    .topbar{gap:10px;padding-inline:14px}
+    .brand small{display:none}
+    .brand{min-width:0;font-size:0.95rem}
+    .companion{font-size:0.74rem}
+    .c-full{display:none}
+    .c-short{display:inline}
+    .toc-toggle{padding:7px 10px}
+  }
   a.pairnav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:26px 0 0;padding:18px 20px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:var(--radius);text-decoration:none}
   a.pairnav:hover{text-decoration:none;border-color:var(--accent)}
   .pairnav .pn-label{font-family:"IBM Plex Mono",monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
   .pairnav .pn-title{font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600;color:var(--ink);display:block}
   .pairnav .pn-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:0.9rem;padding:10px 16px;border-radius:100px;white-space:nowrap}
-  .toc-toggle{display:none;font:inherit;font-size:0.82rem;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .toc-toggle{display:none;white-space:nowrap;font:inherit;font-size:0.82rem;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
   .theme-toggle{font:inherit;font-size:0.82rem;display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line-strong);color:var(--ink-soft);padding:7px 12px;border-radius:8px;cursor:pointer}
   .theme-toggle:hover{border-color:var(--accent-line)}
 
@@ -194,9 +206,9 @@
 </style>
 
 <div class="topbar">
-  <div class="brand"><span class="mark">✳</span><span>Claude 101</span><small>v1.1</small></div>
+  <div class="brand"><span>Claude 101</span><small>v1.1</small></div>
   <span class="spacer"></span>
-  <a class="companion" href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener">Next: The Playbook →</a>
+  <a class="companion" href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener"><span class="c-full">Next: The Playbook →</span><span class="c-short">Playbook →</span></a>
   <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
   <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><span id="themeIcon">◐</span><span id="themeLabel">Theme</span></button>
 </div>

@@ -147,7 +147,21 @@ The nav is `position: sticky` on every page, which is how you get back to `/reso
 
 This only works because `html` and `body` use `overflow-x: clip` rather than `overflow-x: hidden`. `hidden` forces `overflow-y` to compute as `auto`, which turns the element into a scroll container and silently breaks `position: sticky` on every descendant. The nav had been declared sticky for a long time without ever sticking. If horizontal overflow reappears, fix the element causing it: do not put `overflow-x: hidden` back on `html` or `body`.
 
-On the two Claude guides the bars stack: site nav at `top: 0`, the guide's own bar at `top: var(--navh)`, the TOC rail at `top: calc(var(--navh) + 57px)`. `--navh` is measured at runtime by a small script in the port so the offsets survive the nav's responsive breakpoints. z-index order there is nav 45, doc bar 40, TOC scrim 55, TOC drawer 60, so the mobile drawer covers the nav as intended.
+On the two Claude guides the site nav and the guide's own doc bar sit inside a single `.stickytop` wrapper. Both are `position: static`; the wrapper does the sticking. They are not two stacked sticky bars joined by a measured offset: that version latched onto a transient height on mobile and left the doc bar floating in the middle of the page with no way to correct itself. Inside one wrapper there is no number to get wrong. z-index is wrapper 45, nav 2, doc bar 1, TOC scrim 55, TOC drawer 60, so the mobile drawer still covers everything.
+
+`--stickh` is still measured at runtime, but only the TOC rail reads it. Being a few pixels off there nudges the rail and cannot break the header.
+
+### Nav menu behavior
+
+Both behaviors below live in `styles.css` and are mirrored in `port-to-site.py`'s `SITE_CSS` with `--s-*` tokens. Change one, change the other.
+
+**Mobile menu (max-width 700px)** is an overlay: `.nav-links` is `position: absolute; top: 100%` so opening it lays the menu over the page instead of pushing the hero down. Two things it depends on. `.nav-row` drops to `position: static` at this breakpoint so the menu anchors to the full-bleed `.nav` rather than the inset content column. And `.nav-links` needs its own opaque `background: var(--bg)`, because the nav's is translucent and the page would show through.
+
+**Desktop dropdown** under Resources lists all five guides. The trigger stays a real link, so Resources still opens the index. `.nav-item` carries `padding-block: 16px; margin-block: -16px` — the padding grows the hover target down to the nav's bottom edge, the negative margin gives the space back to the layout, and the panel at `top: 100%` then adjoins the trigger with no dead gap for the pointer to fall through. Below 1000px the panel flips to `right: -12px`, because a left anchor runs past the right edge and `overflow-x: clip` would silently cut it off rather than let it scroll. Below 700px the panel is hidden and `.nav-item > a` is blockified so Resources keeps the same row height as every other item.
+
+Adding a sixth guide means editing the `.nav-menu` block in all 15 hand-authored pages plus `SITE_BAR` in the port script.
+
+**The guide-to-guide link** (`.companion` in the doc bar: "Playbook →" / "← Claude 101") lives in the authored guides, not the port. Below 620px it swaps to a short label via `.c-full` / `.c-short` and the version stamp next to the doc title is hidden, which is what buys the room. It used to be `display: none` at that breakpoint, so on a phone the only route between the two guides was a link buried in the body copy.
 
 ### Palette
 All pages use `data-palette="marsh"` on the `<html>` element. The palette can be changed via the tweaks panel (React/Babel CDN at bottom of each page). Palette-aware CSS variables:

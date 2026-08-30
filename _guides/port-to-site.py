@@ -114,6 +114,32 @@ SITE_CSS = """
   .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--s-accent-2)}
   @media (max-width:760px){.nav-links{gap:16px;font-size:13px}}
 
+  /* Desktop dropdown of the five guides. The trigger stays a real link to the
+     index; the panel is absolute so it lays over the page. .nav-item's padding
+     grows the hover target down to the nav's bottom edge and the negative
+     margin gives that space back, so there is no dead gap under the trigger. */
+  .nav-item{position:relative;display:inline-flex;align-items:center;padding-block:16px;margin-block:-16px}
+  .nav-item::after{content:"";width:5px;height:5px;margin-left:7px;
+    border-right:1.2px solid currentColor;border-bottom:1.2px solid currentColor;
+    transform:translateY(-2px) rotate(45deg);color:var(--s-ink-3);
+    transition:transform 180ms ease,color 180ms ease}
+  .nav-item:hover::after,.nav-item:focus-within::after{transform:translateY(1px) rotate(-135deg);color:var(--s-ink)}
+  .nav-menu{position:absolute;top:100%;left:-12px;z-index:5;min-width:250px;
+    display:flex;flex-direction:column;padding:8px;background:var(--s-bg);
+    border:1px solid var(--s-rule);border-radius:12px;
+    box-shadow:0 26px 50px -30px color-mix(in oklab,var(--s-ink) 55%,transparent);
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity 170ms ease,transform 170ms ease,visibility 170ms}
+  .nav-item:hover .nav-menu,.nav-item:focus-within .nav-menu{opacity:1;visibility:visible;transform:translateY(0)}
+  .nav-links .nav-menu a{padding:9px 12px;border-radius:8px;color:var(--s-ink-2);white-space:nowrap;
+    transition:background 140ms ease,color 140ms ease}
+  .nav-links .nav-menu a:hover{background:var(--s-bg-2);color:var(--s-ink)}
+  .nav-links .nav-menu a.active::after{display:none}
+  /* Below ~1000px a left-anchored panel runs off the right edge and gets
+     clipped rather than scrolled. Hang it from the right instead. */
+  @media (max-width:1000px){.nav-menu{left:auto;right:-12px}}
+  @media (prefers-reduced-motion:reduce){.nav-menu,.nav-item::after{transition:none}}
+
   /* mobile caret nav — checkbox toggle, no JS, same as the rest of the site */
   .nav-toggle-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
   .nav-toggle{display:none;align-items:center;gap:8px;cursor:pointer;user-select:none;
@@ -146,6 +172,14 @@ SITE_CSS = """
     .nav-links a{padding-block:12px;width:100%}
     .nav-links a.active::after{display:none}
     .nav-links a.active{color:var(--s-accent-2)}
+    /* The hover menu is a desktop affordance; on a phone Resources is just a
+       link to the index, which lists all five anyway. */
+    .nav-item{display:block;width:100%;padding-block:0;margin-block:0}
+    /* Blockified or its row padding collapses and Resources sits tighter
+       than every other item in the list. */
+    .nav-item > a{display:block}
+    .nav-item::after{display:none}
+    .nav-menu{display:none}
   }
 
   footer.sitefoot{border-top:1px solid var(--s-rule);padding-block:64px;margin-top:8px;
@@ -179,7 +213,16 @@ SITE_BAR = """
       <a href="/">Home</a>
       <a href="/work">Work</a>
       <a href="/claude">Claude</a>
-      <a href="/resources/" class="active">Resources</a>
+      <div class="nav-item">
+        <a href="/resources/" class="active">Resources</a>
+        <div class="nav-menu">
+          <a href="/resources/claude-101/">Claude 101</a>
+          <a href="/resources/claude-playbook/">The Claude Playbook</a>
+          <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
+          <a href="/resources/llm-context-export">Export your LLM context</a>
+          <a href="/resources/cowork-for-pms">Cowork for the team</a>
+        </div>
+      </div>
       <a href="/art">Art</a>
       <a href="/connect">Connect</a>
     </div>

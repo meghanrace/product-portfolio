@@ -199,6 +199,80 @@ hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
   .nav-links { gap: 16px; font-size: 13px; }
 }
 
+/* desktop dropdown — hover or keyboard-focus reveals the resource guides.
+   The trigger stays a real link, so Resources still opens the index page.
+   The panel is absolute so it lays over the page instead of pushing it down. */
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  /* Padding grows the hover target down to the nav's bottom edge and the
+     negative margin gives the space back to the layout, so the panel at
+     top:100% adjoins the trigger with no dead gap to fall through. */
+  padding-block: 16px;
+  margin-block: -16px;
+}
+.nav-item::after {
+  content: "";
+  width: 5px; height: 5px;
+  margin-left: 7px;
+  border-right: 1.2px solid currentColor;
+  border-bottom: 1.2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  color: var(--ink-3);
+  transition: transform 180ms ease, color 180ms ease;
+}
+.nav-item:hover::after,
+.nav-item:focus-within::after {
+  transform: translateY(1px) rotate(-135deg);
+  color: var(--ink);
+}
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: -12px;
+  z-index: 5;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: 0 26px 50px -30px color-mix(in oklab, var(--ink) 55%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 170ms ease, transform 170ms ease, visibility 170ms;
+}
+.nav-item:hover .nav-menu,
+.nav-item:focus-within .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-links .nav-menu a {
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--ink-2);
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease;
+}
+.nav-links .nav-menu a:hover {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+.nav-links .nav-menu a.active::after { display: none; }
+/* Below roughly 1000px the nav links crowd the right edge and a left-anchored
+   panel runs off-screen (html has overflow-x: clip, so it would be silently
+   cut off rather than scrollable). Hang it from the right instead. */
+@media (max-width: 1000px) {
+  .nav-menu { left: auto; right: -12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu, .nav-item::after { transition: none; }
+}
+
 /* mobile caret nav — checkbox toggle, no JS */
 .nav-toggle-input {
   position: absolute;
@@ -240,8 +314,9 @@ hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
 
 @media (max-width: 700px) {
   .nav-row {
-    flex-wrap: wrap;
-    row-gap: 0;
+    /* static, not relative: the menu below is absolute and needs to anchor to
+       the full-bleed .nav, not to the inset content column. */
+    position: static;
     padding-block: 16px;
     column-gap: 16px;
   }
@@ -256,27 +331,34 @@ hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
     display: inline-flex;
     flex: 0 0 auto;
   }
+  /* Out of flow, so opening the menu lays it over the page rather than
+     shoving the hero down. Needs its own opaque background: the nav's is
+     translucent and would let the content show through. */
   .nav-links {
-    flex: 1 1 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
     font-size: 16px;
-    padding: 0;
-    margin-top: 0;
-    border-top: 1px solid color-mix(in oklab, var(--rule) 60%, transparent);
+    padding-inline: var(--shell-pad);
+    padding-block: 0;
+    background: var(--bg);
+    border-bottom: 1px solid color-mix(in oklab, var(--rule) 60%, transparent);
+    box-shadow: 0 14px 24px color-mix(in oklab, var(--ink) 12%, transparent);
     max-height: 0;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transition: max-height 260ms ease, opacity 200ms ease, padding 200ms ease, margin-top 200ms ease;
+    transition: max-height 260ms ease, opacity 200ms ease, padding 200ms ease;
   }
   .nav-toggle-input:checked ~ .nav-links {
-    max-height: 60vh;
+    max-height: 70vh;
     opacity: 1;
     visibility: visible;
-    padding: 6px 0 8px;
-    margin-top: 14px;
+    padding-block: 6px 12px;
   }
   .nav-links a {
     padding-block: 12px;
@@ -284,6 +366,20 @@ hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
   }
   .nav-links a.active::after { display: none; }
   .nav-links a.active { color: var(--accent-2); }
+  /* The hover menu is a desktop affordance; on a phone Resources is just a
+     link to the index, which lists all five anyway. */
+  .nav-item {
+    display: block;
+    width: 100%;
+    padding-block: 0;
+    margin-block: 0;
+  }
+  /* The trigger is an inline child of .nav-item here rather than a flex item
+     of .nav-links, so it needs to be blockified or its row padding collapses
+     and Resources sits tighter than every other item in the list. */
+  .nav-item > a { display: block; }
+  .nav-item::after { display: none; }
+  .nav-menu { display: none; }
 }
 
 /* footer */
