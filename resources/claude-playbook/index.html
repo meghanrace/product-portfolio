@@ -245,11 +245,13 @@
      its scrim (55), which are meant to cover everything. */
   :root{--stickh:132px}
   .stickytop{position:sticky;top:0;z-index:45}
-  .nav{position:static;
+  /* The nav paints above the doc bar so the mobile menu can drop over it
+     rather than shoving it down the page. */
+  .nav{position:relative;z-index:2;
     background:color-mix(in oklab,var(--s-bg) 92%,transparent);
     backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
     border-bottom:1px solid color-mix(in oklab,var(--s-rule) 50%,transparent);font-family:var(--s-body)}
-  .topbar{position:static;top:auto}
+  .topbar{position:static;top:auto;z-index:1}
   /* Only the TOC rail still needs a number, and being a few px off there just
      nudges the rail; it cannot break the header. A ResizeObserver keeps it
      honest through breakpoints, webfont swap and the menu opening. */
@@ -287,11 +289,20 @@
     .sitebrand{flex:1 1 auto;min-width:0;font-size:24px}
     .sitebrand-mark{width:36px;height:36px}
     .nav-toggle{display:inline-flex;flex:0 0 auto}
-    .nav-links{flex:1 1 100%;flex-direction:column;align-items:flex-start;gap:0;font-size:16px;
+    /* Static row so the absolute menu below anchors to the full-width nav,
+       not to the inset content column. */
+    .nav-row{position:static}
+    .nav-links{position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:flex-start;gap:0;font-size:16px;
+      padding-inline:calc(clamp(40px,8vw,128px) / 2);
+      background:var(--s-bg);
       border-top:1px solid color-mix(in oklab,var(--s-rule) 60%,transparent);
+      border-bottom:1px solid color-mix(in oklab,var(--s-rule) 60%,transparent);
+      box-shadow:0 14px 24px color-mix(in oklab,var(--s-ink) 10%,transparent);
       max-height:0;overflow:hidden;opacity:0;visibility:hidden;
-      transition:max-height 260ms ease,opacity 200ms ease,padding 200ms ease,margin-top 200ms ease}
-    .nav-toggle-input:checked ~ .nav-links{max-height:60vh;opacity:1;visibility:visible;padding:6px 0 8px;margin-top:14px}
+      transition:max-height 260ms ease,opacity 200ms ease,padding 200ms ease}
+    .nav-toggle-input:checked ~ .nav-links{max-height:70vh;opacity:1;visibility:visible;
+      padding-block:6px 10px}
     .nav-links a{padding-block:12px;width:100%}
     .nav-links a.active::after{display:none}
     .nav-links a.active{color:var(--s-accent-2)}

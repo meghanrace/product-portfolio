@@ -230,11 +230,13 @@
      its scrim (55), which are meant to cover everything. */
   :root{--stickh:132px}
   .stickytop{position:sticky;top:0;z-index:45}
-  .nav{position:static;
+  /* The nav paints above the doc bar so the mobile menu can drop over it
+     rather than shoving it down the page. */
+  .nav{position:relative;z-index:2;
     background:color-mix(in oklab,var(--s-bg) 92%,transparent);
     backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
     border-bottom:1px solid color-mix(in oklab,var(--s-rule) 50%,transparent);font-family:var(--s-body)}
-  .topbar{position:static;top:auto}
+  .topbar{position:static;top:auto;z-index:1}
   /* Only the TOC rail still needs a number, and being a few px off there just
      nudges the rail; it cannot break the header. A ResizeObserver keeps it
      honest through breakpoints, webfont swap and the menu opening. */
@@ -272,11 +274,20 @@
     .sitebrand{flex:1 1 auto;min-width:0;font-size:24px}
     .sitebrand-mark{width:36px;height:36px}
     .nav-toggle{display:inline-flex;flex:0 0 auto}
-    .nav-links{flex:1 1 100%;flex-direction:column;align-items:flex-start;gap:0;font-size:16px;
+    /* Static row so the absolute menu below anchors to the full-width nav,
+       not to the inset content column. */
+    .nav-row{position:static}
+    .nav-links{position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:flex-start;gap:0;font-size:16px;
+      padding-inline:calc(clamp(40px,8vw,128px) / 2);
+      background:var(--s-bg);
       border-top:1px solid color-mix(in oklab,var(--s-rule) 60%,transparent);
+      border-bottom:1px solid color-mix(in oklab,var(--s-rule) 60%,transparent);
+      box-shadow:0 14px 24px color-mix(in oklab,var(--s-ink) 10%,transparent);
       max-height:0;overflow:hidden;opacity:0;visibility:hidden;
-      transition:max-height 260ms ease,opacity 200ms ease,padding 200ms ease,margin-top 200ms ease}
-    .nav-toggle-input:checked ~ .nav-links{max-height:60vh;opacity:1;visibility:visible;padding:6px 0 8px;margin-top:14px}
+      transition:max-height 260ms ease,opacity 200ms ease,padding 200ms ease}
+    .nav-toggle-input:checked ~ .nav-links{max-height:70vh;opacity:1;visibility:visible;
+      padding-block:6px 10px}
     .nav-links a{padding-block:12px;width:100%}
     .nav-links a.active::after{display:none}
     .nav-links a.active{color:var(--s-accent-2)}
@@ -554,8 +565,8 @@
               </tr>
               <tr>
                 <td>Claude Code</td>
-                <td>A powerful agent that runs in your computer's <strong>terminal</strong> (or inside a code editor). It can read and change files, run programs, and use tools - built for technical work but useful well beyond coding.</td>
-                <td>You're <strong>working with a codebase or files on your machine</strong>, or want maximum control and automation. This is the deepest, most capable surface - and the one with a small learning curve.</td>
+                <td>A powerful agent that works in <strong>a folder on your computer</strong>. It reads and changes files, runs programs, and remembers how you work. It runs inside the <strong>desktop app</strong>, which looks and feels like Chat, or in your terminal if you prefer that.</td>
+                <td>You want Claude working on <strong>real files that stay on your machine</strong>, with standing instructions it follows every time. The most capable surface, and the only one that keeps your setup between sessions.</td>
               </tr>
             </tbody>
           </table>
@@ -563,7 +574,21 @@
 
         <div class="callout rule">
           <div class="ico">The throughline</div>
-          <div><p>Think of it as a spectrum of <strong>how much you're handing over</strong>. Chat = you drive, Claude advises. Cowork = you delegate, Claude executes across your tools without code. Code = you delegate the most, with the most power and the most setup. The magic ingredients - <a href="#projects">Projects</a>, <a href="#skills">Skills</a>, and <a href="#connectors">Connectors</a> - make all three better.</p></div>
+          <div><p>Think of it as a spectrum of <strong>how much you're handing over</strong>. Chat = you drive, Claude advises. Cowork = you delegate, Claude executes across your tools without code. Code = you delegate the most, with the most power and a folder it keeps coming back to. The magic ingredients - <a href="#projects">Projects</a>, <a href="#skills">Skills</a>, and <a href="#connectors">Connectors</a> - make all three better.</p></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">You don't need a codebase</div>
+          <div>
+            <p>Claude Code has a name that scares people off, and the usual description ("runs in your terminal") makes it sound like a developer tool. Both undersell it. You can open Claude Code inside the <strong>desktop app</strong>, where it looks much like Chat, and point it at any ordinary folder: a job search, a budget, a set of meeting notes, a book you're writing.</p>
+            <p>What makes it different from Chat is not that it writes code. It's that it <strong>works in a real folder that persists</strong>. Chat forgets everything when the thread ends. Claude Code opens the same folder tomorrow, reads the notes you left it, and picks up where you stopped. Three things follow from that:</p>
+            <ul>
+              <li><strong>It reads and edits your actual files</strong>, in place. Not "paste the document in, copy the answer out." It opens the spreadsheet, changes the rows, and saves it.</li>
+              <li><strong>Standing instructions stick.</strong> You write down how you work once, in a file it reads every time, and stop re-explaining yourself at the start of every conversation. (That's a <a href="#skills">Skill</a> and a project file, covered in §06.)</li>
+              <li><strong>It handles many steps without supervision.</strong> "Go through these 40 files, pull out every date, and build me one summary" is a single request, not forty.</li>
+            </ul>
+            <p>The honest tradeoff: it's the least polished of the three. It asks permission a lot, it's happiest when your work lives in files rather than scattered across apps, and the first afternoon costs more than it gives back. If your work is conversational, stay in Chat. If you keep redoing the same multi-step job over a pile of files you own, this is the one that pays.</p>
+          </div>
         </div>
 
         <h3>Desktop app vs. web browser <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h3>
