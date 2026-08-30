@@ -98,6 +98,7 @@
   p{margin:0 0 15px;color:var(--ink-soft)}
   .prose ul,.prose ol{margin:0 0 16px;padding-left:1.35em;color:var(--ink-soft)}
   .prose li{margin:0 0 7px}
+  .mini{font-size:0.88rem;color:var(--muted)}
   .prose li::marker{color:var(--faint)}
   strong{color:var(--ink);font-weight:600}
   hr.rule{border:0;border-top:1px solid var(--line);margin:44px 0}
@@ -665,7 +666,7 @@
         <p>That's basically it. You can open, read, and edit an <code>.md</code> file in any text editor - the free Notes-style apps that come with your computer, or a code editor. It's the same plain writing you already do; Markdown is just the lightweight way of marking what's a heading and what's a bullet. Claude reads and writes Markdown fluently, which is why Skills use it.</p>
 
         <h3>Anatomy of a Skill</h3>
-        <p>A Skill is a Markdown file (conventionally named <code>SKILL.md</code>) with two parts: a short <strong>frontmatter</strong> block at the very top, then the <strong>instructions</strong> below it.</p>
+        <p>A Skill is a Markdown file (conventionally named <code>SKILL.md</code>) with two parts: a short <strong>label</strong> at the very top, then the <strong>instructions</strong> below it.</p>
         <div class="code">
           <div class="cap"><span>📄</span><span class="fname">SKILL.md</span></div>
 <pre><span class="fm">---
@@ -685,23 +686,25 @@
 
 Keep it under 200 words. Plain language, no jargon.</pre>
         </div>
-        <p>The <strong>frontmatter</strong> is the bit between the two <code>---</code> lines. It's just two fields:</p>
+        <p>The <strong>label</strong> is the bit between the two rows of dashes. The dashes do nothing clever; they just mark where the label starts and stops. Inside it you write two lines:</p>
         <ul>
-          <li><strong>name</strong> - a short label for the skill.</li>
+          <li><strong>name</strong> - what you're calling the skill.</li>
           <li><strong>description</strong> - a one-line summary of <em>what it does and when to use it.</em> This part matters enormously: it's how Claude decides, on its own, when to reach for this Skill. Write it the way you'd describe the task to a coworker.</li>
         </ul>
-        <p>Everything below the frontmatter is the actual instruction manual - as detailed as you like.</p>
+        <p>Everything below the label is the actual instruction manual - as detailed as you like.</p>
+
+        <p class="mini">If you go looking for more on Skills elsewhere, you'll see this label called <em>frontmatter</em>. Same thing, and you never have to use the word.</p>
 
         <h4>How to create one</h4>
         <ol class="steps">
           <li><strong>Open a text editor and start a new file</strong><p>Save it as <code>SKILL.md</code>. (You may want to put it in its own folder named after the skill, e.g. a <code>weekly-report</code> folder.)</p></li>
-          <li><strong>Write the frontmatter</strong><p>Two <code>---</code> lines wrapping a <code>name</code> and a <code>description</code>, exactly like the example above.</p></li>
+          <li><strong>Write the label</strong><p>Two rows of dashes wrapping a <code>name</code> and a <code>description</code>, exactly like the example above.</p></li>
           <li><strong>Write the instructions</strong><p>Tell Claude how to do the task, step by step, in plain language. Include your format, rules, and an example of good output if you have one.</p></li>
           <li><strong>Save</strong><p>That's a working Skill. No coding involved - it's a text file.</p></li>
         </ol>
         <div class="callout tip">
           <div class="ico">Shortcut</div>
-          <div><p>You don't have to write a Skill by hand. Ask Claude: <em>"Help me turn this into a Skill,"</em> and paste your process. It'll write the <code>SKILL.md</code> for you, frontmatter and all. Then you just save the file.</p></div>
+          <div><p>You don't have to write a Skill by hand. Ask Claude: <em>"Help me turn this into a Skill,"</em> and paste your process. It'll write the <code>SKILL.md</code> for you, label and all. Then you just save the file.</p></div>
         </div>
 
         <h3>Using Skills in Chat</h3>
