@@ -845,11 +845,14 @@ footer.foot {
   }
 }
 
-/* case-index 2-up variant (Claude page) */
+/* case-index 2-up and 3-up variants (Claude page) */
 .case-index.two-up { grid-template-columns: repeat(2, 1fr); }
-.case-index.two-up .n { font-style: normal; }
+.case-index.three-up { grid-template-columns: repeat(3, 1fr); }
+.case-index.two-up .n,
+.case-index.three-up .n { font-style: normal; }
 @media (max-width: 880px) {
-  .case-index.two-up { grid-template-columns: 1fr; }
+  .case-index.two-up,
+  .case-index.three-up { grid-template-columns: 1fr; }
 }
 
 /* part-divider — splits a long page into named halves */.part-divider {
