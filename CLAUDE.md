@@ -55,12 +55,7 @@ The body paragraphs are the main case study copy.
 
 ## Voice and style rules
 
-- **No em-dashes.** Use a colon, or restructure the sentence.
-- **Concrete and specific.** Avoid hedged language ("I found," "I noticed," "kind of"). State the thing.
-- **Forward-facing.** Lead with what it does or what happened, not with how you felt about it.
-- **No bolding within body paragraphs** unless you're going to bold consistently throughout a list.
-- **No trailing summaries** — don't end edits with "Here's what I changed."
-- **Numbers over vague scale** — "12 years" not "over a decade," "1,000+ orders" not "a lot of orders."
+Universal rules (no em-dashes, concrete language, forward-facing tone, no trailing summaries, etc.) now live in the root `CLAUDE.md` one level up and apply here too. Nothing site-specific to add beyond that currently.
 
 ---
 
