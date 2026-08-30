@@ -695,16 +695,26 @@ Keep it under 200 words. Plain language, no jargon.</pre>
 
         <p class="mini">If you go looking for more on Skills elsewhere, you'll see this label called <em>frontmatter</em>. Same thing, and you never have to use the word.</p>
 
-        <h4>How to create one</h4>
+        <h4>How to create one with Claude</h4>
+        <p>You've now seen what a Skill looks like, which is useful for reading one. Don't write one by hand. Have Claude write it, and spend your effort on telling it what good looks like.</p>
+
+        <div class="code">
+          <div class="cap"><span>💬</span><span class="fname">Say this, in Chat or in Code</span></div>
+          <div class="pq">"I want to create a skill for [routine task you do], and here's what's important we include in that skill: [fill in details]. Ask me questions to better understand what I want this skill to do."</div>
+        </div>
+
+        <p>That last sentence is the one that does the work. Without it you get a Skill built from whatever Claude assumed. With it, Claude interviews you first, and the questions are usually the ones you'd have forgotten to answer: what format do you want, who reads this, what should it never do, what does a good one look like versus a bad one.</p>
+
         <ol class="steps">
-          <li><strong>Open a text editor and start a new file</strong><p>Save it as <code>SKILL.md</code>. (You may want to put it in its own folder named after the skill, e.g. a <code>weekly-report</code> folder.)</p></li>
-          <li><strong>Write the label</strong><p>Two rows of dashes wrapping a <code>name</code> and a <code>description</code>, exactly like the example above.</p></li>
-          <li><strong>Write the instructions</strong><p>Tell Claude how to do the task, step by step, in plain language. Include your format, rules, and an example of good output if you have one.</p></li>
-          <li><strong>Save</strong><p>That's a working Skill. No coding involved - it's a text file.</p></li>
+          <li><strong>Answer the questions properly</strong><p>This is where the quality comes from. Vague answers make a vague Skill. If you have a past example of the task done well, paste it in.</p></li>
+          <li><strong>Let Claude write the file</strong><p>It produces the whole <code>SKILL.md</code>, label and all. Read it once and check it sounds like how you'd explain the task to a new hire. Anything that reads wrong, say so and have it revise.</p></li>
+          <li><strong>Put it where Claude can reach it</strong><p>Chat and Code each have their own spot for this. Both are covered just below.</p></li>
+          <li><strong>Run it on a real task, then fix it</strong><p>The first version is rarely right. Use it on actual work, tell Claude what was off, and have it update the Skill. A Skill you've corrected three times is worth more than one you wrote perfectly in theory.</p></li>
         </ol>
+
         <div class="callout tip">
-          <div class="ico">Shortcut</div>
-          <div><p>You don't have to write a Skill by hand. Ask Claude: <em>"Help me turn this into a Skill,"</em> and paste your process. It'll write the <code>SKILL.md</code> for you, label and all. Then you just save the file.</p></div>
+          <div class="ico">Already have a process written down</div>
+          <div><p>If the steps live in a doc, an email, or an old checklist, paste it in and say <em>"turn this into a Skill."</em> Starting from something real beats starting from a blank file.</p></div>
         </div>
 
         <h3>Using Skills in Chat</h3>
