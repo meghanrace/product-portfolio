@@ -151,6 +151,18 @@ On the two Claude guides the site nav and the guide's own doc bar sit inside a s
 
 `--stickh` is still measured at runtime, but only the TOC rail reads it. Being a few pixels off there nudges the rail and cannot break the header.
 
+### After editing any .css — stamp it
+
+```
+python3 _tools/stamp-css.py
+```
+
+Every stylesheet link carries a content hash (`/styles.css?v=5c42b8fa`). Run this after touching a `.css` file and before committing; it rewrites the hash on all 15 pages that link one. It is idempotent, so running it when nothing changed is a no-op.
+
+This is not optional polish. Browsers cache stylesheets hard and GitHub Pages gives no control over cache headers, so without a version on the URL a returning visitor keeps their old `styles.css` against freshly deployed HTML. On 2026-08-30 that shipped a genuinely broken page: a phone holding the previous stylesheet had no `.nav-menu` rules at all, so the new dropdown markup rendered as five links of raw text dumped into the mobile menu, and the mobile menu went back to pushing the page down. The site looked correct on every machine that had never cached it, which is exactly why it was easy to miss.
+
+The two Claude guides inline all their CSS, so they are immune and the stamper skips them.
+
 ### Nav menu behavior
 
 Both behaviors below live in `styles.css` and are mirrored in `port-to-site.py`'s `SITE_CSS` with `--s-*` tokens. Change one, change the other.
