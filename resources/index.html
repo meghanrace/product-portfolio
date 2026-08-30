@@ -17,6 +17,41 @@
 <link rel="canonical" href="https://www.meghanrace.com/resources/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="stylesheet" href="/styles.css" />
+<style>
+  /* Resources library layout: sticky guide index beside the content, the
+     same idea as the sidebar inside Claude 101 and the Playbook, built here
+     from the site's own tokens. */
+  .lib { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: clamp(28px, 4vw, 72px);
+         width: min(100% - calc(var(--shell-pad) * 2), var(--shell-max)); margin-inline: auto;
+         align-items: start; }
+  .lib-rail { position: sticky; top: 92px; padding-block: clamp(40px, 5vw, 64px); }
+  .lib-rail .eyebrow { margin-bottom: 18px; }
+  .lib-group { margin-bottom: 26px; }
+  .lib-group-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-3); padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule); margin-bottom: 4px; }
+  .lib-toc { list-style: none; margin: 0; padding: 0; }
+  .lib-toc a { display: flex; gap: 12px; align-items: baseline; border: 0;
+    padding: 9px 10px 9px 0; color: var(--ink-2); font-size: 15px; line-height: 1.25;
+    border-radius: 6px; transition: color 160ms ease, background 160ms ease; }
+  .lib-toc a:hover { color: var(--ink); background: var(--bg-2); padding-left: 10px; }
+  .lib-toc a.active { color: var(--accent-2); background: var(--bg-2); padding-left: 10px; }
+  .lib-toc .n { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); flex: none; }
+  .lib-toc a.active .n { color: var(--accent-2); }
+  .lib-body { padding-block: clamp(40px, 5vw, 64px); min-width: 0; }
+  .lib-band { padding-block: clamp(36px, 4vw, 56px); border-top: 1px solid var(--rule); }
+  .lib-band:first-child { border-top: 0; padding-top: 0; }
+  .lib-head { margin-bottom: 36px; }
+  .lib-head h2 { margin-top: 14px; }
+  .lib-head p { max-width: 60ch; margin-top: 16px; }
+  .lib-cards { display: grid; gap: clamp(16px, 2vw, 24px); }
+  @media (max-width: 1000px) {
+    .lib { grid-template-columns: 1fr; gap: 0; }
+    .lib-rail { display: none; }
+    .lib-body { padding-block: clamp(32px, 5vw, 56px); }
+  }
+</style>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -66,73 +101,78 @@
 
 <hr class="rule" />
 
-<!-- START HERE -->
-<section class="pad-y" data-screen-label="02 For everyone">
-  <div class="shell">
-    <div class="cols-2" style="margin-bottom: 56px;">
-      <div>
-        <div class="eyebrow">Start here</div>
-        <h2 style="margin-top: 18px;">For <em>everyone.</em></h2>
+<!-- LIBRARY -->
+<div class="lib">
+  <aside class="lib-rail" aria-label="Guide index">
+      <div class="eyebrow">The five guides</div>
+      <div class="lib-group">
+        <div class="lib-group-label">For everyone</div>
+        <ul class="lib-toc">
+          <li><a href="#claude-101"><span class="n">01</span><span>Claude 101</span></a></li>
+          <li><a href="#claude-playbook"><span class="n">02</span><span>The Claude Playbook</span></a></li>
+        </ul>
       </div>
-      <p class="lede" style="max-width: 56ch;">
-        No technical background, no terminal, no product job required. A pair of companion guides: the first explains what Claude is and how to work with it, the second turns that into workflows you can copy. Read them in order.
-      </p>
-    </div>
-
-    <div class="grid-2">
-      <article class="card">
-        <span class="meta">Handbook · Part 1 of 2</span>
-        <h3>Claude 101</h3>
-        <p style="color: var(--ink-2);">How the model actually works, what separates a good prompt from a bad one, when to start a new thread, and the difference between Chat, Cowork, and Code. Then Projects, Skills, Connectors, teaching it your voice, and picking a model. Every term is explained on the way past.</p>
-        <a class="arrow" href="/resources/claude-101/">Read Claude 101</a>
-      </article>
-      <article class="card">
-        <span class="meta">Recipes · Part 2 of 2</span>
-        <h3>The Claude Playbook</h3>
-        <p style="color: var(--ink-2);">The answer to &ldquo;okay, but what do I do with it?&rdquo; Automate a recurring chore, pull one report from many tools, produce a standardized deliverable every time, and hand off your to-do list. Ends with five steps for building your own.</p>
-        <a class="arrow" href="/resources/claude-playbook/">Read the Playbook</a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<hr class="rule" />
-
-<!-- FOR PMs -->
-<section class="pad-y" style="background: var(--bg-2);" data-screen-label="03 For PMs">
-  <div class="shell">
-    <div class="cols-2" style="margin-bottom: 56px;">
-      <div>
-        <div class="eyebrow">Go deeper</div>
-        <h2 style="margin-top: 18px;">For <em>product managers.</em></h2>
+      <div class="lib-group">
+        <div class="lib-group-label">For product managers</div>
+        <ul class="lib-toc">
+          <li><a href="#claude-code-pm"><span class="n">03</span><span>Claude Code for PMs</span></a></li>
+          <li><a href="#llm-context"><span class="n">04</span><span>Export your LLM context</span></a></li>
+          <li><a href="#cowork"><span class="n">05</span><span>Cowork for the team</span></a></li>
+        </ul>
       </div>
-      <p class="lede" style="max-width: 56ch;">
-        These assume you want Claude in your actual job: reading the repo, drafting the ticket, running the analysis while you sleep. Some setup is involved, and the guides walk you through all of it.
-      </p>
-    </div>
+    </aside>
 
-    <div class="grid-3">
-      <article class="card">
-        <span class="meta">Training guide · 18,700 words</span>
-        <h3>Claude Code for PMs</h3>
-        <p style="color: var(--ink-2);">A complete setup-and-workflow guide for non-engineering PMs. Five parts: overview, one-time setup, daily use, tips, and a five-week onboarding path. Built to hand to a new hire.</p>
-        <a class="arrow" href="/resources/claude-code-pm-training-guide">Read the guide</a>
-      </article>
-      <article class="card">
-        <span class="meta">Prompt · portable</span>
-        <h3>Export your LLM context</h3>
-        <p style="color: var(--ink-2);">I wrote this when I migrated from ChatGPT to Claude. It asks your old AI to summarize what it knows about you and produces three files: a context doc, a custom-instructions block, and a memory dump.</p>
-        <a class="arrow" href="/resources/llm-context-export">Read the prompt</a>
-      </article>
-      <article class="card">
-        <span class="meta">Practical guide · ~80 sessions in</span>
-        <h3>Cowork for the team</h3>
-        <p style="color: var(--ink-2);">My actual Cowork setup. The meeting summarizer that runs every weekday at 5:36 PM. The weekly member-survey analysis pipeline. The connectors, the scheduled tasks, and how to build your own.</p>
-        <a class="arrow" href="/resources/cowork-for-pms">Read the guide</a>
-      </article>
+  <div class="lib-body">
+      <section class="lib-band" id="everyone" data-screen-label="For everyone">
+        <div class="lib-head">
+          <div class="eyebrow">Start here</div>
+          <h2>For <em>everyone.</em></h2>
+          <p class="lede">No technical background, no terminal, no product job required. A pair of companion guides: the first explains what Claude is and how to work with it, the second turns that into workflows you can copy. Read them in order.</p>
+        </div>
+        <div class="lib-cards">
+          <article class="card" id="claude-101">
+            <span class="meta">Handbook · Part 1 of 2</span>
+            <h3>Claude 101</h3>
+            <p style="color: var(--ink-2);">How the model actually works, what separates a good prompt from a bad one, when to start a new thread, and the difference between Chat, Cowork, and Code. Then Projects, Skills, Connectors, teaching it your voice, and picking a model. Every term is explained on the way past.</p>
+            <a class="arrow" href="/resources/claude-101/">Read Claude 101</a>
+          </article>
+          <article class="card" id="claude-playbook">
+            <span class="meta">Recipes · Part 2 of 2</span>
+            <h3>The Claude Playbook</h3>
+            <p style="color: var(--ink-2);">The answer to &ldquo;okay, but what do I do with it?&rdquo; Automate a recurring chore, pull one report from many tools, produce a standardized deliverable every time, and hand off your to-do list. Ends with five steps for building your own.</p>
+            <a class="arrow" href="/resources/claude-playbook/">Read the Playbook</a>
+          </article>
+        </div>
+      </section>
+      <section class="lib-band" id="pms" data-screen-label="For product managers">
+        <div class="lib-head">
+          <div class="eyebrow">Go deeper</div>
+          <h2>For <em>product managers.</em></h2>
+          <p class="lede">These assume you want Claude in your actual job: reading the repo, drafting the ticket, running the analysis while you sleep. Some setup is involved, and the guides walk you through all of it.</p>
+        </div>
+        <div class="lib-cards">
+          <article class="card" id="claude-code-pm">
+            <span class="meta">Training guide · 18,700 words</span>
+            <h3>Claude Code for PMs</h3>
+            <p style="color: var(--ink-2);">A complete setup-and-workflow guide for non-engineering PMs. Five parts: overview, one-time setup, daily use, tips, and a five-week onboarding path. Built to hand to a new hire.</p>
+            <a class="arrow" href="/resources/claude-code-pm-training-guide">Read the guide</a>
+          </article>
+          <article class="card" id="llm-context">
+            <span class="meta">Prompt · portable</span>
+            <h3>Export your LLM context</h3>
+            <p style="color: var(--ink-2);">I wrote this when I migrated from ChatGPT to Claude. It asks your old AI to summarize what it knows about you and produces three files: a context doc, a custom-instructions block, and a memory dump.</p>
+            <a class="arrow" href="/resources/llm-context-export">Read the prompt</a>
+          </article>
+          <article class="card" id="cowork">
+            <span class="meta">Practical guide · ~80 sessions in</span>
+            <h3>Cowork for the team</h3>
+            <p style="color: var(--ink-2);">My actual Cowork setup. The meeting summarizer that runs every weekday at 5:36 PM. The weekly member-survey analysis pipeline. The connectors, the scheduled tasks, and how to build your own.</p>
+            <a class="arrow" href="/resources/cowork-for-pms">Read the guide</a>
+          </article>
+        </div>
+      </section>
     </div>
-  </div>
-</section>
+</div>
 
 <hr class="rule" />
 
@@ -172,6 +212,27 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.lib-toc a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var map = {}, current = null;
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var cards = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); })
+                   .filter(Boolean);
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var a = map[en.target.id];
+      if (!a) return;
+      if (current) current.classList.remove('active');
+      a.classList.add('active');
+      current = a;
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  cards.forEach(function(c){ obs.observe(c); });
+})();
+</script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
