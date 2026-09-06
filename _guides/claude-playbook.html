@@ -216,6 +216,15 @@
     .qgrid,.parts,.jobs{grid-template-columns:1fr}
     body{font-size:16px}
   }
+  /* Phones: the label column of a callout (and of .rung / .wild dl) is `auto`,
+     so on a narrow screen it takes the width its longest word needs and
+     squeezes the body copy into a three-word ribbon. Stack instead. */
+  @media (max-width:640px){
+    .callout{grid-template-columns:1fr;gap:6px}
+    .callout .ico{padding-top:0;white-space:normal}
+    .rung{grid-template-columns:1fr;gap:10px}
+    .wild dl{grid-template-columns:1fr;gap:4px 0}
+  }
   @media (min-width:901px){.scrim{display:none}}
 </style>
 
