@@ -336,6 +336,9 @@
     backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
     border-bottom:1px solid color-mix(in oklab,var(--s-rule) 50%,transparent);font-family:var(--s-body)}
   .topbar{position:static;top:auto;z-index:1}
+  /* Jump links land below the whole sticky header, not just the doc bar.
+     The guides' own 74px offset is sized for the artifact's single bar. */
+  section,.anchor-h{scroll-margin-top:calc(var(--stickh) + 16px)}
   /* Only the TOC rail still needs a number, and being a few px off there just
      nudges the rail; it cannot break the header. A ResizeObserver keeps it
      honest through breakpoints, webfont swap and the menu opening. */
