@@ -106,7 +106,7 @@ Playbook-only: `jobs` / `job` task menu, `flow` / `node` workflow diagrams, `pro
 ### index.html
 `<body class="home">`. The home page's layout CSS lives in its own inline `<style>` block.
 - **Hero h1** — "From managing service leaders / to managing digital products." in `.hero2.page-hero`. "digital products." is a `.stroke`.
-- **Hero facts** — `.facts` / `.fact`: 12 mo, $200M+, ~25K, 6 certifications. They count up on load (`motion.js`).
+- **Hero facts** — `.facts` / `.fact`: 4 yrs in product, $200M+, ~25K, 6 certifications. They count up on load (`motion.js`).
 - **About section** — lede + 4 paragraphs in `.ab-body` inside `data-screen-label="02 About"`. The heading and portrait (`.ab-left`) stay pinned while the text scrolls.
 - **What I do now** — heading "What owning it means", the five numbered statements in `.wd-list .bullets`. Left column pinned the same way.
 - **Claude teaser** — three `.cl` columns, each with a `.cl-swatch` stroke.
