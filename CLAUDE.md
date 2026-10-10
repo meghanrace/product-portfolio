@@ -67,7 +67,9 @@ It is a transform, not a copy, and parts of it are lossy. The authored files are
 
 Because dark mode is deleted rather than hidden, **the website copy cannot be used to regenerate the artifact copy.** The file in `_guides/` is the only complete version.
 
-The generated pages deliberately do not load `styles.css`. The guides carry their own design system (Fraunces + IBM Plex, warm paper palette, sidebar TOC with scroll-spy) and their `.shell` and `.brand` rules collide with the site's.
+The generated pages deliberately do not load `styles.css`: the guides' `.shell` and `.brand` rules collide with the site's. They keep their own layout (sidebar TOC with scroll-spy, callouts, cards) but wear the site's pigment look on the website copy only. `GUIDE_THEME` in the port overrides the guides' colour tokens, swaps Fraunces and IBM Plex for Bricolage and Spline (`FONT_SWAP`), paints the hero's `<em>` word as a brush stroke over a drifting oil glaze, and adds a short pigment stroke under each section heading. `GUIDE_VARS` sets the glaze and stroke colours per guide. The brush masks are read out of `styles.css` at port time, so a change to `--brush` there needs a re-port to reach the guides.
+
+The authored files in `_guides/` keep the original Fraunces and terracotta look, so the Artifact copies are unchanged by this.
 
 ### Published as Artifacts too
 
@@ -204,6 +206,7 @@ Warm primed paper, slate ink, and four pigments from the paintings, laid down as
 | Page | Body class | Glaze | Strokes |
 |---|---|---|---|
 | Home | `.home` | ultramarine | `.swatch-a/b/c` loose swatches |
+| 404 | `.p-404` | gold into magenta | three roadmap-lane `.hs` strokes with a magenta strike through them |
 | Work | `.p-work` | turquoise | five stacked `.hs` strokes, a project board |
 | Claude | `.p-claude` | magenta | stepped `.hs` strokes, a file tree (`--ind` indent) |
 | Art | `.p-art` | gold | angled `.hs` dabs, a palette |

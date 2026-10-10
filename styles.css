@@ -1320,12 +1320,22 @@ body:not(.home) .page-hero .lede { font-family: var(--f-body); font-weight: 400;
 .js .spine:nth-child(2) { transition-delay: 90ms; } .js .spine:nth-child(3) { transition-delay: 180ms; }
 .js .spine:nth-child(4) { transition-delay: 270ms; } .js .spine:nth-child(5) { transition-delay: 360ms; } .js .spine:nth-child(6) { transition-delay: 450ms; }
 .p-connect .hs:nth-of-type(2) { mix-blend-mode: multiply; }
+/* 404: three roadmap lanes with the missing page struck through */
+.p-404 .hs:nth-of-type(4) { mix-blend-mode: multiply; }
+.js .p-404 .hs:nth-of-type(4).paint { transition-delay: 700ms; }
 
 .p-work .page-hero::before      { background: color-mix(in srgb, #12a090 16%, transparent); }
 .p-claude .page-hero::before    { background: color-mix(in srgb, #be2470 13%, transparent); right: -6%; }
 .p-art .page-hero::before       { background: color-mix(in srgb, #e9b826 24%, transparent); }
 .p-connect .page-hero::before   { background: linear-gradient(90deg, color-mix(in srgb, #be2470 16%, transparent), color-mix(in srgb, #2347a8 15%, transparent)); }
 .p-resources .page-hero::before { background: color-mix(in srgb, #12a090 15%, transparent); right: -18%; }
+.p-404 .page-hero::before       { background: linear-gradient(90deg, color-mix(in srgb, #e9b826 22%, transparent), color-mix(in srgb, #be2470 13%, transparent)); }
+
+/* brush-stroke button: home closing, 404 */
+.x-cta { position: relative; display: inline-flex; align-items: center; gap: 14px; padding: 20px 40px; isolation: isolate; color: var(--on-color); font-family: var(--f-display); font-weight: 700; font-stretch: 86%; font-size: clamp(24px, 2.4vw, 32px); border: 0; }
+.x-cta::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--magenta); -webkit-mask: var(--brush-dense) center / 100% 100% no-repeat; mask: var(--brush-dense) center / 100% 100% no-repeat; transition: background 200ms ease; }
+.x-cta:hover { color: var(--on-color); }
+.x-cta:hover::before { background: var(--ultra); }
 
 @media (prefers-reduced-motion: reduce) { .hs { animation: none; } }
 

@@ -61,7 +61,7 @@ SITE_CSS = """
      already owns --bg, --ink and friends with entirely different values;
      values match styles.css (warm paper, slate ink, magenta / turquoise
      pigments) so the guides' header and footer read as the same site.
-     The document body below keeps its own type system untouched. */
+     The document body is restyled by GUIDE_THEME below. */
   :root{
     --s-bg:#f4efe4;--s-bg-2:#ece5d6;
     --s-ink:#262b34;--s-ink-2:#4a505b;--s-ink-3:#747985;
@@ -295,6 +295,109 @@ SITE_FOOT = """
   </div>
 </footer>"""
 
+# The guides' own design system (Fraunces + IBM Plex, terracotta accent) is
+# swapped for the site's "pigment" look on the website copy only. The authored
+# files keep their original look for the Artifact copies. This works because
+# every guide component reads its colours from a handful of tokens: override
+# the tokens and the fonts, then add the brush strokes and the oil glaze.
+# The brush masks are read out of styles.css so there is one copy of each.
+_css = open(os.path.join(os.path.dirname(HERE), "styles.css"), encoding="utf-8").read()
+BRUSH = re.search(r'--brush:\s*(url\(".*?"\));', _css).group(1)
+BRUSH_DENSE = re.search(r'--brush-dense:\s*(url\(".*?"\));', _css).group(1)
+
+FONT_SWAP = {
+    '"Fraunces"': '"Bricolage Grotesque"',
+    '"IBM Plex Sans"': '"Bricolage Grotesque"',
+    '"IBM Plex Mono"': '"Spline Sans Mono"',
+}
+
+GUIDE_THEME = """
+<style>
+  /* ---------- PIGMENT THEME (site copy only) ---------- */
+  :root{
+    --bg:#f4efe4;--surface:#fbf7ef;--surface-2:#ece5d6;--inset:#efe8da;
+    --ink:#262b34;--ink-soft:#3a404b;--muted:#5d6370;--faint:#868a94;
+    --line:#ddd3bf;--line-strong:#cbbfa6;
+    --accent:#b8246b;--accent-ink:#9c1c5a;--accent-soft:rgba(184,36,107,0.08);--accent-line:rgba(184,36,107,0.3);
+    --good:#0b7f78;--good-soft:rgba(16,157,148,0.11);--bad:#c2452a;--bad-soft:rgba(194,69,42,0.09);
+    --l1:#109d94;--l2:#1f47a3;--l3:#b8246b;
+    --gold:#e8b324;--on:#fbf6ec;
+    --shadow:0 18px 40px -28px rgba(38,43,52,0.45);--shadow-soft:none;
+    --radius:4px;--radius-sm:3px;
+    --brush:%s;
+    --brush-dense:%s;
+  }
+  /* clip, not hidden: hidden would break the sticky header (see CLAUDE.md) */
+  html,body{overflow-x:clip}
+  body{background:var(--bg);font-size:17.5px}
+  h1,h2,h3,h4{font-weight:700;font-stretch:86%%;letter-spacing:-0.02em}
+  h4{font-stretch:92%%}
+  .docbrand{font-weight:700;font-stretch:86%%;font-size:1.1rem}
+  ::selection{background:color-mix(in srgb,var(--gold) 45%%,transparent)}
+  a{color:var(--accent-ink);text-decoration:underline;text-decoration-color:var(--accent-line);text-underline-offset:3px}
+  a:hover{text-decoration-color:currentColor}
+  nav.toc a,a.pairnav,a.companion,.toc-toggle{text-decoration:none}
+
+  /* hero: the key word painted over, an oil glaze drifting behind */
+  main{position:relative}
+  .hero{position:relative;isolation:isolate;padding-top:64px}
+  .hero::before{content:"";position:absolute;z-index:-1;pointer-events:none;right:-58%%;top:2%%;width:82%%;height:96%%;
+    background:color-mix(in srgb,var(--glaze) 17%%,transparent);
+    -webkit-mask:var(--brush) center/100%% 100%% no-repeat;mask:var(--brush) center/100%% 100%% no-repeat;
+    filter:blur(18px);transform:rotate(-8deg);animation:glaze-drift 18s ease-in-out infinite}
+  @keyframes glaze-drift{0%%,100%%{transform:rotate(-8deg) translate(0,0) scale(1)}50%%{transform:rotate(-4deg) translate(-4%%,3%%) scale(1.06)}}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.2rem);line-height:0.98;letter-spacing:-0.03em}
+  .hero h1 em{position:relative;display:inline-block;isolation:isolate;padding:0 0.14em;margin-left:0.04em;font-style:normal;color:var(--on)}
+  .hero h1 em::before{content:"";position:absolute;z-index:-1;inset:0.06em -0.08em -0.04em;background:var(--stroke);
+    -webkit-mask:var(--brush-dense) center/100%% 100%% no-repeat;mask:var(--brush-dense) center/100%% 100%% no-repeat;
+    animation:paint-in 900ms cubic-bezier(.6,.05,.2,1) 250ms both}
+  @keyframes paint-in{from{clip-path:inset(0 100%% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  .hero p{color:var(--muted)}
+
+  /* small mono labels carry the site's magenta chip */
+  .hero .kicker,.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--ink-soft);font-weight:500}
+  .hero .kicker::before,.eyebrow::before{content:"";width:8px;height:8px;flex:none;background:var(--accent)}
+
+  /* each section heading gets a short stroke underneath, cycling the four pigments */
+  h2.sec::after{content:"";display:block;width:96px;height:14px;margin-top:5px;background:var(--accent);
+    -webkit-mask:var(--brush) center/100%% 100%% no-repeat;mask:var(--brush) center/100%% 100%% no-repeat}
+  main section:nth-of-type(4n+2) h2.sec::after{background:var(--l1)}
+  main section:nth-of-type(4n+3) h2.sec::after{background:var(--l2)}
+  main section:nth-of-type(4n) h2.sec::after{background:var(--gold)}
+
+  /* the contents rail: active item marked with a painted dab */
+  nav.toc a{border-left:0;position:relative}
+  nav.toc a.active{background:transparent;color:var(--ink)}
+  nav.toc a.active::before{content:"";position:absolute;z-index:-1;left:4px;right:6px;top:3px;bottom:3px;
+    background:color-mix(in srgb,var(--accent) 16%%,transparent);
+    -webkit-mask:var(--brush) center/100%% 100%% no-repeat;mask:var(--brush) center/100%% 100%% no-repeat}
+  nav.toc{position:relative;isolation:isolate}
+
+  /* boxes: flat paper, hairline edges, coloured left rule */
+  .callout{border-left-width:4px;background:var(--surface)}
+  .callout.rule{border-left-color:var(--l2)}
+  .tldr{background:color-mix(in srgb,var(--gold) 14%%,var(--bg));border-color:color-mix(in srgb,var(--gold) 40%%,var(--line))}
+  .rung.r1 .lvl{background:var(--l1)}
+  ol.steps>li::before{background:var(--accent);border-color:var(--accent);color:var(--on)}
+
+  /* buttons are brush strokes, same as the site's calls to action */
+  a.pairnav{background:color-mix(in srgb,var(--l1) 9%%,var(--bg));border-color:color-mix(in srgb,var(--l1) 35%%,transparent)}
+  a.pairnav:hover{border-color:var(--l1)}
+  .pairnav .pn-btn{position:relative;isolation:isolate;background:transparent;border-radius:0;padding:12px 22px;color:var(--on);font-weight:700}
+  .pairnav .pn-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--accent);
+    -webkit-mask:var(--brush-dense) center/100%% 100%% no-repeat;mask:var(--brush-dense) center/100%% 100%% no-repeat;transition:background 200ms ease}
+  a.pairnav:hover .pn-btn::before{background:var(--l2)}
+
+  @media (max-width:900px){.hero::before{right:-70%%;width:120%%;opacity:0.6}}
+  @media (prefers-reduced-motion:reduce){.hero::before,.hero h1 em::before{animation:none}}
+</style>""" % (BRUSH, BRUSH_DENSE)
+
+GUIDE_VARS = {
+    # hero glaze and the stroke on the hero's key word, per guide
+    "claude-101": ("var(--l2)", "var(--l1)"),
+    "claude-playbook": ("var(--accent)", "var(--l2)"),
+}
+
 # Published artifact URLs -> site paths. The authored guides cross-link by
 # artifact URL; keep this in sync if either is ever republished at a new link.
 LINKMAP = {
@@ -350,6 +453,13 @@ for d in DOCS:
         "", body_part, count=1, flags=re.S)
     assert body_part != before, "theme script not found"
 
+    # Swap the guide's fonts for the site's, and drop its font stylesheet:
+    # the real <head> loads Bricolage and Spline instead.
+    for a, b in FONT_SWAP.items():
+        head_part = head_part.replace(a, b)
+    head_part = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^>]*>\s*', '', head_part)
+    head_part = re.sub(r'<link rel="preconnect"[^>]*>\s*', '', head_part)
+
     # Drop the artifact <title>; a full <title> goes in the real <head>.
     head_part = re.sub(r"^<title>.*?</title>\s*", "", head_part, flags=re.S)
 
@@ -398,8 +508,10 @@ for d in DOCS:
 <link rel="canonical" href="{url}" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 {GA}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Spline+Sans+Mono:wght@400;500;600&display=swap">
 {head_part.strip()}
+{GUIDE_THEME}
+<style>:root{{--glaze:{GUIDE_VARS[d["slug"]][0]};--stroke:{GUIDE_VARS[d["slug"]][1]}}}</style>
 {SITE_CSS}
 </head>
 <body>
