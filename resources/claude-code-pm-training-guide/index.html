@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="A complete training guide for Product Managers who want to use Claude Code as a true work assistant." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="stylesheet" href="/styles.css?v=5c42b8fa" />
+<link rel="stylesheet" href="/styles.css?v=51fc81de" />
 <link rel="stylesheet" href="/resources/article.css?v=a882414c" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
@@ -51,7 +51,6 @@
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -86,7 +85,7 @@
   <p>Claude Code is a tool from Anthropic that runs locally on your computer, has access to your files, and can use connectors (called MCPs — Model Context Protocol) to talk to systems like Jira, Confluence, your codebase host (Bitbucket, GitHub, GitLab), your CMS, your data warehouse, and more. Once you set it up well, it stops being "an AI chat" and starts being "a teammate that already knows the project, the team, and how you write."</p>
 
   <div class="callout">
-    <p><strong>✅ Use the Claude desktop app, not the terminal.</strong> Developers typically run Claude Code from a CLI like Terminal or iTerm, and that's a perfectly valid setup. What's nice about the desktop app is that you can easily switch between <strong>Code</strong> (file-aware work — drafting docs, reading repos), <strong>Cowork</strong> (longer-running automated tasks), and <strong>Chat</strong> (quick questions, brainstorming) all in the same window. You'll only need Terminal in rare cases for a specific command.</p>
+    <p><strong>✅ Use the Claude desktop app, not the terminal.</strong> Developers typically run Claude Code from a CLI like Terminal or iTerm, and that's a perfectly valid setup. What's nice about the desktop app is that you can easily switch between <strong>Code</strong> (file-aware work — drafting docs, reading repos) and <strong>Chat</strong> (quick questions, brainstorming, and scheduled tasks that run on their own) in the same window. You'll only need Terminal in rare cases for a specific command.</p>
   </div>
 
   <h3>Concrete examples of what a PM can do with it</h3>
@@ -113,7 +112,7 @@
 
   <h3>2.1 Install Claude Code</h3>
 
-  <p><strong>Recommended: download the Claude desktop app</strong> from <a href="https://claude.ai/download">claude.ai/download</a>. Sign in with your Anthropic account. The desktop app gives you Code, Cowork, and Chat in one place, which is what most PMs will use 95% of the time.</p>
+  <p><strong>Recommended: download the Claude desktop app</strong> from <a href="https://claude.ai/download">claude.ai/download</a>. Sign in with your Anthropic account. The desktop app gives you Code and Chat in one place, which is what most PMs will use 95% of the time.</p>
 
   <p>If you're more technical or want to run Claude Code from a CLI:</p>
   <ol>
@@ -379,7 +378,17 @@
   </div>
   <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>
 

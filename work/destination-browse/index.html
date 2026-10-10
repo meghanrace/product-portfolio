@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="How I built a Destination Browse prototype — a sortable, filterable view of 150+ destinations to fill the gap between dreaming and booking." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="stylesheet" href="/styles.css?v=5c42b8fa" />
+<link rel="stylesheet" href="/styles.css?v=51fc81de" />
 <link rel="stylesheet" href="/work/case.css?v=f1c8b0d7" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
@@ -51,7 +51,6 @@
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -148,7 +147,17 @@
   </div>
   <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>
 

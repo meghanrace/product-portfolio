@@ -4,19 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 <title>Meghan Race — Resources</title>
-<meta name="description" content="Free guides to working with Claude. Two for everyone, three for product managers: from how the model actually works to automated workflows that run on a schedule." />
+<meta name="description" content="Free guides to working with Claude. Two for everyone, two for product managers: from how the model actually works to automated workflows that run on a schedule." />
 <meta property="og:type"        content="website" />
 <meta property="og:url"         content="https://www.meghanrace.com/resources/" />
 <meta property="og:title"       content="Resources — Meghan Race" />
-<meta property="og:description" content="Free guides to working with Claude. Two for everyone, three for product managers." />
+<meta property="og:description" content="Free guides to working with Claude. Two for everyone, two for product managers." />
 <meta property="og:image"       content="https://www.meghanrace.com/assets/og-image.jpg" />
 <meta name="twitter:card"       content="summary_large_image" />
 <meta name="twitter:title"      content="Resources — Meghan Race" />
-<meta name="twitter:description" content="Free guides to working with Claude. Two for everyone, three for product managers." />
+<meta name="twitter:description" content="Free guides to working with Claude. Two for everyone, two for product managers." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="canonical" href="https://www.meghanrace.com/resources/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="stylesheet" href="/styles.css?v=5c42b8fa" />
+<link rel="stylesheet" href="/styles.css?v=51fc81de" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -51,7 +51,6 @@
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -68,7 +67,7 @@
       Everything I&rsquo;ve<br/>written down, <em>free.</em>
     </h1>
     <p class="lede" style="margin-top: 40px; max-width: 62ch;">
-      Every time I work out how to do something well with these tools, I write it up: first for my team, then for friends at other companies, now here. Five guides. Two assume nothing at all, three assume you are a product manager who wants the full setup. All of them are free, and all of them are built to be forwarded.
+      Every time I work out how to do something well with these tools, I write it up: first for my team, then for friends at other companies, now here. Four guides. Two assume nothing at all, two assume you are a product manager who wants the full setup. All of them are free, and all of them are built to be forwarded.
     </p>
   </div>
 </section>
@@ -92,7 +91,7 @@
       <article class="card">
         <span class="meta">Handbook · Part 1 of 2</span>
         <h3>Claude 101</h3>
-        <p style="color: var(--ink-2);">How the model actually works, what separates a good prompt from a bad one, when to start a new thread, and the difference between Chat, Cowork, and Code. Then Projects, Skills, Connectors, teaching it your voice, and picking a model. Every term is explained on the way past.</p>
+        <p style="color: var(--ink-2);">How the model actually works, what separates a good prompt from a bad one, when to start a new thread, and the difference between Chat and Code. Then Projects, Skills, Connectors, teaching it your voice, and picking a model. Every term is explained on the way past.</p>
         <a class="arrow" href="/resources/claude-101/">Read Claude 101</a>
       </article>
       <article class="card">
@@ -120,7 +119,7 @@
       </p>
     </div>
 
-    <div class="grid-3">
+    <div class="grid-2">
       <article class="card">
         <span class="meta">Training guide · 18,700 words</span>
         <h3>Claude Code for PMs</h3>
@@ -132,12 +131,6 @@
         <h3>Export your LLM context</h3>
         <p style="color: var(--ink-2);">I wrote this when I migrated from ChatGPT to Claude. It asks your old AI to summarize what it knows about you and produces three files: a context doc, a custom-instructions block, and a memory dump.</p>
         <a class="arrow" href="/resources/llm-context-export">Read the prompt</a>
-      </article>
-      <article class="card">
-        <span class="meta">Practical guide · ~80 sessions in</span>
-        <h3>Cowork for the team</h3>
-        <p style="color: var(--ink-2);">My actual Cowork setup. The meeting summarizer that runs every weekday at 5:36 PM. The weekly member-survey analysis pipeline. The connectors, the scheduled tasks, and how to build your own.</p>
-        <a class="arrow" href="/resources/cowork-for-pms">Read the guide</a>
       </article>
     </div>
   </div>
@@ -177,7 +170,17 @@
   </div>
   <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>
 

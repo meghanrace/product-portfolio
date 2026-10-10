@@ -213,7 +213,7 @@
 </style>
 
 <div class="topbar">
-  <div class="brand"><span>Claude 101</span><small>v1.1</small></div>
+  <div class="brand"><span>Claude 101</span><small>v1.2</small></div>
   <span class="spacer"></span>
   <a class="companion" href="https://claude.ai/code/artifact/efe58bf5-8673-4bdf-95c1-a0e6c0fe459e" target="_blank" rel="noopener"><span class="c-full">Next: The Playbook →</span><span class="c-short">Playbook →</span></a>
   <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
@@ -232,7 +232,7 @@
         <li><a href="#how"><span class="num">01</span><span>How Claude actually works</span></a></li>
         <li><a href="#basics"><span class="num">02</span><span>Getting started: the core habits</span></a></li>
         <li><a href="#threads"><span class="num">03</span><span>One thread or a new one?</span></a></li>
-        <li><a href="#surfaces"><span class="num">04</span><span>Chat vs. Cowork vs. Code</span></a></li>
+        <li><a href="#surfaces"><span class="num">04</span><span>Chat vs. Code</span></a></li>
         <li><a href="#projects"><span class="num">05</span><span>Projects</span></a></li>
         <li><a href="#skills"><span class="num">06</span><span>Skills</span></a></li>
         <li><a href="#voice"><span class="num">07</span><span>Make Claude sound like you</span></a></li>
@@ -251,7 +251,7 @@
       <h1>Get genuinely good at working with <em>Claude</em>.</h1>
       <p>Most people use Claude like a smarter search box. That's the shallow end. This guide walks you from "what even is this" to running your own automated workflows - no computer science degree required.</p>
       <div class="meta-row">
-        <span class="stamp">Version 1.1 · Updated August 2026</span>
+        <span class="stamp">Version 1.2 · Updated October 2026</span>
         <div class="levels">
           <span class="lv l1"><span class="dot"></span>Level 1 · Everyone</span>
           <span class="lv l2"><span class="dot"></span>Level 2 · Power user</span>
@@ -406,8 +406,8 @@
       <!-- 04 SURFACES -->
       <section id="surfaces">
         <p class="eyebrow">04 - Know your tools</p>
-        <h2 class="sec anchor-h">Chat vs. Cowork vs. Code <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
-        <p class="lead">These are three different ways to work with the same underlying Claude. Picking the right one for the task is one of the most useful things you'll learn here.</p>
+        <h2 class="sec anchor-h">Chat vs. Code <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span><span class="badge l2"><span class="dot"></span>L2</span></span></h2>
+        <p class="lead">These are two different ways to work with the same underlying Claude. Picking the right one for the task is one of the most useful things you'll learn here.</p>
 
         <div class="tablewrap tools">
           <table>
@@ -415,13 +415,8 @@
             <tbody>
               <tr>
                 <td>Claude Chat</td>
-                <td>The classic conversation - you type, it responds. Available on the web and in the desktop and mobile apps.</td>
-                <td>You want to <strong>think, write, learn, or get a quick answer.</strong> The everyday workhorse. Start here for anything conversational.</td>
-              </tr>
-              <tr>
-                <td>Cowork</td>
-                <td>Claude working as an <strong>agent</strong> - it can take multiple steps on its own, use your connected tools, and complete an actual task, all without you writing any code.</td>
-                <td>You want to <strong>delegate a whole job</strong>, not just have a conversation: "pull this week's numbers from our tools and draft the update," "process these files and file the results." Multi-step work done for you.</td>
+                <td>The conversation you type into, on the web and in the desktop and mobile apps. It can also work as an <strong>agent</strong>: take multiple steps on its own, use your connected tools, and finish an actual task. Save a task and it can run on a <strong>schedule</strong>, with nobody watching.</td>
+                <td>You want to <strong>think, write, learn, or get a quick answer</strong>, or <strong>hand off a whole job</strong>: "pull this week's numbers from our tools and draft the update." If the job repeats, make it a <strong>scheduled task</strong> and it runs on its own. Start here for almost everything.</td>
               </tr>
               <tr>
                 <td>Claude Code</td>
@@ -434,7 +429,7 @@
 
         <div class="callout rule">
           <div class="ico">The throughline</div>
-          <div><p>Think of it as a spectrum of <strong>how much you're handing over</strong>. Chat = you drive, Claude advises. Cowork = you delegate, Claude executes across your tools without code. Code = you delegate the most, with the most power and a folder it keeps coming back to. The magic ingredients - <a href="#projects">Projects</a>, <a href="#skills">Skills</a>, and <a href="#connectors">Connectors</a> - make all three better.</p></div>
+          <div><p>Think of it as a spectrum of <strong>how much you're handing over</strong>. Chat = you drive, or hand Claude a job to run across your tools, once or on a schedule. Code = you delegate the most, with the most power and a folder it keeps coming back to. The magic ingredients - <a href="#projects">Projects</a>, <a href="#skills">Skills</a>, and <a href="#connectors">Connectors</a> - make both better.</p></div>
         </div>
 
         <div class="callout tip">
@@ -451,7 +446,7 @@
         </div>
 
         <h3>Desktop app vs. web browser <span class="h-badges"><span class="badge l1"><span class="dot"></span>L1</span></span></h3>
-        <p>Chat and Cowork both run in a web browser <em>and</em> in a downloadable desktop app. Same account, same conversations synced between them - so which should you use?</p>
+        <p>Chat runs in a web browser <em>and</em> in a downloadable desktop app. Same account, same conversations synced between them - so which should you use?</p>
         <div class="tablewrap">
           <table>
             <thead><tr><th>&nbsp;</th><th>Desktop app</th><th>Web browser</th></tr></thead>
@@ -597,7 +592,7 @@ Keep it under 200 words. Plain language, no jargon.</pre>
         <p>Once a Skill lives there, Claude Code discovers it automatically and - just like in Chat - either applies it when the task matches the description, or runs it when you invoke it by name (e.g. <code>/weekly-report</code>). The <code>.claude/skills/</code> folder is the only new idea; the Skill file is identical to the one you'd use in Chat.</p>
         <div class="callout rule">
           <div class="ico">The payoff</div>
-          <div><p>Skills are how you stop re-teaching Claude the same task. Write down "how I like this done" <em>once</em>, and every future request - across Chat, Cowork, and Code - follows your standard automatically. This is the moment Claude goes from assistant to teammate.</p></div>
+          <div><p>Skills are how you stop re-teaching Claude the same task. Write down "how I like this done" <em>once</em>, and every future request - across Chat and Code - follows your standard automatically. This is the moment Claude goes from assistant to teammate.</p></div>
         </div>
       </section>
 
@@ -698,7 +693,7 @@ Keep it under 200 words. Plain language, no jargon.</pre>
 
         <div class="callout tip">
           <div class="ico">Where this gets powerful</div>
-          <div><p>Connectors are what turn Cowork and Code from "smart writer" into "does the actual job." Connect your data sources and task tools, and Claude can pull real numbers, draft from real context, and complete work end to end - the difference between "help me write the update" and "write the update from this week's real data."</p></div>
+          <div><p>Connectors are what turn Chat and Code from "smart writer" into "does the actual job." Connect your data sources and task tools, and Claude can pull real numbers, draft from real context, and complete work end to end - the difference between "help me write the update" and "write the update from this week's real data."</p></div>
         </div>
       </section>
 
@@ -745,7 +740,7 @@ Keep it under 200 words. Plain language, no jargon.</pre>
         <ul>
           <li><strong>You can switch mid-conversation.</strong> Draft with a fast model, then switch to the top tier for the one hard question.</li>
           <li><strong>Better prompting often beats a bigger model.</strong> A clear prompt to Sonnet frequently outperforms a lazy prompt to Opus. Section 02 is cheaper than an upgrade.</li>
-          <li><strong>For agents doing long, multi-step work</strong> (Cowork, Code), the top tier's judgment usually pays for itself - a small mistake early can cascade through many steps.</li>
+          <li><strong>For agents doing long, multi-step work</strong> (scheduled tasks, Code), the top tier's judgment usually pays for itself - a small mistake early can cascade through many steps.</li>
         </ul>
       </section>
 
@@ -761,7 +756,7 @@ Keep it under 200 words. Plain language, no jargon.</pre>
           <li><strong>Specificity is the whole game.</strong> Role + goal + constraints + an example. If a smart stranger couldn't do the task from your prompt, add more.</li>
           <li><strong>Iterate - don't accept the first draft.</strong> And ask it to think step by step, or to ask <em>you</em> questions first.</li>
           <li><strong>One thread per train of thought.</strong> New topic → new chat. This matters even more in Code, where sessions carry real work.</li>
-          <li><strong>Pick the right surface.</strong> Chat to think and write · Cowork to delegate multi-step work without code · Code for technical, hands-on power. Install the desktop app if you're using it daily.</li>
+          <li><strong>Pick the right surface.</strong> Chat to think, write, and delegate multi-step work, with scheduled tasks for anything that repeats · Code for technical, hands-on power. Install the desktop app if you're using it daily.</li>
           <li><strong>Projects</strong> save your context so you stop re-explaining. <strong>Skills</strong> save your procedures so you stop re-teaching. <strong>Connectors</strong> give Claude access to your real tools and data.</li>
           <li><strong>Teach it your voice once.</strong> Global rules (no jargon, no em-dashes) go in your profile preferences; a specific deliverable's style goes in a Skill. Stop re-explaining how you like things.</li>
           <li><strong>Models:</strong> default to balanced (Sonnet), go fast (Haiku) for speed, go top (Opus) for hard problems.</li>

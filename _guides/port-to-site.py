@@ -114,7 +114,7 @@ SITE_CSS = """
   .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--s-accent-2)}
   @media (max-width:760px){.nav-links{gap:16px;font-size:13px}}
 
-  /* Desktop dropdown of the five guides. The trigger stays a real link to the
+  /* Desktop dropdown of the four guides. The trigger stays a real link to the
      index; the panel is absolute so it lays over the page. .nav-item's padding
      grows the hover target down to the nav's bottom edge and the negative
      margin gives that space back, so there is no dead gap under the trigger. */
@@ -173,7 +173,7 @@ SITE_CSS = """
     .nav-links a.active::after{display:none}
     .nav-links a.active{color:var(--s-accent-2)}
     /* The hover menu is a desktop affordance; on a phone Resources is just a
-       link to the index, which lists all five anyway. */
+       link to the index, which lists all four anyway. */
     .nav-item{display:block;width:100%;padding-block:0;margin-block:0}
     /* Blockified or its row padding collapses and Resources sits tighter
        than every other item in the list. */
@@ -220,7 +220,6 @@ SITE_BAR = """
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -269,7 +268,17 @@ SITE_FOOT = """
   </div>
   <div class="sitefoot-legal">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>"""
 

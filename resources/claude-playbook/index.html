@@ -295,7 +295,7 @@
   .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--s-accent-2)}
   @media (max-width:760px){.nav-links{gap:16px;font-size:13px}}
 
-  /* Desktop dropdown of the five guides. The trigger stays a real link to the
+  /* Desktop dropdown of the four guides. The trigger stays a real link to the
      index; the panel is absolute so it lays over the page. .nav-item's padding
      grows the hover target down to the nav's bottom edge and the negative
      margin gives that space back, so there is no dead gap under the trigger. */
@@ -354,7 +354,7 @@
     .nav-links a.active::after{display:none}
     .nav-links a.active{color:var(--s-accent-2)}
     /* The hover menu is a desktop affordance; on a phone Resources is just a
-       link to the index, which lists all five anyway. */
+       link to the index, which lists all four anyway. */
     .nav-item{display:block;width:100%;padding-block:0;margin-block:0}
     /* Blockified or its row padding collapses and Resources sits tighter
        than every other item in the list. */
@@ -403,7 +403,6 @@
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -412,7 +411,7 @@
   </nav>
 </header>
 <div class="topbar">
-  <div class="docbrand"><span>The Claude Playbook</span><small>v1.0</small></div>
+  <div class="docbrand"><span>The Claude Playbook</span><small>v1.1</small></div>
   <span class="spacer"></span>
   <a class="companion" href="/resources/claude-101/"><span class="c-full">← Back to Claude 101</span><span class="c-short">← Claude 101</span></a>
   <button class="toc-toggle" id="tocToggle" aria-label="Open contents">☰ Contents</button>
@@ -466,7 +465,7 @@
       <h1>Now put Claude to <em>work</em>.</h1>
       <p><a href="/resources/claude-101/">Claude 101</a> covered what Claude is and how to use it. This one answers the question people actually ask: <em>"okay, but what do I do with it?"</em> - with real, working examples you can copy.</p>
       <div class="meta-row">
-        <span class="stamp">Version 1.0 · Updated August 2026</span>
+        <span class="stamp">Version 1.1 · Updated October 2026</span>
         <div class="levels">
           <span class="lv l1"><span class="dot"></span>L1 · Everyone</span>
           <span class="lv l2"><span class="dot"></span>L2 · Power user</span>
@@ -558,7 +557,7 @@
           <div class="part">
             <div class="pt">The clock</div>
             <h4>A Scheduled Task</h4>
-            <p>In <strong>Cowork</strong>, you can save a task and put it on a schedule. Claude then runs the whole thing on its own - unattended, on the cadence you set.</p>
+            <p>In <strong>Claude Chat</strong>, you can save a task and put it on a schedule. Claude then runs the whole thing on its own - unattended, on the cadence you set.</p>
           </div>
         </div>
 
@@ -572,7 +571,7 @@
         </div>
 
         <div class="callout tip">
-          <div class="ico">About Cowork &amp; scheduling</div>
+          <div class="ico">About scheduled tasks</div>
           <div><p>A <strong>Scheduled Task</strong> runs in the cloud, unattended - nobody is watching, and nobody can answer a mid-run question. That shapes what's a good fit: tasks with a clear, repeatable recipe and a definite "done." Anything needing your judgment mid-way is better run <em>on demand</em> (you kick it off, then review). Both are delegation; only one runs while you sleep.</p></div>
         </div>
 
@@ -596,7 +595,7 @@
           <li><strong>Connect both ends</strong><p>Add a connector for the source and one for the destination, so Claude can read one and write the other.</p></li>
           <li><strong>Write the transform as a skill</strong><p>Spell out exactly how raw input becomes finished output - the format, the length, the rules. Include the edge cases (see the guardrails below).</p></li>
           <li><strong>Build in the safety checks</strong><p>Tell it to skip anything already handled (no duplicates) and to fix the predictable mistakes (e.g. mis-heard names).</p></li>
-          <li><strong>Run it by hand, then schedule it</strong><p>Trigger it manually a few times, tune the instructions until the output is right, then set it loose as a Cowork Scheduled Task.</p></li>
+          <li><strong>Run it by hand, then schedule it</strong><p>Trigger it manually a few times, tune the instructions until the output is right, then set it loose as a Scheduled Task.</p></li>
         </ol>
 
         <div class="wild">
@@ -606,7 +605,7 @@
             <dl>
               <dt>What it does</dt><dd>Every morning it finds yesterday's call recordings, writes a clean, skimmable summary of each meeting, and files it in the right place in our team wiki - before I'm even online.</dd>
               <dt>Connects</dt><dd><span class="chips"><span class="chip">Zoom → source</span><span class="chip">Confluence → destination</span></span></dd>
-              <dt>How it runs</dt><dd>As a <b>Cowork Scheduled Task</b>, fully unattended. I read the finished notes with my coffee; I never touch it.</dd>
+              <dt>How it runs</dt><dd>As a <b>Scheduled Task</b>, fully unattended. I read the finished notes with my coffee; I never touch it.</dd>
               <dt>The clever bits</dt><dd>It <b>checks the wiki first</b> so it never posts a duplicate; it <b>corrects speaker names</b> the transcription mis-hears; and it <b>routes each meeting type</b> (stand-up, all-hands, interview) to its correct folder and format.</dd>
               <dt>Why it works unattended</dt><dd>The recipe is airtight and the "done" is obvious. There's no judgment call that needs me mid-run - exactly what makes a task safe to schedule.</dd>
             </dl>
@@ -814,7 +813,7 @@
           <li><strong>Describe how you do it</strong><p>In plain language, like you're training a new hire: the steps, the rules, what "good" looks like, and the edge cases that trip people up. This description <em>is</em> the skill.</p></li>
           <li><strong>Connect the tools it touches</strong><p>Identify where the inputs come from and where the output goes, and turn on those connectors.</p></li>
           <li><strong>Run it by hand and refine</strong><p>Do it with Claude a few times. Each time the output isn't quite right, add a line to the instructions. This tuning is the actual work - and it's just editing text.</p></li>
-          <li><strong>Decide: on demand or on autopilot</strong><p>If it needs your judgment mid-way, keep triggering it yourself. If it's a clean, unattended-safe recipe, put it on a schedule in Cowork and let it run.</p></li>
+          <li><strong>Decide: on demand or on autopilot</strong><p>If it needs your judgment mid-way, keep triggering it yourself. If it's a clean, unattended-safe recipe, make it a Scheduled Task and let it run.</p></li>
         </ol>
 
         <div class="promptbox">
@@ -843,7 +842,7 @@ Ask me any clarifying questions first, then write the skill for me.</p>
         <h2 class="sec anchor-h">Recap</h2>
         <ul>
           <li><strong>Delegate, don't just ask.</strong> The efficiency is in handing over whole tasks, not typing better questions. Climb the ladder: Ask → Delegate → Automate.</li>
-          <li><strong>Every workflow is three blocks:</strong> a <em>Skill</em> (the recipe) + <em>Connectors</em> (the hands) + a <em>Scheduled Task</em> (the clock, in Cowork).</li>
+          <li><strong>Every workflow is three blocks:</strong> a <em>Skill</em> (the recipe) + <em>Connectors</em> (the hands) + a <em>Scheduled Task</em> (the clock).</li>
           <li><strong>Three recipes to steal:</strong> automate a recurring chore (source → transform → destination, on a schedule) · draft a report pulled from many tools (gather then curate, draft-only) · standardize a deliverable (capture the format once, let it interview you).</li>
           <li><strong>Two safety habits:</strong> draft-don't-send for anything outbound, and check-before-you-write to avoid duplicates.</li>
           <li><strong>For routine work,</strong> start today with the starter menu - no setup needed. Promote your most-repeated task into a skill.</li>
@@ -910,7 +909,17 @@ Ask me any clarifying questions first, then write the skill for me.</p>
   </div>
   <div class="sitefoot-legal">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>
 </body>

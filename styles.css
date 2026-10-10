@@ -367,7 +367,7 @@ hr.rule { border: 0; height: 1px; background: var(--rule); margin: 0; }
   .nav-links a.active::after { display: none; }
   .nav-links a.active { color: var(--accent-2); }
   /* The hover menu is a desktop affordance; on a phone Resources is just a
-     link to the index, which lists all five anyway. */
+     link to the index, which lists all four anyway. */
   .nav-item {
     display: block;
     width: 100%;

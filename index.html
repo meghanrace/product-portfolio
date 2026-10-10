@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="PM at Exclusive Resorts. Twelve years in hospitality, now owning the digital platform." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="stylesheet" href="styles.css?v=5c42b8fa" />
+<link rel="stylesheet" href="styles.css?v=51fc81de" />
 <style>
   /* landing-specific tweaks */
   .home-hero h1 {
@@ -89,7 +89,6 @@
           <a href="/resources/claude-playbook/">The Claude Playbook</a>
           <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
           <a href="/resources/llm-context-export">Export your LLM context</a>
-          <a href="/resources/cowork-for-pms">Cowork for the team</a>
         </div>
       </div>
       <a href="/art">Art</a>
@@ -249,7 +248,7 @@
       <a href="/resources/" class="card plain">
         <span class="meta">The teaching</span>
         <h3>What I've written for <em>everyone else.</em></h3>
-        <p style="color: var(--ink-2);">Five free guides. Two for anyone starting from zero, three for PMs who want the full setup: Claude Code, portable context, and Cowork built on ~80 sessions.</p>
+        <p style="color: var(--ink-2);">Four free guides. Two for anyone starting from zero, two for PMs who want the full setup: Claude Code and portable context.</p>
         <span class="arrow">Browse the resources</span>
       </a>
     </div>
@@ -265,7 +264,7 @@
         <h2 style="margin-top: 18px;">Teaching is<br/>part of the<br/><em>practice.</em></h2>
       </div>
       <p class="lede" style="max-width: 56ch;">
-        When I work out how to do something well with tools that change month to month, I write it up. Five guides now: two that assume no technical background at all, three for PMs who want the full setup. Each one is a thing I wish someone had handed me.
+        When I work out how to do something well with tools that change month to month, I write it up. Four guides now: two that assume no technical background at all, two for PMs who want the full setup. Each one is a thing I wish someone had handed me.
       </p>
     </div>
 
@@ -291,7 +290,7 @@
     </div>
 
     <p style="margin-top: 40px;">
-      <a href="/resources/" style="font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); border: 0;">All five guides &rarr;</a>
+      <a href="/resources/" style="font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); border: 0;">All four guides &rarr;</a>
     </p>
   </div>
 </section>
@@ -448,7 +447,17 @@
   </div>
   <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
     <span>Meghan Race · Paintings are her own.</span>
-    <span>Made with Claude</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
   </div>
 </footer>
 

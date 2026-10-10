@@ -10,7 +10,7 @@
 
 Claude Code is a tool from Anthropic that runs locally on your computer, has access to your files, and can use connectors (called MCPs — Model Context Protocol) to talk to systems like Jira, Confluence, your codebase host (Bitbucket, GitHub, GitLab), your CMS, your data warehouse, and more. Once you set it up well, it stops being "an AI chat" and starts being "a teammate that already knows the project, the team, and how you write."
 
-> ✅ **Use the Claude desktop app, not the terminal.** Developers typically run Claude Code from a CLI like Terminal or iTerm, and that's a perfectly valid setup. What's nice about the desktop app is that you can easily switch between **Code** (file-aware work — drafting docs, reading repos), **Cowork** (longer-running automated tasks), and **Chat** (quick questions, brainstorming) all in the same window. You'll only need Terminal in rare cases for a specific command.
+> ✅ **Use the Claude desktop app, not the terminal.** Developers typically run Claude Code from a CLI like Terminal or iTerm, and that's a perfectly valid setup. What's nice about the desktop app is that you can easily switch between **Code** (file-aware work — drafting docs, reading repos) and **Chat** (quick questions, brainstorming, and scheduled tasks that run on their own) in the same window. You'll only need Terminal in rare cases for a specific command.
 
 ### Concrete examples of what a PM can do with it
 
@@ -31,7 +31,7 @@ None of this works well out of the box. The reason it works well over time is th
 
 ### 2.1 Install Claude Code
 
-**Recommended: download the Claude desktop app** from [claude.ai/download](https://claude.ai/download). Sign in with your Anthropic account. The desktop app gives you Code, Cowork, and Chat in one place, which is what most PMs will use 95% of the time.
+**Recommended: download the Claude desktop app** from [claude.ai/download](https://claude.ai/download). Sign in with your Anthropic account. The desktop app gives you Code and Chat in one place, which is what most PMs will use 95% of the time.
 
 If you're more technical or want to run Claude Code from a CLI:
 

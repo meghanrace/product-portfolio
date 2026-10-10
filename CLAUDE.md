@@ -17,11 +17,11 @@ Clean URLs throughout: every page is `<dir>/index.html` and is linked as `/<dir>
 | `art/index.html` | `/art` | Mural sections + oil paintings gallery |
 | `connect/index.html` | `/connect` | Contact page |
 | `work/<slug>/index.html` | `/work/<slug>` | Five case studies |
-| `resources/<slug>/index.html` | `/resources/<slug>` | Five guides (see below) |
+| `resources/<slug>/index.html` | `/resources/<slug>` | Four guides (see below) |
 
 ### The resources library
 
-`/resources/` is the entry point and groups the five guides by who they are for:
+`/resources/` is the entry point and groups the four guides by who they are for:
 
 | Guide | URL | Audience |
 |-------|-----|----------|
@@ -29,7 +29,8 @@ Clean URLs throughout: every page is `<dir>/index.html` and is linked as `/<dir>
 | The Claude Playbook | `/resources/claude-playbook/` | Everyone. Part 2 of 2 |
 | Claude Code for PMs | `/resources/claude-code-pm-training-guide` | PMs |
 | Export your LLM context | `/resources/llm-context-export` | PMs |
-| Cowork for the team | `/resources/cowork-for-pms` | PMs |
+
+`/resources/cowork-for-pms/` is a noindex redirect stub to `/resources/`. The Cowork guide was retired in October 2026 when Cowork folded into Chat; the stub keeps old shared links working. Point readers to scheduled tasks in Chat, not Cowork.
 
 **Claude 101 and The Claude Playbook are generated, not authored, in `resources/`.** Every other page on this site you edit directly. These two you never touch there: the pages in `resources/claude-101/` and `resources/claude-playbook/` are output, overwritten on every port.
 
@@ -95,7 +96,7 @@ Playbook-only: `jobs` / `job` task menu, `flow` / `node` workflow diagrams, `pro
 
 ### Conventions for the guides
 
-- Version stamps live in the top bar. Claude 101 is at v1.1, the Playbook at v1.0. Bump on material change.
+- Version stamps live in the top bar. Claude 101 is at v1.2, the Playbook at v1.1. Bump on material change.
 - The guides use a spaced hyphen ` - ` throughout rather than em-dashes, matching the root voice rules.
 - Check both light and dark in the artifact copy, and under 900px where the TOC collapses to a drawer.
 - A structural change to one guide should usually be mirrored in the other. They are a matched pair and readers move between them.
@@ -157,7 +158,7 @@ On the two Claude guides the site nav and the guide's own doc bar sit inside a s
 python3 _tools/stamp-css.py
 ```
 
-Every stylesheet link carries a content hash (`/styles.css?v=5c42b8fa`). Run this after touching a `.css` file and before committing; it rewrites the hash on all 15 pages that link one. It is idempotent, so running it when nothing changed is a no-op.
+Every stylesheet link carries a content hash (`/styles.css?v=5c42b8fa`). Run this after touching a `.css` file and before committing; it rewrites the hash on all 14 pages that link one. It is idempotent, so running it when nothing changed is a no-op.
 
 This is not optional polish. Browsers cache stylesheets hard and GitHub Pages gives no control over cache headers, so without a version on the URL a returning visitor keeps their old `styles.css` against freshly deployed HTML. On 2026-08-30 that shipped a genuinely broken page: a phone holding the previous stylesheet had no `.nav-menu` rules at all, so the new dropdown markup rendered as five links of raw text dumped into the mobile menu, and the mobile menu went back to pushing the page down. The site looked correct on every machine that had never cached it, which is exactly why it was easy to miss.
 
@@ -169,11 +170,15 @@ Both behaviors below live in `styles.css` and are mirrored in `port-to-site.py`'
 
 **Mobile menu (max-width 700px)** is an overlay: `.nav-links` is `position: absolute; top: 100%` so opening it lays the menu over the page instead of pushing the hero down. Two things it depends on. `.nav-row` drops to `position: static` at this breakpoint so the menu anchors to the full-bleed `.nav` rather than the inset content column. And `.nav-links` needs its own opaque `background: var(--bg)`, because the nav's is translucent and the page would show through.
 
-**Desktop dropdown** under Resources lists all five guides. The trigger stays a real link, so Resources still opens the index. `.nav-item` carries `padding-block: 16px; margin-block: -16px` — the padding grows the hover target down to the nav's bottom edge, the negative margin gives the space back to the layout, and the panel at `top: 100%` then adjoins the trigger with no dead gap for the pointer to fall through. Below 1000px the panel flips to `right: -12px`, because a left anchor runs past the right edge and `overflow-x: clip` would silently cut it off rather than let it scroll. Below 700px the panel is hidden and `.nav-item > a` is blockified so Resources keeps the same row height as every other item.
+**Desktop dropdown** under Resources lists all four guides. The trigger stays a real link, so Resources still opens the index. `.nav-item` carries `padding-block: 16px; margin-block: -16px` — the padding grows the hover target down to the nav's bottom edge, the negative margin gives the space back to the layout, and the panel at `top: 100%` then adjoins the trigger with no dead gap for the pointer to fall through. Below 1000px the panel flips to `right: -12px`, because a left anchor runs past the right edge and `overflow-x: clip` would silently cut it off rather than let it scroll. Below 700px the panel is hidden and `.nav-item > a` is blockified so Resources keeps the same row height as every other item.
 
-Adding a sixth guide means editing the `.nav-menu` block in all 15 hand-authored pages plus `SITE_BAR` in the port script.
+Adding a fifth guide means editing the `.nav-menu` block in all 14 hand-authored pages plus `SITE_BAR` in the port script.
 
 **The guide-to-guide link** (`.companion` in the doc bar: "Playbook →" / "← Claude 101") lives in the authored guides, not the port. Below 620px it swaps to a short label via `.c-full` / `.c-short` and the version stamp next to the doc title is hidden, which is what buys the room. It used to be `display: none` at that breakpoint, so on a phone the only route between the two guides was a link buried in the body copy.
+
+### Footer "last updated" date
+
+Every footer, including the port's `SITE_FOOT`, carries a `.site-updated` span filled by a small inline script from `document.lastModified`. GitHub Pages sends `Last-Modified` as the deploy time, so the date updates itself on every push. Nothing to stamp. Opened locally it shows the file's mtime.
 
 ### Palette
 All pages use `data-palette="marsh"` on the `<html>` element. The palette can be changed via the tweaks panel (React/Babel CDN at bottom of each page). Palette-aware CSS variables:
