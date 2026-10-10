@@ -210,7 +210,7 @@ Warm primed paper, slate ink, and four pigments from the paintings, laid down as
 | Connect | `.p-connect` | magenta into blue | two `.hs` strokes overlapping |
 | Resources | `.p-resources` | turquoise | `.shelf` of `.spine` strokes |
 
-`.hs` strokes are positioned inline with `--c`, `--x` (right), `--y` (top), `--w`, `--h`, `--r` (rotation). Every page's hero strokes sit inside one `<div class="hero-art">`. On desktop it covers the hero, so positions are unchanged. Below 900px it becomes an in-flow band under the hero text and each page's arrangement is redrawn inside it with percentage positions (the mobile block at the end of `styles.css`), so nothing is clipped at the screen edge. A new page with hero strokes needs both the wrapper and its own mobile positions.
+`.hs` strokes are positioned inline with `--c`, `--x` (right), `--y` (top), `--w`, `--h`, `--r` (rotation). Every page's hero strokes sit inside one `<div class="hero-art">`, which covers the hero on desktop. Below 900px `.hero-art` is hidden: the painted key phrase and the glaze carry the hero on phones and tablets. (A band of scaled-down strokes under the hero text was tried and read as clutter.)
 
 **Footer**: a `--turq-deep` field whose top edge is a `--brush-dense` stroke (`footer.foot::before`), with a magenta stroke (`::after`) and `.foot-gold` span laid over it. Every hand-authored footer includes `<span class="foot-gold">`.
 
