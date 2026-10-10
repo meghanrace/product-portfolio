@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Source for assets/og-image.jpg. With the "site" preview server running on :4187, capture at 1200x630:
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=1 --virtual-time-budget=6000 --window-size=1200,630 --screenshot=og.png "file://$PWD/_tools/og-image.html"
+  sips -s format jpeg -s formatOptions 88 og.png --out assets/og-image.jpg
+  Then bump the ?v= on og:image / twitter:image in every page and in port-to-site.py so social caches refetch. -->
+<link rel="stylesheet" href="http://localhost:4187/styles.css">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+  body{background:var(--grain),#f2ece0;position:relative;font-family:var(--f-body);color:var(--key)}
+  .g{position:absolute;filter:blur(18px);-webkit-mask:var(--brush) center/100% 100% no-repeat;mask:var(--brush) center/100% 100% no-repeat}
+  .g1{right:-140px;top:-40px;width:760px;height:480px;background:color-mix(in srgb,#2347a8 22%,transparent);transform:rotate(-8deg)}
+  .g2{left:-200px;bottom:-120px;width:720px;height:360px;background:color-mix(in srgb,#e9b826 24%,transparent);transform:rotate(5deg)}
+  .s{position:absolute;-webkit-mask:var(--brush) center/100% 100% no-repeat;mask:var(--brush) center/100% 100% no-repeat}
+  .in{position:absolute;left:80px;top:72px;right:80px;bottom:64px;display:flex;flex-direction:column}
+  .eb{font-family:var(--f-mono);font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:#4a505b;display:flex;align-items:center;gap:14px}
+  .eb::before{content:"";width:12px;height:12px;background:var(--magenta)}
+  .name{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:150px;line-height:.86;letter-spacing:-.035em;margin:34px 0 0}
+  .line{font-family:var(--f-display);font-weight:700;font-stretch:86%;font-size:44px;line-height:1.08;letter-spacing:-.02em;margin-top:36px;max-width:760px}
+  .st{position:relative;display:inline-block;isolation:isolate;padding:0 .14em;color:var(--on-color)}
+  .st::before{content:"";position:absolute;z-index:-1;inset:.06em -.08em -.04em;background:var(--ultra);-webkit-mask:var(--brush-dense) center/100% 100% no-repeat;mask:var(--brush-dense) center/100% 100% no-repeat}
+  .url{margin-top:auto;font-family:var(--f-mono);font-size:20px;letter-spacing:.06em;color:#4a505b}
+</style></head><body>
+<div class="g g1"></div><div class="g g2"></div>
+<div class="s" style="right:-50px;top:96px;width:420px;height:92px;background:var(--magenta);transform:rotate(-4deg)"></div>
+<div class="s" style="right:70px;top:206px;width:300px;height:80px;background:var(--turq);transform:rotate(2deg)"></div>
+<div class="s" style="right:-30px;top:300px;width:360px;height:84px;background:var(--gold);transform:rotate(-2deg)"></div>
+<div class="in">
+  <div class="eb">Product Manager · Exclusive Resorts</div>
+  <div class="name">Meghan<br>Race</div>
+  <div class="line">From managing service leaders to managing <span class="st">digital products.</span></div>
+  <div class="url">meghanrace.com</div>
+</div>
+</body></html>

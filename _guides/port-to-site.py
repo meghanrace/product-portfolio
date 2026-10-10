@@ -503,13 +503,13 @@ for d in DOCS:
 <meta property="og:url"         content="{url}" />
 <meta property="og:title"       content="{d["ogtitle"]}" />
 <meta property="og:description" content="{d["desc"]}" />
-<meta property="og:image"       content="https://www.meghanrace.com/assets/og-image.jpg" />
+<meta property="og:image"       content="https://www.meghanrace.com/assets/og-image.jpg?v=2" />
 <meta name="twitter:card"       content="summary_large_image" />
 <meta name="twitter:title"      content="{d["ogtitle"]}" />
 <meta name="twitter:description" content="{d["desc"]}" />
-<meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
+<meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg?v=2" />
 <link rel="canonical" href="{url}" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
 {GA}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Spline+Sans+Mono:wght@400;500;600&display=swap">
 {head_part.strip()}

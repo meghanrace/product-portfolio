@@ -307,6 +307,11 @@ All asset, CSS, script, and nav paths are root-relative (`/styles.css`, `/claude
 
 ---
 
+## Brand assets
+
+- **Favicon** (`favicon.svg`): MR in Bricolage Grotesque (800, condensed) as outlines, cream on a magenta brush stroke over primed paper. Every page links it as `/favicon.svg?v=2`; bump the version on all pages and in `port-to-site.py` when it changes, or browsers keep the old icon.
+- **Open Graph image** (`assets/og-image.jpg`, 1200×630): rendered from `_tools/og-image.html`, which has the capture commands in a comment. Pages reference it as `og-image.jpg?v=2`; bump that on change so LinkedIn and Slack refetch instead of serving their cached copy.
+
 ## Assets
 
 ```
