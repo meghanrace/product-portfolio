@@ -16,7 +16,7 @@
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="stylesheet" href="/styles.css?v=1293970a" />
-<link rel="stylesheet" href="/resources/article.css?v=a882414c" />
+<link rel="stylesheet" href="/resources/article.css?v=5e561235" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -27,7 +27,7 @@
   gtag('config', 'G-XETS41340P');
 </script>
 </head>
-<body>
+<body class="p-doc">
 
 <header class="nav">
   <nav class="nav-row shell-wide" aria-label="Primary">
@@ -59,19 +59,40 @@
   </nav>
 </header>
 
-<article class="article">
-  <a class="back-link" href="/claude">Back to Claude</a>
-
-  <header class="article-head">
-    <div class="eyebrow" style="margin-bottom: 16px;">Training guide</div>
-    <h1>Claude Code for PMs<br/>Setup &amp; Workflow Guide</h1>
-    <p class="sub">How to set up Claude Code as a true work assistant, not just a chatbot, but a tool that knows your projects, your writing style, and your tools.</p>
-    <div class="meta-row">
+<section class="pad-y page-hero doc-hero">
+  <div class="hero-art" aria-hidden="true">
+    <span class="paint hs" style="--c: var(--turq); --x: 6%; --y: 150px; --w: 300px; --h: 58px; --r: -3deg;"></span>
+    <span class="paint hs" style="--c: var(--gold); --x: 14%; --y: 228px; --w: 220px; --h: 50px; --r: 2deg;"></span>
+    <span class="paint hs" style="--c: var(--magenta); --x: 4%; --y: 300px; --w: 180px; --h: 44px; --r: -1deg;"></span>
+  </div>
+  <div class="shell-wide">
+    <a class="back-link" href="/resources/">All resources</a>
+    <div class="eyebrow">Training guide</div>
+    <h1><span class="stroke" style="--c: var(--turq);">Claude Code</span> for PMs<span class="h1-sub">Setup &amp; workflow guide</span></h1>
+    <p class="lede">How to set up Claude Code as a true work assistant, not just a chatbot, but a tool that knows your projects, your writing style, and your tools.</p>
+    <div class="doc-meta">
       <span>~18,700 words</span>
       <span>By Meghan Race</span>
       <span>Last updated 2026</span>
     </div>
-  </header>
+  </div>
+</section>
+
+<div class="shell-wide doc">
+  <aside class="doc-toc" aria-label="Contents">
+    <div class="doc-toc-label">Contents</div>
+    <nav>
+      <ol>
+        <li><a href="#overview"><span class="num">01</span><span>High-Level Overview: What You Can Use Claude Code For</span></a></li>
+        <li><a href="#setup"><span class="num">02</span><span>One-Time Setup</span></a></li>
+        <li><a href="#day-to-day"><span class="num">03</span><span>How You'd Actually Use Claude Code Day-to-Day</span></a></li>
+        <li><a href="#tips"><span class="num">04</span><span>Tips &amp; Things to Learn Up Front</span></a></li>
+        <li><a href="#onboarding"><span class="num">05</span><span>Suggested Onboarding Path</span></a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <article class="article">
 
   <blockquote>
     <strong>Who this is for</strong>
@@ -80,7 +101,7 @@
 
   <hr />
 
-  <h2><span class="num">Part 1</span>High-Level Overview: What You Can Use Claude Code For</h2>
+  <h2 id="overview"><span class="num">Part 1</span>High-Level Overview: What You Can Use Claude Code For</h2>
 
   <p>Claude Code is a tool from Anthropic that runs locally on your computer, has access to your files, and can use connectors (called MCPs: Model Context Protocol) to talk to systems like Jira, Confluence, your codebase host (Bitbucket, GitHub, GitLab), your CMS, your data warehouse, and more. Once you set it up well, it stops being "an AI chat" and starts being "a teammate that already knows the project, the team, and how you write."</p>
 
@@ -108,7 +129,7 @@
 
   <hr />
 
-  <h2><span class="num">Part 2</span>One-Time Setup</h2>
+  <h2 id="setup"><span class="num">Part 2</span>One-Time Setup</h2>
 
   <h3>2.1 Install Claude Code</h3>
 
@@ -287,7 +308,7 @@
 
   <hr />
 
-  <h2><span class="num">Part 3</span>How You'd Actually Use Claude Code Day-to-Day</h2>
+  <h2 id="day-to-day"><span class="num">Part 3</span>How You'd Actually Use Claude Code Day-to-Day</h2>
 
   <p>The setup above is the boring part. Here's what the daily workflow looks like once it's done.</p>
 
@@ -326,7 +347,7 @@
 
   <hr />
 
-  <h2><span class="num">Part 4</span>Tips &amp; Things to Learn Up Front</h2>
+  <h2 id="tips"><span class="num">Part 4</span>Tips &amp; Things to Learn Up Front</h2>
 
   <ul>
     <li><strong>Treat CLAUDE.md as a living doc.</strong> Every time Claude does something wrong twice, add a line. Every time it nails something non-obvious, capture the rule.</li>
@@ -341,7 +362,7 @@
 
   <hr />
 
-  <h2><span class="num">Part 5</span>Suggested Onboarding Path</h2>
+  <h2 id="onboarding"><span class="num">Part 5</span>Suggested Onboarding Path</h2>
 
   <ol>
     <li><strong>Day 1:</strong> Install the Claude desktop app, create your project folder, ask Claude to help you create CLAUDE.md, <code>.env</code>, and <code>.gitignore</code>.</li>
@@ -360,7 +381,8 @@
   <p style="text-align: center; margin-top: 48px;">
     <a href="/claude" class="back-link">Back to Claude</a>
   </p>
-</article>
+  </article>
+</div>
 
 <footer class="foot">
   <span class="foot-gold" aria-hidden="true"></span>
@@ -400,5 +422,6 @@
 <script type="text/babel" src="/tweaks.jsx"></script>
 
 <script src="/motion.js"></script>
+<script src="/resources/doc.js"></script>
 </body>
 </html>

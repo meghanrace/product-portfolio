@@ -30,6 +30,8 @@ Clean URLs throughout: every page is `<dir>/index.html` and is linked as `/<dir>
 | Claude Code for PMs | `/resources/claude-code-pm-training-guide` | PMs |
 | Export your LLM context | `/resources/llm-context-export` | PMs |
 
+Claude Code for PMs and Export your LLM context are hand-authored and share `resources/article.css`. Both use the doc layout: a `.page-hero.doc-hero` (back link, eyebrow, h1 with a `.stroke` and an `.h1-sub` line, lede, `.doc-meta`), then `.shell-wide.doc`, a grid of a sticky `.doc-toc` contents rail and the `.article` reading column. Each `h2` in the article has an `id` that the rail links to; add a section by adding both. `resources/doc.js` marks the section in view. Below 900px the rail becomes a static contents list above the article.
+
 `/resources/cowork-for-pms/` is a noindex redirect stub to `/resources/`. The Cowork guide was retired in October 2026 when Cowork folded into Chat; the stub keeps old shared links working. Point readers to scheduled tasks in Chat, not Cowork.
 
 **Claude 101 and The Claude Playbook are generated, not authored, in `resources/`.** Every other page on this site you edit directly. These two you never touch there: the pages in `resources/claude-101/` and `resources/claude-playbook/` are output, overwritten on every port.

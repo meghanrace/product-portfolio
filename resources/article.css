@@ -195,3 +195,47 @@
 }
 .article .back-link:hover { color: var(--accent-2); }
 .article .back-link::before { content: "←"; }
+
+/* ─── doc layout (Claude Code for PMs, Export your LLM context) ───
+   Mirrors the other pages: a full-width .page-hero, then a sticky contents
+   rail beside the reading column, the same shape as Claude 101 and the
+   Playbook. doc.js marks the section in view. */
+.doc-hero h1 { max-width: 15ch; }
+.doc-hero.pad-y { padding-bottom: clamp(40px, 5vw, 72px); }
+.doc-hero .h1-sub { display: block; margin-top: 0.12em; font-size: 0.5em; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-2); }
+.doc-hero .eyebrow { margin-top: 28px; }
+.doc-hero h1 { margin-top: 22px; }
+.doc-hero .lede { margin-top: 28px; max-width: 54ch; }
+.doc-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 28px; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.back-link { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); border: 0; display: flex; width: max-content; align-items: center; gap: 8px; }
+.back-link:hover { color: var(--accent-2); }
+.back-link::before { content: "←"; }
+
+.doc { display: grid; grid-template-columns: 260px minmax(0, 72ch); gap: clamp(40px, 6vw, 112px); align-items: start; }
+.doc .article { max-width: none; margin: 0; padding: 0 0 clamp(64px, 8vw, 112px); }
+.doc .article > :first-child { margin-top: 0; }
+.p-doc .article::before { display: none; }
+
+.doc-toc { position: sticky; top: 100px; max-height: calc(100vh - 120px); overflow-y: auto; padding-bottom: 24px; }
+.doc-toc-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; padding-left: 12px; }
+.doc-toc ol { list-style: none; margin: 0; padding: 0; isolation: isolate; }
+.doc-toc a { position: relative; display: flex; gap: 12px; align-items: baseline; padding: 8px 12px; border: 0; color: var(--ink-2); font-size: 15px; line-height: 1.35; }
+.doc-toc a .num { flex: none; width: 1.6em; font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+.doc-toc a:hover { color: var(--ink); }
+.doc-toc a.active { color: var(--ink); font-weight: 600; }
+.doc-toc a.active .num { color: var(--magenta); }
+.doc-toc a.active::before { content: ""; position: absolute; z-index: -1; inset: 3px 0; background: color-mix(in srgb, var(--magenta) 16%, transparent);
+  -webkit-mask: var(--brush) center / 100% 100% no-repeat; mask: var(--brush) center / 100% 100% no-repeat; }
+.doc .article h2 { scroll-margin-top: 100px; }
+.doc .article > h2:first-of-type, .doc .article > hr:first-child + h2 { margin-top: 0; }
+
+@media (max-width: 900px) {
+  .doc { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .doc-toc { position: static; max-height: none; padding: 16px 0; border-block: 1px solid var(--rule); }
+}
+/* on phones the list is a static index, so no "you are here" mark */
+@media (max-width: 900px) {
+  .doc-toc a.active { font-weight: inherit; color: var(--ink-2); }
+  .doc-toc a.active::before { display: none; }
+  .doc-toc a.active .num { color: var(--ink-3); }
+}

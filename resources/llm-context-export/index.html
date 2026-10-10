@@ -16,7 +16,7 @@
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="stylesheet" href="/styles.css?v=1293970a" />
-<link rel="stylesheet" href="/resources/article.css?v=a882414c" />
+<link rel="stylesheet" href="/resources/article.css?v=5e561235" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -27,7 +27,7 @@
   gtag('config', 'G-XETS41340P');
 </script>
 </head>
-<body>
+<body class="p-doc">
 
 <header class="nav">
   <nav class="nav-row shell-wide" aria-label="Primary">
@@ -59,25 +59,43 @@
   </nav>
 </header>
 
-<article class="article">
-  <a class="back-link" href="/claude">Back to Claude</a>
-
-  <header class="article-head">
-    <div class="eyebrow" style="margin-bottom: 16px;">Portable prompt</div>
-    <h1>Export Your LLM Context<br/>to a New Platform</h1>
-    <p class="sub">A prompt for asking your old AI to summarize everything it knows about you, so the new one can pick up where it left off.</p>
-    <div class="meta-row">
+<section class="pad-y page-hero doc-hero">
+  <div class="hero-art" aria-hidden="true">
+    <span class="paint hs" style="--c: var(--magenta); --x: 8%; --y: 160px; --w: 260px; --h: 56px; --r: -2deg;"></span>
+    <span class="paint hs" style="--c: var(--ultra); --x: 3%; --y: 236px; --w: 300px; --h: 56px; --r: 3deg;"></span>
+  </div>
+  <div class="shell-wide">
+    <a class="back-link" href="/resources/">All resources</a>
+    <div class="eyebrow">Portable prompt</div>
+    <h1>Export your <span class="stroke" style="--c: var(--magenta);">LLM context</span><span class="h1-sub">to a new platform</span></h1>
+    <p class="lede">A prompt for asking your old AI to summarize everything it knows about you, so the new one can pick up where it left off.</p>
+    <div class="doc-meta">
       <span>~1,200 words</span>
       <span>By Meghan Race</span>
       <span>Works with ChatGPT, Claude, Gemini</span>
     </div>
-  </header>
+  </div>
+</section>
+
+<div class="shell-wide doc">
+  <aside class="doc-toc" aria-label="Contents">
+    <div class="doc-toc-label">Contents</div>
+    <nav>
+      <ol>
+        <li><a href="#prompt"><span class="num">01</span><span>The prompt</span></a></li>
+        <li><a href="#details"><span class="num">02</span><span>Important details</span></a></li>
+        <li><a href="#why"><span class="num">03</span><span>Why I wrote this</span></a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <article class="article">
 
   <p class="lede">Use this prompt in whichever AI assistant you've been using the most: the one that knows you best from your conversation history. It will generate portable files you can use to set up a new AI account with full context about you.</p>
 
   <hr />
 
-  <h2><span class="num">Copy</span>The prompt</h2>
+  <h2 id="prompt"><span class="num">Copy</span>The prompt</h2>
 
   <div class="callout" style="font-family: var(--f-display); font-size: clamp(18px, 2vw, 22px); line-height: 1.5;">
     <p>I want you to summarize everything you know about me from our conversation history: my work, my background, my strengths, my projects, and how I communicate. Use this to create <strong>three things</strong>:</p>
@@ -121,7 +139,7 @@
 
   <hr />
 
-  <h2><span class="num">Notes</span>Important details</h2>
+  <h2 id="details"><span class="num">Notes</span>Important details</h2>
 
   <ul>
     <li>Be specific and detailed: generic summaries aren't useful. Pull from actual projects, tools, people, and situations we've discussed.</li>
@@ -134,7 +152,7 @@
 
   <hr />
 
-  <h2><span class="num">Why</span>Why I wrote this</h2>
+  <h2 id="why"><span class="num">Why</span>Why I wrote this</h2>
 
   <p>I switched from ChatGPT to Claude for personal use last year, and I didn't want to start over. The model already knew which projects I was working on, what tone I liked in my emails, which family members were which, and a hundred small things that would have taken months to re-teach.</p>
 
@@ -145,7 +163,8 @@
   <p style="text-align: center; margin-top: 56px;">
     <a href="/claude" class="back-link">Back to Claude</a>
   </p>
-</article>
+  </article>
+</div>
 
 <footer class="foot">
   <span class="foot-gold" aria-hidden="true"></span>
@@ -185,5 +204,6 @@
 <script type="text/babel" src="/tweaks.jsx"></script>
 
 <script src="/motion.js"></script>
+<script src="/resources/doc.js"></script>
 </body>
 </html>
