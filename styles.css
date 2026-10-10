@@ -1266,10 +1266,6 @@ body:not(.home) .page-hero .lede { font-family: var(--f-body); font-weight: 400;
 .swatch-c { position: absolute; right: clamp(120px, 14vw, 220px); top: clamp(170px, 18vw, 280px); width: min(12vw, 170px); height: clamp(36px, 4vw, 56px); --c: var(--gold); transform: rotate(-6deg); }
 .page-hero.short .swatch-b { top: clamp(190px, 20vw, 300px); }
 .page-hero.short .swatch-c { top: clamp(130px, 14vw, 210px); }
-@media (max-width: 900px) {
-  .swatch-a { width: 40vw; right: -14vw; top: 10px; height: 34px; }
-  .swatch-b, .swatch-c { display: none; }
-}
 @keyframes hero-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
 .page-hero .eyebrow { animation: hero-rise 700ms cubic-bezier(.2,.7,.2,1) both; }
 .page-hero h1 { animation: hero-rise 800ms cubic-bezier(.2,.7,.2,1) 120ms both; }
@@ -1323,7 +1319,6 @@ body:not(.home) .page-hero .lede { font-family: var(--f-body); font-weight: 400;
 .spine:last-child { transform: rotate(-9deg); transform-origin: 0 100%; }
 .js .spine:nth-child(2) { transition-delay: 90ms; } .js .spine:nth-child(3) { transition-delay: 180ms; }
 .js .spine:nth-child(4) { transition-delay: 270ms; } .js .spine:nth-child(5) { transition-delay: 360ms; } .js .spine:nth-child(6) { transition-delay: 450ms; }
-@media (max-width: 900px) { .shelf { display: none; } }
 .p-connect .hs:nth-of-type(2) { mix-blend-mode: multiply; }
 
 .p-work .page-hero::before      { background: color-mix(in srgb, #12a090 16%, transparent); }
@@ -1332,8 +1327,48 @@ body:not(.home) .page-hero .lede { font-family: var(--f-body); font-weight: 400;
 .p-connect .page-hero::before   { background: linear-gradient(90deg, color-mix(in srgb, #be2470 16%, transparent), color-mix(in srgb, #2347a8 15%, transparent)); }
 .p-resources .page-hero::before { background: color-mix(in srgb, #12a090 15%, transparent); right: -18%; }
 
-@media (max-width: 900px) {
-  .hs { display: none; }
-  .hs:first-of-type { display: block; right: -12vw; top: 10px; width: 46vw; height: 34px; transform: rotate(-3deg); margin: 0; left: auto; }
-}
 @media (prefers-reduced-motion: reduce) { .hs { animation: none; } }
+
+/* ─── hero strokes container ───
+   Desktop: .hero-art covers the hero exactly, so every stroke keeps the
+   position it was given relative to the section.
+   Below 900px it drops into the flow as a band under the hero text and the
+   page's whole arrangement is redrawn inside it at a smaller scale, instead of
+   one stroke hanging off the right edge. Positions there are percentages of
+   the band, so the composition stays inside the screen at any width. */
+.hero-art { position: absolute; inset: 0; pointer-events: none; }
+
+@media (max-width: 900px) {
+  .page-hero:has(> .hero-art) { display: flex; flex-direction: column; }
+  .page-hero > .hero-art { position: relative; inset: auto; order: 2; height: clamp(170px, 34vw, 260px); margin-top: clamp(28px, 6vw, 48px); overflow: hidden; }
+  .hero-art > * { animation: none; }
+
+  /* home and 404: three loose swatches */
+  .hero-art .swatch-a { right: 4%; left: auto; top: 6%;  width: 58%; height: 26%; }
+  .hero-art .swatch-c { right: 50%; left: auto; top: 44%; width: 26%; height: 15%; }
+  .hero-art .swatch-b { right: 6%;  left: auto; top: 58%; width: 48%; height: 20%; }
+
+  /* the per-page arrangements, same order of strokes as desktop */
+  .hero-art .hs { height: calc(var(--h) * 0.55); width: calc(var(--w) * 1.9); }
+  .p-work .hero-art .hs:nth-of-type(1) { right: 34%; top: 4%; }
+  .p-work .hero-art .hs:nth-of-type(2) { right: 46%; top: 23%; }
+  .p-work .hero-art .hs:nth-of-type(3) { right: 26%; top: 42%; }
+  .p-work .hero-art .hs:nth-of-type(4) { right: 56%; top: 61%; }
+  .p-work .hero-art .hs:nth-of-type(5) { right: 38%; top: 80%; }
+
+  .p-claude .hero-art .hs { left: calc(8% + var(--ind) * 0.8); right: auto; top: calc(4% + (var(--y) - 18%) * 1.65); }
+
+  .p-art .hero-art .hs { height: calc(var(--h) * 0.5); width: calc(var(--w) * 1.6); }
+  .p-art .hero-art .hs:nth-of-type(1) { right: 52%; top: 4%; }
+  .p-art .hero-art .hs:nth-of-type(2) { right: 18%; top: 10%; }
+  .p-art .hero-art .hs:nth-of-type(3) { right: 60%; top: 52%; }
+  .p-art .hero-art .hs:nth-of-type(4) { right: 26%; top: 54%; }
+  .p-art .hero-art .hs:nth-of-type(5) { right: 8%;  top: 72%; }
+
+  .p-connect .hero-art .hs { width: calc(var(--w) * 1.5); }
+  .p-connect .hero-art .hs:nth-of-type(1) { right: 2%; top: 14%; }
+  .p-connect .hero-art .hs:nth-of-type(2) { right: 30%; top: 40%; }
+  .p-connect .hero-art .hs:nth-of-type(3) { right: 12%; top: 74%; }
+
+  .hero-art .shelf { right: 50%; top: auto; bottom: 0; transform: translateX(50%) scale(0.62); transform-origin: 50% 100%; }
+}
