@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="Murals and oil paintings by Meghan Race — landscapes, fabric studies, and twenty years of studio work." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="stylesheet" href="/styles.css?v=51fc81de" />
+<link rel="stylesheet" href="/styles.css?v=1d97965a" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -26,7 +26,7 @@
   gtag('config', 'G-XETS41340P');
 </script>
 </head>
-<body>
+<body class="p-art">
 
 <header class="nav">
   <nav class="nav-row shell-wide" aria-label="Primary">
@@ -59,12 +59,17 @@
 </header>
 
 <!-- HERO -->
-<section class="pad-y" data-screen-label="01 Art hero">
+<section class="pad-y page-hero" data-screen-label="01 Art hero">
+  <span class="paint drift hs" style="--c:var(--magenta); --x:14%; --y:14%; --w:min(16vw,230px); --h:90px; --r:-24deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--turq); --x:3%; --y:24%; --w:min(13vw,190px); --h:80px; --r:18deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--ultra); --x:20%; --y:38%; --w:min(12vw,170px); --h:70px; --r:8deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--gold); --x:6%; --y:46%; --w:min(15vw,220px); --h:86px; --r:-12deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--magenta); --x:26%; --y:58%; --w:min(7vw,100px); --h:46px; --r:30deg;" aria-hidden="true"></span>
   <div class="shell-wide">
     <div class="eyebrow">Studio</div>
-    <h1 style="margin-top: 22px; font-size: clamp(48px, 9vw, 100px); line-height: 0.92;">
+    <h1 style="margin-top: 22px;">
       Paintings,<br/>
-      and a <span class="italic" style="color: var(--accent-2);">wall or two</span>.
+      and a <span class="stroke" style="--c: var(--ultra);">wall or two</span>.
     </h1>
     <p style="margin-top: 24px; max-width: 60ch; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);">
       Why this page is on a product profile → the way you learn to see in a studio is the same way you learn to see a system. Composition, restraint, what to leave out. It carries.
@@ -252,6 +257,7 @@
 </section>
 
 <footer class="foot">
+  <span class="foot-gold" aria-hidden="true"></span>
   <div class="shell-wide foot-row">
     <div>
       <div class="display">Meghan Race</div>
@@ -287,5 +293,6 @@
 <script type="text/babel" src="/tweaks-panel.jsx"></script>
 <script type="text/babel" src="/tweaks.jsx"></script>
 
+<script src="/motion.js"></script>
 </body>
 </html>

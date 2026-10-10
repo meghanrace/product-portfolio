@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="Open to a call, a Zoom, or just a good conversation about product." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="stylesheet" href="/styles.css?v=51fc81de" />
+<link rel="stylesheet" href="/styles.css?v=1d97965a" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
 <script>
@@ -26,7 +26,7 @@
   gtag('config', 'G-XETS41340P');
 </script>
 </head>
-<body>
+<body class="p-connect">
 
 <header class="nav">
   <nav class="nav-row shell-wide" aria-label="Primary">
@@ -59,12 +59,15 @@
 </header>
 
 <!-- HERO -->
-<section class="pad-y" data-screen-label="01 Connect hero">
+<section class="pad-y page-hero" data-screen-label="01 Connect hero">
+  <span class="paint drift hs" style="--c:var(--magenta); --x:-4%; --y:26%; --w:min(36vw,520px); --h:96px; --r:-4deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--ultra); --x:18%; --y:40%; --w:min(34vw,500px); --h:96px; --r:5deg;" aria-hidden="true"></span>
+  <span class="paint drift hs" style="--c:var(--gold); --x:8%; --y:58%; --w:min(10vw,150px); --h:44px; --r:-8deg;" aria-hidden="true"></span>
   <div class="shell-wide">
     <div class="eyebrow">Let's talk</div>
-    <h1 style="margin-top: 22px; font-size: clamp(48px, 9vw, 100px); line-height: 0.92;">
+    <h1 style="margin-top: 22px;">
       Let's<br/>
-      <span class="italic" style="color: var(--accent-2);">connect</span>.
+      <span class="stroke" style="--c: var(--magenta);">connect</span>.
     </h1>
     <p class="lede" style="margin-top: 40px; max-width: 60ch;">
       The easiest way to get to know each other is a real conversation. Drop me a line, send a LinkedIn request, and let's get a phone call or Zoom on the calendar.
@@ -154,6 +157,7 @@
 </section>
 
 <footer class="foot">
+  <span class="foot-gold" aria-hidden="true"></span>
   <div class="shell-wide foot-row">
     <div>
       <div class="display">Meghan Race</div>
@@ -189,5 +193,6 @@
 <script type="text/babel" src="/tweaks-panel.jsx"></script>
 <script type="text/babel" src="/tweaks.jsx"></script>
 
+<script src="/motion.js"></script>
 </body>
 </html>

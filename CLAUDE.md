@@ -62,7 +62,7 @@ It is a transform, not a copy, and parts of it are lossy. The authored files are
 - wraps each fragment in a full HTML document with meta, OG/Twitter, canonical, favicon and GA4
 - adds the site nav and footer, built from the site's real nav rules but with `--s-*` prefixed tokens so they cannot clobber the guides' own `--bg` / `--ink`
 - renames the guides' `.brand` to `.docbrand`, clearing a collision with the site nav's `.brand`
-- strips dark mode entirely: the theme toggle, its script, and the dark CSS blocks, because the site has three explicitly chosen palettes and no dark mode
+- strips dark mode entirely: the theme toggle, its script, and the dark CSS blocks, because the site has one light palette and no dark mode
 - rewrites the cross-links between the two guides from artifact URLs to site paths, and drops `target="_blank"` from them
 
 Because dark mode is deleted rather than hidden, **the website copy cannot be used to regenerate the artifact copy.** The file in `_guides/` is the only complete version.
@@ -104,10 +104,15 @@ Playbook-only: `jobs` / `job` task menu, `flow` / `node` workflow diagrams, `pro
 ## Key copy locations
 
 ### index.html
-- **Hero h1** — "Twelve years on the phone. / Now I own the platform." Near top of body.
-- **Home facts strip** — `.home-facts` div: location, company/tenure, title/tenure.
-- **About section** — 4 paragraphs inside `data-screen-label="03 About"`. This is the main biographical copy. The lede paragraph starts "Twenty years in hospitality..."
-- **Stats strip** — Numbers (12 yrs, Jan 2025, etc.) in the `data-screen-label="04 Stats"` section below About.
+`<body class="home">`. The home page's layout CSS lives in its own inline `<style>` block.
+- **Hero h1** — "Twelve years on the phone. / Now I own the platform." in `.hero2.page-hero`. "the platform." is a `.stroke`.
+- **Hero facts** — `.facts` / `.fact`: 12 yrs, 12 mo, $200M+, ~25K. They count up on load (`motion.js`).
+- **About section** — lede + 4 paragraphs in `.ab-body` inside `data-screen-label="02 About"`. The heading and portrait (`.ab-left`) stay pinned while the text scrolls.
+- **What I do now** — heading "What owning it means", the five numbered statements in `.wd-list .bullets`. Left column pinned the same way.
+- **Claude teaser** — three `.cl` columns, each with a `.cl-swatch` stroke.
+- **Resources** — `.toc` ruled list of guides.
+- **Experience** — `.gx` career timeline: one row per role, each bar a brush stroke positioned by `--a` / `--b` (percent of 2007–2027). Add a role by adding a row and computing its two percentages.
+- **Closing** — pull quote, `.x-cta` brush-stroke button. The stat ticker runs along the top of the home footer.
 
 ### work/index.html
 - **Hero lede** — `.lede` paragraph under the h1. Describes the Member Portal and five case studies.
@@ -180,16 +185,37 @@ Adding a fifth guide means editing the `.nav-menu` block in all 14 hand-authored
 
 Every footer, including the port's `SITE_FOOT`, carries a `.site-updated` span filled by a small inline script from `document.lastModified`. GitHub Pages sends `Last-Modified` as the deploy time, so the date updates itself on every push. Nothing to stamp. Opened locally it shows the file's mtime.
 
-### Palette
-All pages use `data-palette="marsh"` on the `<html>` element. The palette can be changed via the tweaks panel (React/Babel CDN at bottom of each page). Palette-aware CSS variables:
-- `--accent` — golden amber
-- `--accent-2` — rust/terra cotta (used for active nav, pull-quote accents, chips)
-- `--accent-3` — sage green
-- `--bg-2` — slightly darker background (used for alternating sections)
-- `--ink-2`, `--ink-3` — secondary/tertiary text
-- `--rule` — border/divider color
-- `--f-display` — display typeface
-- `--f-mono` — monospace typeface
+### Design system: "pigment" (October 2026)
+Warm primed paper, slate ink, and four pigments from the paintings, laid down as brush strokes. Everything below lives in `styles.css` unless noted.
+
+**Colour tokens** (`:root`): `--paper` cream, `--key` slate ink, `--magenta`, `--turq` (and `--turq-ink` for text, `--turq-deep` for the footer), `--ultra` ultramarine, `--gold`. `--on-color` is the light type used on a pigment. The older names (`--accent`, `--accent-2`, `--accent-3`, `--bg-2`, `--rule`, `--ink-2`, `--ink-3`) still exist and are remapped onto these, so older page markup keeps working. `data-palette` and the tweaks panel no longer change anything visible.
+
+**Type**: Bricolage Grotesque (display and body, condensed via `font-stretch`) and Spline Sans Mono for labels. Bricolage has no italic, so emphasis inside headings is an upright colour change. `--f-display` carries `!important` because `tweaks.jsx` writes an inline value at load.
+
+**Brush strokes**: `--brush` and `--brush-dense` are SVG masks (displaced rectangle plus bristle streaks). Anything painted is a pigment background seen through one:
+- `.stroke` — a word in a heading painted over. Set `--c` for the colour. Text stays ink until the stroke has painted in.
+- `.paint` — any shape painted with `--c`. Used for the loose hero swatches, timeline bars, card swatches.
+
+**Oil glazes** (the page background): large translucent pigment washes, brush-edged and blurred, behind sections. `.page-hero::before` drifts on an 18s loop. On home each section is targeted by `data-screen-label`; every other page cycles magenta, gold, turquoise, magenta-into-blue on `body:not(.home) > section:nth-of-type(…)`, alternating sides. Case studies and `.article` pages use fixed-size glazes kept to the margins.
+
+**Page heroes**: the first section on a page gets `.page-hero` (entrance animation, drifting glaze, `.stroke` on the key phrase). Each top-level page has a body class that varies the hero while keeping the feel:
+
+| Page | Body class | Glaze | Strokes |
+|---|---|---|---|
+| Home | `.home` | ultramarine | `.swatch-a/b/c` loose swatches |
+| Work | `.p-work` | turquoise | five stacked `.hs` strokes, a project board |
+| Claude | `.p-claude` | magenta | stepped `.hs` strokes, a file tree (`--ind` indent) |
+| Art | `.p-art` | gold | angled `.hs` dabs, a palette |
+| Connect | `.p-connect` | magenta into blue | two `.hs` strokes overlapping |
+| Resources | `.p-resources` | turquoise | `.shelf` of `.spine` strokes |
+
+`.hs` strokes are positioned inline with `--c`, `--x` (right), `--y` (top), `--w`, `--h`, `--r` (rotation). Below 900px only the first one shows.
+
+**Footer**: a `--turq-deep` field whose top edge is a `--brush-dense` stroke (`footer.foot::before`), with a magenta stroke (`::after`) and `.foot-gold` span laid over it. Every hand-authored footer includes `<span class="foot-gold">`.
+
+**Motion** (`motion.js`, loaded on every hand-authored page): adds `.js` to `<html>`, paints `.paint` / `.stroke` and fades up `.rise` as they scroll into view, drifts `.drift` elements at different rates, counts up `.fact .n`. Reveal is position-based rather than IntersectionObserver so strokes still paint in hidden tabs and screenshot tools. All of it is off under `prefers-reduced-motion`.
+
+**Guide chrome**: `SITE_CSS` in `port-to-site.py` mirrors the nav, fonts and turquoise brushed footer with `--s-*` tokens (including its own copy of the brush mask as `--s-brush`). Change the site nav or footer, change it there too, then re-port.
 
 ### Shell containers
 - `.shell-wide` — full content width (most sections)
@@ -203,10 +229,11 @@ All pages use `data-palette="marsh"` on the `<html>` element. The palette can be
 ### Layout utilities
 - `.cols-2` — two-column layout (used at top of case studies and most sections)
 - `.gallery` — 12-column grid. Figure spans: default `span 6`, `.wide` = 8, `.narrow` = 4, `.full` = 12
-- `.framed` — warm gold border (`#c4a97a`) + shadow, used on the oil painting figures in art.html
+- `.framed` — paper mat with an ink outline, used on the oil painting figures in art.html
 - `.stats` / `.stat` — key number display (used in case study headers and index.html)
 - `.chips` / `.chip` — small tag labels (used in case studies for status and topic)
-- `.eyebrow` — small caps mono label above headings
+- `.eyebrow` — small caps mono label above headings, with a magenta chip
+- `.page-hero` — first section of a page; see the design system above
 - `.case-index` — bordered index grid. Defaults to 5 columns (work page); `.two-up` and `.three-up` modifiers override for shorter lists
 - `.lede` — larger intro paragraph
 
@@ -267,7 +294,7 @@ All asset, CSS, script, and nav paths are root-relative (`/styles.css`, `/claude
 ## How to add a new top-level page
 
 1. Copy `connect.html` (simplest page) as a starting point.
-2. Update `<title>`, `<meta name="description">`, `data-palette` if different.
+2. Update `<title>`, `<meta name="description">`. Give the first section `class="pad-y page-hero"`, add hero strokes (`.hs` or `.swatch-*`), paint the headline's key phrase with a `.stroke`, and keep the `<script src="/motion.js">` tag.
 3. Add the page to the nav in **every** existing HTML file. The canonical nav is Home · Work · Claude · Resources · Art · Connect, identical on every page, inside `<div class="nav-links">`, and it appears in every page including `404.html` and the resource subpages. Claude 101 and the Playbook are the exception: their nav lives in their own `.sitebar` block and must be updated separately.
 4. Update the footer links similarly.
 5. No `../` prefix needed for top-level pages; subpages in `work/` and `resources/` already use `../` so will pick up the new link automatically once nav is updated in their files.

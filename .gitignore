@@ -10,3 +10,7 @@
 # Misc
 *.log
 .env
+
+# Working screenshots in _notes (kept local, too large to version)
+_notes/screens/
+_notes/first-pass/

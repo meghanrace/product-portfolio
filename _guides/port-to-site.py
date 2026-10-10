@@ -59,15 +59,17 @@ SITE_CSS = """
      Lifted from the site's own nav and footer rules so the header reads as
      part of meghanrace.com. Tokens are prefixed --s-* because the guide
      already owns --bg, --ink and friends with entirely different values;
-     values are the marsh palette, which is the site default.
+     values match styles.css (warm paper, slate ink, magenta / turquoise
+     pigments) so the guides' header and footer read as the same site.
      The document body below keeps its own type system untouched. */
   :root{
-    --s-bg:oklch(0.962 0.012 85);--s-bg-2:oklch(0.925 0.020 80);
-    --s-ink:oklch(0.22 0.015 55);--s-ink-2:oklch(0.42 0.022 55);--s-ink-3:oklch(0.60 0.025 60);
-    --s-rule:oklch(0.80 0.025 70);--s-accent-2:oklch(0.46 0.135 32);
-    --s-display:'Instrument Serif','Cormorant Garamond','Times New Roman',serif;
-    --s-body:'Geist',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
-    --s-mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --s-bg:#f4efe4;--s-bg-2:#ece5d6;
+    --s-ink:#262b34;--s-ink-2:#4a505b;--s-ink-3:#747985;
+    --s-rule:#d5cbb6;--s-accent-2:#b8246b;--s-turq:#08847d;--s-gold:#e8b324;--s-on:#fbf6ec;
+    --s-display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
+    --s-body:'Bricolage Grotesque',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    --s-mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --s-brush:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cfilter id='f' x='-5%25' y='-30%25' width='110%25' height='160%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.09' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='26' xChannelSelector='R' yChannelSelector='G' result='d'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.003 0.42' numOctaves='2' seed='9' result='s'/%3E%3CfeColorMatrix in='s' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.9 0 0 0 1.55' result='a'/%3E%3CfeComposite in='d' in2='a' operator='in'/%3E%3C/filter%3E%3Crect x='16' y='18' width='568' height='64' rx='10' filter='url(%23f)'/%3E%3C/svg%3E");
   }
 
   /* Sticky, like every other page on the site, so Resources is always one
@@ -103,15 +105,15 @@ SITE_CSS = """
   .nav a{color:inherit;text-decoration:none}
   .nav a:hover{text-decoration:none}
   .sitebrand{display:inline-flex;align-items:center;gap:12px;font-family:var(--s-display);
-    font-size:22px;letter-spacing:-0.005em;color:var(--s-ink);border:0}
+    font-weight:720;font-stretch:84%;font-size:22px;letter-spacing:-0.02em;color:var(--s-ink);border:0}
   .sitebrand-mark{width:32px;height:32px;border-radius:50%;
     background:url("/assets/meghan-headshot.png") center 18% / cover no-repeat var(--s-bg-2);
-    box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--s-ink) 25%,transparent);flex:none}
-  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px}
+    flex:none}
+  .nav-links{display:flex;align-items:center;gap:26px;font-family:var(--s-mono);font-size:13px;letter-spacing:0.04em}
   .nav-links a{color:var(--s-ink-2);position:relative;padding-block:4px}
   .nav-links a:hover{color:var(--s-ink)}
   .nav-links a.active{color:var(--s-ink)}
-  .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--s-accent-2)}
+  .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--s-accent-2)}
   @media (max-width:760px){.nav-links{gap:16px;font-size:13px}}
 
   /* Desktop dropdown of the four guides. The trigger stays a real link to the
@@ -144,7 +146,7 @@ SITE_CSS = """
   .nav-toggle-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
   .nav-toggle{display:none;align-items:center;gap:8px;cursor:pointer;user-select:none;
     font-family:var(--s-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--s-ink-2);padding:6px 10px;border:1px solid var(--s-rule);border-radius:999px;background:var(--s-bg)}
+    color:var(--s-ink);padding:6px 0;border:0;background:transparent}
   .nav-toggle:hover{color:var(--s-ink)}
   .nav-toggle-caret{display:inline-block;width:8px;height:8px;
     border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
@@ -182,16 +184,27 @@ SITE_CSS = """
     .nav-menu{display:none}
   }
 
-  footer.sitefoot{border-top:1px solid var(--s-rule);padding-block:64px;margin-top:8px;
-    color:var(--s-ink-2);font-size:14px;font-family:var(--s-body);background:var(--s-bg)}
+  /* footer: a turquoise field whose top edge is a brush stroke, with a
+     magenta and a gold stroke laid over it, same as the rest of the site */
+  footer.sitefoot{--s-ink:var(--s-on);--s-ink-2:color-mix(in srgb,var(--s-on) 90%,var(--s-turq));
+    --s-ink-3:color-mix(in srgb,var(--s-on) 82%,var(--s-turq));
+    position:relative;margin-top:64px;padding-block:clamp(64px,8vw,104px) 40px;
+    color:var(--s-ink-2);font-size:14px;font-family:var(--s-body);background:var(--s-turq)}
+  footer.sitefoot::before{content:"";position:absolute;left:-2%;right:-2%;top:-38px;height:76px;background:var(--s-turq);
+    -webkit-mask:var(--s-brush) center/100% 100% no-repeat;mask:var(--s-brush) center/100% 100% no-repeat;pointer-events:none}
+  footer.sitefoot::after{content:"";position:absolute;right:-40px;top:12%;width:min(26vw,380px);height:clamp(60px,7vw,100px);
+    background:var(--s-accent-2);-webkit-mask:var(--s-brush) center/100% 100% no-repeat;mask:var(--s-brush) center/100% 100% no-repeat;
+    transform:rotate(-3deg);pointer-events:none}
+  footer.sitefoot > *{position:relative}
+  @media (max-width:700px){footer.sitefoot::after{display:none}}
   .sitefoot-in{width:min(100% - clamp(40px,8vw,128px),1480px);margin-inline:auto;
     display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:end}
-  .sitefoot .display{font-family:var(--s-display);font-size:clamp(40px,6vw,64px);line-height:1;color:var(--s-ink)}
+  .sitefoot .display{font-family:var(--s-display);font-weight:700;font-stretch:86%;font-size:clamp(36px,4.4vw,64px);line-height:0.9;letter-spacing:-0.022em;color:var(--s-ink)}
   .sitefoot .role{font-family:var(--s-mono);font-size:12px;letter-spacing:0.1em;
     text-transform:uppercase;color:var(--s-ink-3);margin-top:8px}
-  .sitefoot .links{display:flex;flex-wrap:wrap;gap:20px}
-  .sitefoot .links a{color:var(--s-ink-2);text-decoration:none}
-  .sitefoot .links a:hover{color:var(--s-ink)}
+  .sitefoot .links{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--s-mono);font-size:13px}
+  .sitefoot .links a{color:var(--s-ink);text-decoration:none}
+  .sitefoot .links a:hover{color:var(--s-ink);text-decoration:underline;text-underline-offset:4px}
   .sitefoot-legal{width:min(100% - clamp(40px,8vw,128px),1480px);margin-inline:auto;margin-top:32px;
     font-family:var(--s-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--s-ink-3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -385,7 +398,7 @@ for d in DOCS:
 <link rel="canonical" href="{url}" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 {GA}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Spline+Sans+Mono:wght@400;500&display=swap">
 {head_part.strip()}
 {SITE_CSS}
 </head>
