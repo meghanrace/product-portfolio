@@ -137,6 +137,9 @@ Playbook-only: `jobs` / `job` task menu, `flow` / `node` workflow diagrams, `pro
 - **Artist note** — `data-screen-label` not set; the pull quote + two paragraphs near the bottom.
 
 ### Case study subpages (work/<slug>/index.html)
+Cases in order: grocery-redesign, release-requests, clubhouse, destination-page, destination-browse. `work/post-trip-survey/` is a noindex redirect stub to `/work`: that case was replaced by Request-based releases in October 2026.
+
+The release case embeds a screen recording (`assets/work/release/request-flow.mp4`, `preload="none"` with a poster). Recordings are cropped to the page content before publishing so browser tabs, bookmarks and internal URLs never ship, and compressed to H.264 around 1.5 Mbps at 1600px wide.
 Each has a cols-2 layout at the top:
 - Left column: eyebrow ("Case 01"), h2 title, chips
 - Right column: stats div + 2–3 lede/body paragraphs
@@ -324,7 +327,7 @@ assets/
     clubhouse/        The Clubhouse screenshots
     destination/      Destination page screenshots
     grocery/          Grocery redesign screenshots
-    survey/           Post-trip survey screenshots
+    release/          Request-based releases: screenshots, request-flow.mp4 and its poster
   photos/             Portrait and personal photos
 ```
 

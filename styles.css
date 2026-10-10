@@ -727,12 +727,13 @@ footer.foot > * { position: relative; }
 .gallery figure.wide { grid-column: span 8; }
 .gallery figure.narrow { grid-column: span 4; }
 .gallery figure.full { grid-column: span 12; }
-.gallery img {
+.gallery img, .gallery video {
   width: 100%;
   height: auto;
   background: var(--bg-2);
   border: var(--line) solid var(--key);
 }
+.gallery video { display: block; aspect-ratio: 1600 / 792; }
 .gallery figcaption {
   font-family: var(--f-mono);
   font-size: 12px;

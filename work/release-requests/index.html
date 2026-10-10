@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-palette="marsh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+<title>Request-based releases · Meghan Race</title>
+<meta name="description" content="How I rebuilt member releases around requests instead of first come, first served: 1,816 memberships entered 17,876 requests across 72 destinations, up from 250 to 650 in earlier releases." />
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://www.meghanrace.com/work/release-requests/" />
+<meta property="og:title"       content="Request-based releases · Meghan Race" />
+<meta property="og:description" content="How I rebuilt member releases around requests instead of first come, first served: 1,816 memberships entered 17,876 requests across 72 destinations, up from 250 to 650 in earlier releases." />
+<meta property="og:image"       content="https://www.meghanrace.com/assets/og-image.jpg?v=2" />
+<meta name="twitter:card"       content="summary_large_image" />
+<meta name="twitter:title"      content="Request-based releases · Meghan Race" />
+<meta name="twitter:description" content="How I rebuilt member releases around requests instead of first come, first served: 1,816 memberships entered 17,876 requests across 72 destinations, up from 250 to 650 in earlier releases." />
+<meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg?v=2" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+<link rel="stylesheet" href="/styles.css?v=2b221989" />
+<link rel="stylesheet" href="/work/case.css?v=f1c8b0d7" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XETS41340P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XETS41340P');
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-row shell-wide" aria-label="Primary">
+    <a class="brand plain" href="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Meghan Race</span>
+    </a>
+    <input id="nav-open" type="checkbox" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-open" class="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-caret" aria-hidden="true"></span>
+    </label>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/work" class="active">Work</a>
+      <a href="/claude">Claude</a>
+      <div class="nav-item">
+        <a href="/resources/">Resources</a>
+        <div class="nav-menu">
+          <a href="/resources/claude-101/">Claude 101</a>
+          <a href="/resources/claude-playbook/">The Claude Playbook</a>
+          <a href="/resources/claude-code-pm-training-guide">Claude Code for PMs</a>
+          <a href="/resources/llm-context-export">Export your LLM context</a>
+        </div>
+      </div>
+      <a href="/art">Art</a>
+      <a href="/connect">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<section class="pad-y case-section page-hero" id="case-02" style="background: var(--bg-2);" data-screen-label="Case · Request-based releases">
+  <div class="shell">
+    <a class="back-link" href="/work">Back to Work</a>
+    <div class="cols-2">
+      <div>
+        <div class="eyebrow">Case 02</div>
+        <h2 style="margin-top: 18px;">Request-based releases.</h2>
+        <div class="chips" style="margin-top: 28px;">
+          <span class="chip">Allocation logic</span>
+          <span class="chip">Executive turnaround</span>
+          <span class="chip">4,500 members</span>
+        </div>
+      </div>
+      <div style="max-width: 64ch;">
+        <div class="stats" style="margin-bottom: 40px;">
+          <div class="stat"><div class="n">1,816</div><div class="l">Memberships entered, vs. 250 to 650 before</div></div>
+          <div class="stat"><div class="n">17,876</div><div class="l">Requests submitted</div></div>
+          <div class="stat"><div class="n">40%</div><div class="l">Added by Members directly</div></div>
+          <div class="stat"><div class="n">72</div><div class="l">Destinations across 14 months of travel</div></div>
+        </div>
+        <p class="lede">
+          Releases used to be first come, first served. I owned the move to requests: Members choose the trips they want and rank them, and the system allocates across everyone who entered, using ranking and multi-award logic I defined with the business and engineering.
+        </p>
+        <p>
+          The build ran three months with more than ten business stakeholders, including the CMO, CTO and President, and directives that kept changing. My job was holding scope and protecting testing time through all of it.
+        </p>
+        <p>
+          Less than three weeks before the release went out to 4,500 members, the President and CMO raised concerns about what had been built. I prototyped an alternative over a weekend, met the dev team on a day the office was closed to test whether it would work, got the same stakeholders aligned, and had the new approach running in production less than two weeks later.
+        </p>
+        <p>
+          The release drew <strong>1,816 unique memberships</strong>, who entered <strong>17,876 requests</strong> for travel across 14 months and 72 destinations. Earlier releases drew 250 to 650 memberships. Members added about 40% of the requests themselves and their Account Managers added the rest, all through one request flow.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell-wide" style="margin-top: clamp(64px, 8vw, 112px);">
+    <div class="case-gallery-block">
+      <div class="case-figs-meta">
+        <span>Figures</span>
+        <span>The request flow, from release home to a ranked list</span>
+      </div>
+      <div class="gallery" style="margin-top: 20px;">
+
+        <figure class="full">
+          <video src="/assets/work/release/request-flow.mp4" poster="/assets/work/release/request-flow-poster.jpg" controls muted playsinline preload="none" aria-label="Screen recording of the full request flow: browsing the release home and all destinations, filtering, opening a release, creating a request by dates, destination and residence, and ranking the submitted requests."></video>
+          <figcaption>
+            <span class="title">The full flow</span>
+            <span>Browse, filter, request, rank</span>
+          </figcaption>
+        </figure>
+
+        <figure class="full">
+          <img src="/assets/work/release/release-home.jpg" alt="The release home page. A guide titled &lsquo;Where to Go, and When&rsquo; with a link to the lookbook sits above tabs for Releases, All Destinations and FAQs. Below, an open release, &lsquo;Holiday 2027/2028&rsquo;, shows its end date, &lsquo;7 of 20 Requests Submitted&rsquo;, and a View Release button." loading="lazy" />
+          <figcaption>
+            <span class="title">Release home</span>
+            <span>Lookbook, open releases, requests submitted</span>
+          </figcaption>
+        </figure>
+
+        <figure class="full">
+          <img src="/assets/work/release/all-destinations.jpg" alt="The All Destinations tab: a search field, filters for release window, vacation type, minimum bedrooms and maximum occupancy, a count of 69 destinations and 286 residences, and a table listing region, destination, residences, bedrooms and occupancy." loading="lazy" />
+          <figcaption>
+            <span class="title">All destinations</span>
+            <span>Every residence in the release, filterable</span>
+          </figcaption>
+        </figure>
+
+        <figure class="full">
+          <img src="/assets/work/release/select-destination.jpg" alt="Creating a request, step two of four: Edit Dates, Select Destination, Select Residence, Complete. A search field and a Beach filter narrow the list to 22 destinations and 150 residences, shown as photo cards for Paradise Beach Nevis, Rosewood Little Dix Bay and The Abaco Club, each with Select and Explore destination." loading="lazy" />
+          <figcaption>
+            <span class="title">Create a request</span>
+            <span>Dates, destination, residence, complete</span>
+          </figcaption>
+        </figure>
+
+
+        <figure class="full">
+          <img src="/assets/work/release/review-requests.jpg" alt="A release&rsquo;s details above its Review Request list. The details show the end date, a View FAQ link, &lsquo;5 out of 6 requests entered&rsquo; and a prompt to fill out release preferences. In the list, each request shows its rank number, dates, destination and residence count, with View, Edit and Delete links, a label showing who submitted it, and up and down arrows to change its rank." loading="lazy" />
+          <figcaption>
+            <span class="title">Rank your requests</span>
+            <span>Order sets priority in allocation</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<div class="shell" style="padding: 40px 0 64px;">
+  <a class="back-link" href="/work">Back to Work</a>
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a href="/work/grocery-redesign" class="case-nav-prev">← Previous: The grocery ordering redesign</a>
+    <a href="/work/clubhouse" class="case-nav-next">Next: The Clubhouse →</a>
+  </nav>
+</div>
+
+<footer class="foot">
+  <span class="foot-gold" aria-hidden="true"></span>
+  <div class="shell-wide foot-row">
+    <div>
+      <div class="display">Meghan Race</div>
+      <div style="font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">Product Manager · Arvada, CO</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:meghan.race@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/meghan-race" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/work">Work</a>
+      <a href="/claude">Claude</a>
+      <a href="/art">Art</a>
+    </div>
+  </div>
+  <div class="shell-wide" style="margin-top: 32px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span>Meghan Race · Paintings are her own.</span>
+    <span>Made with Claude<span class="site-updated"></span></span>
+    <script>
+      // GitHub Pages sends Last-Modified as the deploy time, so this is the
+      // date the site was last pushed. No stamping step to forget.
+      (function () {
+        var d = new Date(document.lastModified);
+        if (isNaN(d)) return;
+        document.querySelector('.site-updated').textContent = ' · Site last updated ' +
+          d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+    </script>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="/tweaks-panel.jsx"></script>
+<script type="text/babel" src="/tweaks.jsx"></script>
+
+<script src="/motion.js"></script>
+</body>
+</html>
