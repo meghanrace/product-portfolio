@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-<title>Meghan Race — How I use Claude</title>
-<meta name="description" content="How a non-engineering PM uses Claude Code as a teammate — setup, workflows, and what I've written for other PMs." />
+<title>Meghan Race · How I use Claude</title>
+<meta name="description" content="How a non-engineering PM uses Claude Code as a teammate: setup, workflows, and what I've written for other PMs." />
 <meta property="og:type"        content="website" />
 <meta property="og:url"         content="https://www.meghanrace.com/claude/" />
-<meta property="og:title"       content="Claude Code — Meghan Race" />
-<meta property="og:description" content="How a non-engineering PM uses Claude Code as a teammate — setup, workflows, and what I've built for other PMs." />
+<meta property="og:title"       content="Claude Code · Meghan Race" />
+<meta property="og:description" content="How a non-engineering PM uses Claude Code as a teammate: setup, workflows, and what I've built for other PMs." />
 <meta property="og:image"       content="https://www.meghanrace.com/assets/og-image.jpg" />
 <meta name="twitter:card"       content="summary_large_image" />
-<meta name="twitter:title"      content="Claude Code — Meghan Race" />
-<meta name="twitter:description" content="How a non-engineering PM uses Claude Code as a teammate — setup, workflows, and what I've built for other PMs." />
+<meta name="twitter:title"      content="Claude Code · Meghan Race" />
+<meta name="twitter:description" content="How a non-engineering PM uses Claude Code as a teammate: setup, workflows, and what I've built for other PMs." />
 <meta name="twitter:image"      content="https://www.meghanrace.com/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="stylesheet" href="/styles.css?v=1d97965a" />
@@ -116,7 +116,7 @@
       </div>
       <div style="max-width: 64ch;">
         <p class="lede">
-          Generic AI output is generic because there's no context. The trick — the only trick, really — is to invest in the context: a project folder Claude lives in, a CLAUDE.md it reads at the start of every conversation, a library of reference files capturing your team's voice and architecture, and MCP connectors so it can actually <em>do</em> things.
+          Generic AI output is generic because there's no context. The trick, the only trick, really, is to invest in the context: a project folder Claude lives in, a CLAUDE.md it reads at the start of every conversation, a library of reference files capturing your team's voice and architecture, and MCP connectors so it can actually <em>do</em> things.
         </p>
         <p>
           Once you've done that, Claude stops being "an AI chat" and starts being "a teammate that already knows the project, the team, and how you write." It drafts a ticket in your voice. It pulls release tickets via Jira and writes the release notes the way you would. It triages a Salesforce ↔ Hygraph integration question by reading the actual code. It synthesizes a folder of twelve interview notes and produces a themed write-up.
@@ -129,7 +129,7 @@
   </div>
 </section>
 
-<!-- THE SETUP — visual -->
+<!-- THE SETUP · visual -->
 <section class="pad-y" style="background: var(--bg-2);" id="setup">
   <div class="shell">
     <div class="eyebrow">The setup</div>
@@ -169,7 +169,7 @@
       <div>
         <h3 style="font-size: clamp(24px, 2.6vw, 36px);">CLAUDE.md as standing instructions.</h3>
         <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
-          The single most important file. It sits at the root of the project folder and Claude reads it at the start of every conversation. Six sections — overview, folder structure, communication preferences, code style, workflow, integrations note. Iterating on it is the difference between mediocre and excellent output.
+          The single most important file. It sits at the root of the project folder and Claude reads it at the start of every conversation. Six sections: overview, folder structure, communication preferences, code style, workflow, integrations note. Iterating on it is the difference between mediocre and excellent output.
         </p>
       </div>
       <div class="terminal">
@@ -191,7 +191,7 @@
       <div>
         <h3 style="font-size: clamp(24px, 2.6vw, 36px);">Context files = your team's voice.</h3>
         <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
-          The <code style="font-family: var(--f-mono); font-size: 0.9em; padding: 2px 6px; background: var(--bg-3); border-radius: 4px;">context/</code> folder is where the magic happens. Markdown files that capture the institutional knowledge Claude needs to do high-quality work — what you'd brief a new hire on. Start with one. Add more whenever Claude misses something. After a few weeks you have a library.
+          The <code style="font-family: var(--f-mono); font-size: 0.9em; padding: 2px 6px; background: var(--bg-3); border-radius: 4px;">context/</code> folder is where the magic happens. Markdown files that capture the institutional knowledge Claude needs to do high-quality work: what you'd brief a new hire on. Start with one. Add more whenever Claude misses something. After a few weeks you have a library.
         </p>
       </div>
       <div>
@@ -206,7 +206,7 @@
           </li>
           <li class="card" style="padding: 18px 22px;">
             <span class="meta">product-architecture.md</span>
-            <p style="margin: 0; color: var(--ink-2);">Integrations, key flows, terminology — Salesforce ↔ Compass ↔ Hygraph ↔ Auth0 ↔ Algolia.</p>
+            <p style="margin: 0; color: var(--ink-2);">Integrations, key flows, terminology: Salesforce ↔ Compass ↔ Hygraph ↔ Auth0 ↔ Algolia.</p>
           </li>
           <li class="card" style="padding: 18px 22px;">
             <span class="meta">exec-comms-style.md</span>
@@ -220,7 +220,7 @@
       <div>
         <h3 style="font-size: clamp(24px, 2.6vw, 36px);">MCPs so Claude can actually <em>do</em> things.</h3>
         <p style="color: var(--ink-2); margin-top: 14px; max-width: 50ch;">
-          Model Context Protocol = the connectors that let Claude talk to the systems your work lives in. Atlassian (Jira + Confluence), Bitbucket, the data warehouse, the CMS. Start with one — Atlassian alone unlocks 80% of the value for a PM.
+          Model Context Protocol = the connectors that let Claude talk to the systems your work lives in. Atlassian (Jira + Confluence), Bitbucket, the data warehouse, the CMS. Start with one: Atlassian alone unlocks 80% of the value for a PM.
         </p>
       </div>
       <div>
@@ -260,7 +260,7 @@
         <h2 style="margin-top: 18px;">A typical day, in <em>prompts.</em></h2>
       </div>
       <p class="lede" style="max-width: 56ch;">
-        The setup above is the boring part. Here's what daily work looks like once it's in place — the actual prompts I run, and what Claude does in response.
+        The setup above is the boring part. Here's what daily work looks like once it's in place: the actual prompts I run, and what Claude does in response.
       </p>
     </div>
 
@@ -292,7 +292,7 @@
           <p style="font-family: var(--f-display); font-size: 22px; color: var(--ink); margin-bottom: 12px;">
             "Draft the exec recap email covering the last three releases for leadership."
           </p>
-          <p>Same source data, totally different tone — Claude reads <span class="mono">exec-comms-style.md</span> and produces something measured, business-outcome framed, no bug fixes, no em dashes. Different audience, different draft.</p>
+          <p>Same source data, totally different tone: Claude reads <span class="mono">exec-comms-style.md</span> and produces something measured, business-outcome framed, no bug fixes, no em dashes. Different audience, different draft.</p>
         </div>
       </li>
       <li>
@@ -345,14 +345,14 @@
         <span class="n">↦</span>
         <div>
           <h3>Context files are the secret sauce.</h3>
-          <p>The voice and style files are what make output sound like <em>you</em>, not generic AI prose. Feed Claude your product docs, your style rules, your team directory — quality jumps immediately.</p>
+          <p>The voice and style files are what make output sound like <em>you</em>, not generic AI prose. Feed Claude your product docs, your style rules, your team directory: quality jumps immediately.</p>
         </div>
       </li>
       <li>
         <span class="n">↦</span>
         <div>
           <h3>Match output format to where it's going.</h3>
-          <p>Jira Cloud doesn't paste Markdown cleanly — use HTML. GitHub uses Markdown. Set this expectation once in <span class="mono">formatting-strategy.md</span> and Claude will follow it forever.</p>
+          <p>Jira Cloud doesn't paste Markdown cleanly: use HTML. GitHub uses Markdown. Set this expectation once in <span class="mono">formatting-strategy.md</span> and Claude will follow it forever.</p>
         </div>
       </li>
       <li>
@@ -401,7 +401,7 @@
       </div>
       <div style="max-width: 60ch;">
         <p class="lede">
-          Yes — the portfolio about how I use Claude was, in fact, built with Claude. It would have been a little awkward otherwise.
+          Yes: the portfolio about how I use Claude was, in fact, built with Claude. It would have been a little awkward otherwise.
         </p>
 
         <ol class="pipeline" aria-label="How this site was built and deployed">
@@ -433,7 +433,7 @@
         </ol>
 
         <p style="margin-top: 28px; color: var(--ink-2);">
-          A PM who can take a portfolio from <em>concept</em> to <em>shipped</em> in a long weekend — without an engineer in the loop — is the demonstration, not the credential. Welcome to the new working set.
+          A PM who can take a portfolio from <em>concept</em> to <em>shipped</em> in a long weekend, without an engineer in the loop, is the demonstration, not the credential. Welcome to the new working set.
         </p>
       </div>
     </div>

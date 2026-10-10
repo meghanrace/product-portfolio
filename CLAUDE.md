@@ -105,14 +105,15 @@ Playbook-only: `jobs` / `job` task menu, `flow` / `node` workflow diagrams, `pro
 
 ### index.html
 `<body class="home">`. The home page's layout CSS lives in its own inline `<style>` block.
-- **Hero h1** — "Twelve years on the phone. / Now I own the platform." in `.hero2.page-hero`. "the platform." is a `.stroke`.
-- **Hero facts** — `.facts` / `.fact`: 12 yrs, 12 mo, $200M+, ~25K. They count up on load (`motion.js`).
+- **Hero h1** — "From managing service leaders / to managing digital products." in `.hero2.page-hero`. "digital products." is a `.stroke`.
+- **Hero facts** — `.facts` / `.fact`: 12 mo, $200M+, ~25K, 6 certifications. They count up on load (`motion.js`).
 - **About section** — lede + 4 paragraphs in `.ab-body` inside `data-screen-label="02 About"`. The heading and portrait (`.ab-left`) stay pinned while the text scrolls.
 - **What I do now** — heading "What owning it means", the five numbered statements in `.wd-list .bullets`. Left column pinned the same way.
 - **Claude teaser** — three `.cl` columns, each with a `.cl-swatch` stroke.
 - **Resources** — `.toc` ruled list of guides.
+- **Certifications** — moved to `/work` (Credentials section); one sentence in About.
 - **Experience** — `.gx` career timeline: one row per role, each bar a brush stroke positioned by `--a` / `--b` (percent of 2007–2027). Add a role by adding a row and computing its two percentages.
-- **Closing** — pull quote, `.x-cta` brush-stroke button. The stat ticker runs along the top of the home footer.
+- **Closing** — "I'd rather have the conversation than the email thread." pull quote, `.x-cta` brush-stroke button. The stat ticker runs along the top of the home footer.
 
 ### work/index.html
 - **Hero lede** — `.lede` paragraph under the h1. Describes the Member Portal and five case studies.
